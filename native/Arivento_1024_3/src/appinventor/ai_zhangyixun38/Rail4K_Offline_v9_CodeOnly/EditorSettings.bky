@@ -1,0 +1,822 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="global_declaration" id="EditorSettings_0" x="40" y="40">
+    <field name="NAME">物量</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_1">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_2" x="40" y="155">
+    <field name="NAME">间隔时间</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_3">
+        <field name="NUM">200</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_4" x="40" y="270">
+    <field name="NAME">过屏时间</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_5">
+        <field name="NUM">1000</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_6" x="40" y="385">
+    <field name="NAME">谱面名</field>
+    <value name="VALUE">
+      <block type="text" id="EditorSettings_7">
+        <field name="TEXT">测试</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_8" x="40" y="500">
+    <field name="NAME">音乐名</field>
+    <value name="VALUE">
+      <block type="text" id="EditorSettings_9">
+        <field name="TEXT" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_10" x="40" y="615">
+    <field name="NAME">模式</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_11">
+        <field name="NUM">1</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_12" x="40" y="730">
+    <field name="NAME">速度</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_13">
+        <field name="NUM">120</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_14" x="40" y="845">
+    <field name="NAME">单位</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_15">
+        <field name="NUM">4</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_16" x="40" y="960">
+    <field name="NAME">基准</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_17">
+        <field name="NUM">-1</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_18" x="40" y="1075">
+    <field name="NAME">结束时间</field>
+    <value name="VALUE">
+      <block type="math_number" id="EditorSettings_19">
+        <field name="NUM">61000</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="EditorSettings_20" x="40" y="1190">
+    <field name="NAME">谱面</field>
+    <value name="VALUE">
+      <block type="lists_create_with" id="EditorSettings_21">
+        <mutation items="0" />
+      </block>
+    </value>
+  </block>
+  <block type="component_event" id="EditorSettings_22" x="40" y="1305" collapsed="true">
+    <mutation component_type="Button" is_generic="false" instance_name="录制" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">录制</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="EditorSettings_23">
+        <mutation name="检查设置" />
+        <field name="PROCNAME">检查设置</field>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="EditorSettings_24" x="40" y="1420" collapsed="true">
+    <mutation component_type="ListPicker" is_generic="false" instance_name="模式输入" event_name="AfterPicking" />
+    <field name="COMPONENT_SELECTOR">模式输入</field>
+    <statement name="DO">
+      <block type="component_set_get" id="EditorSettings_25">
+        <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="吸附设置" />
+        <field name="COMPONENT_SELECTOR">吸附设置</field>
+        <field name="PROP">Visible</field>
+        <value name="VALUE">
+          <block type="math_compare" id="EditorSettings_26">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="component_set_get" id="EditorSettings_27">
+                <mutation component_type="ListPicker" set_or_get="get" property_name="SelectionIndex" is_generic="false" instance_name="模式输入" />
+                <field name="COMPONENT_SELECTOR">模式输入</field>
+                <field name="PROP">SelectionIndex</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="EditorSettings_28">
+                <field name="NUM">2</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="EditorSettings_29">
+            <mutation component_type="ListPicker" instance_name="模式输入" is_generic="false" set_or_get="set" property_name="Text" />
+            <field name="COMPONENT_SELECTOR">模式输入</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text_join" id="EditorSettings_30">
+                <mutation items="2" />
+                <value name="ADD0">
+                  <block type="text" id="EditorSettings_31">
+                    <field name="TEXT">模式：</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="component_set_get" id="EditorSettings_32">
+                    <mutation component_type="ListPicker" instance_name="模式输入" is_generic="false" set_or_get="get" property_name="Selection" />
+                    <field name="COMPONENT_SELECTOR">模式输入</field>
+                    <field name="PROP">Selection</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="EditorSettings_33" x="510" y="40" collapsed="true">
+    <mutation component_type="Button" is_generic="false" instance_name="设置返回" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">设置返回</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="EditorSettings_34">
+        <mutation name="返回首页" />
+        <field name="PROCNAME">返回首页</field>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="EditorSettings_35" x="510" y="155" collapsed="true">
+    <mutation component_type="Form" is_generic="false" instance_name="EditorSettings" event_name="BackPressed" />
+    <field name="COMPONENT_SELECTOR">EditorSettings</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="EditorSettings_36">
+        <mutation name="返回首页" />
+        <field name="PROCNAME">返回首页</field>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="EditorSettings_37" x="510" y="270" collapsed="true">
+    <mutation component_type="Form" is_generic="false" instance_name="EditorSettings" event_name="ErrorOccurred" param_name0="组件" param_name1="函数" param_name2="编号" param_name3="消息" />
+    <field name="COMPONENT_SELECTOR">EditorSettings</field>
+    <statement name="DO">
+      <block type="component_method" id="EditorSettings_38">
+        <mutation component_type="Notifier" method_name="ShowAlert" is_generic="false" instance_name="提示" />
+        <field name="COMPONENT_SELECTOR">提示</field>
+        <value name="ARG0">
+          <block type="lexical_variable_get" id="EditorSettings_39">
+            <field name="VAR">消息</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="EditorSettings_40" x="510" y="385" collapsed="true">
+    <mutation />
+    <field name="NAME">检查设置</field>
+    <statement name="STACK">
+      <block type="controls_if" id="EditorSettings_41">
+        <mutation else="1" />
+        <value name="IF0">
+          <block type="logic_operation" id="EditorSettings_42">
+            <mutation items="2" />
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_negate" id="EditorSettings_43">
+                <value name="BOOL">
+                  <block type="math_compare" id="EditorSettings_44">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="lexical_variable_get" id="EditorSettings_45">
+                        <field name="VAR">global 音乐名</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="text" id="EditorSettings_46">
+                        <field name="TEXT" />
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_operation" id="EditorSettings_47">
+                <mutation items="2" />
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="logic_negate" id="EditorSettings_48">
+                    <value name="BOOL">
+                      <block type="math_compare" id="EditorSettings_49">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="text_trim" id="EditorSettings_50">
+                            <value name="TEXT">
+                              <block type="component_set_get" id="EditorSettings_51">
+                                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="名称输入" />
+                                <field name="COMPONENT_SELECTOR">名称输入</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="text" id="EditorSettings_52">
+                            <field name="TEXT" />
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_operation" id="EditorSettings_53">
+                    <mutation items="2" />
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="logic_operation" id="EditorSettings_54">
+                        <mutation items="2" />
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="math_is_a_number" id="EditorSettings_55">
+                            <field name="OP">NUMBER</field>
+                            <value name="NUM">
+                              <block type="component_set_get" id="EditorSettings_56">
+                                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="过屏输入" />
+                                <field name="COMPONENT_SELECTOR">过屏输入</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_compare" id="EditorSettings_57">
+                            <field name="OP">GT</field>
+                            <value name="A">
+                              <block type="component_set_get" id="EditorSettings_58">
+                                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="过屏输入" />
+                                <field name="COMPONENT_SELECTOR">过屏输入</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="EditorSettings_59">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="logic_operation" id="EditorSettings_60">
+                        <mutation items="2" />
+                        <field name="OP">OR</field>
+                        <value name="A">
+                          <block type="math_compare" id="EditorSettings_61">
+                            <field name="OP">EQ</field>
+                            <value name="A">
+                              <block type="component_set_get" id="EditorSettings_62">
+                                <mutation component_type="ListPicker" set_or_get="get" property_name="SelectionIndex" is_generic="false" instance_name="模式输入" />
+                                <field name="COMPONENT_SELECTOR">模式输入</field>
+                                <field name="PROP">SelectionIndex</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="EditorSettings_63">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="logic_operation" id="EditorSettings_64">
+                            <mutation items="2" />
+                            <field name="OP">AND</field>
+                            <value name="A">
+                              <block type="logic_operation" id="EditorSettings_65">
+                                <mutation items="2" />
+                                <field name="OP">AND</field>
+                                <value name="A">
+                                  <block type="math_is_a_number" id="EditorSettings_66">
+                                    <field name="OP">NUMBER</field>
+                                    <value name="NUM">
+                                      <block type="component_set_get" id="EditorSettings_67">
+                                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="速度输入" />
+                                        <field name="COMPONENT_SELECTOR">速度输入</field>
+                                        <field name="PROP">Text</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_compare" id="EditorSettings_68">
+                                    <field name="OP">GT</field>
+                                    <value name="A">
+                                      <block type="component_set_get" id="EditorSettings_69">
+                                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="速度输入" />
+                                        <field name="COMPONENT_SELECTOR">速度输入</field>
+                                        <field name="PROP">Text</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="EditorSettings_70">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="logic_operation" id="EditorSettings_71">
+                                <mutation items="2" />
+                                <field name="OP">AND</field>
+                                <value name="A">
+                                  <block type="math_is_a_number" id="EditorSettings_72">
+                                    <field name="OP">NUMBER</field>
+                                    <value name="NUM">
+                                      <block type="component_set_get" id="EditorSettings_73">
+                                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="单位输入" />
+                                        <field name="COMPONENT_SELECTOR">单位输入</field>
+                                        <field name="PROP">Text</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_compare" id="EditorSettings_74">
+                                    <field name="OP">GT</field>
+                                    <value name="A">
+                                      <block type="component_set_get" id="EditorSettings_75">
+                                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="单位输入" />
+                                        <field name="COMPONENT_SELECTOR">单位输入</field>
+                                        <field name="PROP">Text</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="EditorSettings_76">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="lexical_variable_set" id="EditorSettings_77">
+            <field name="VAR">global 谱面名</field>
+            <value name="VALUE">
+              <block type="text_trim" id="EditorSettings_78">
+                <value name="TEXT">
+                  <block type="component_set_get" id="EditorSettings_79">
+                    <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="名称输入" />
+                    <field name="COMPONENT_SELECTOR">名称输入</field>
+                    <field name="PROP">Text</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="EditorSettings_80">
+                <field name="VAR">global 音乐名</field>
+                <value name="VALUE">
+                  <block type="lexical_variable_get" id="EditorSettings_81">
+                    <field name="VAR">global 音乐名</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="lexical_variable_set" id="EditorSettings_82">
+                    <field name="VAR">global 过屏时间</field>
+                    <value name="VALUE">
+                      <block type="math_multiply" id="EditorSettings_83">
+                        <mutation items="2" />
+                        <value name="NUM0">
+                          <block type="component_set_get" id="EditorSettings_84">
+                            <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="过屏输入" />
+                            <field name="COMPONENT_SELECTOR">过屏输入</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="NUM1">
+                          <block type="math_number" id="EditorSettings_85">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="lexical_variable_set" id="EditorSettings_86">
+                        <field name="VAR">global 模式</field>
+                        <value name="VALUE">
+                          <block type="component_set_get" id="EditorSettings_87">
+                            <mutation component_type="ListPicker" set_or_get="get" property_name="SelectionIndex" is_generic="false" instance_name="模式输入" />
+                            <field name="COMPONENT_SELECTOR">模式输入</field>
+                            <field name="PROP">SelectionIndex</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="lexical_variable_set" id="EditorSettings_88">
+                            <field name="VAR">global 速度</field>
+                            <value name="VALUE">
+                              <block type="controls_choose" id="EditorSettings_89">
+                                <value name="TEST">
+                                  <block type="math_compare" id="EditorSettings_90">
+                                    <field name="OP">EQ</field>
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="EditorSettings_91">
+                                        <field name="VAR">global 模式</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="EditorSettings_92">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="THENRETURN">
+                                  <block type="math_number" id="EditorSettings_93">
+                                    <field name="NUM">120</field>
+                                  </block>
+                                </value>
+                                <value name="ELSERETURN">
+                                  <block type="math_multiply" id="EditorSettings_94">
+                                    <mutation items="2" />
+                                    <value name="NUM0">
+                                      <block type="component_set_get" id="EditorSettings_95">
+                                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="速度输入" />
+                                        <field name="COMPONENT_SELECTOR">速度输入</field>
+                                        <field name="PROP">Text</field>
+                                      </block>
+                                    </value>
+                                    <value name="NUM1">
+                                      <block type="math_number" id="EditorSettings_96">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="lexical_variable_set" id="EditorSettings_97">
+                                <field name="VAR">global 单位</field>
+                                <value name="VALUE">
+                                  <block type="controls_choose" id="EditorSettings_98">
+                                    <value name="TEST">
+                                      <block type="math_compare" id="EditorSettings_99">
+                                        <field name="OP">EQ</field>
+                                        <value name="A">
+                                          <block type="lexical_variable_get" id="EditorSettings_100">
+                                            <field name="VAR">global 模式</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_number" id="EditorSettings_101">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="THENRETURN">
+                                      <block type="math_number" id="EditorSettings_102">
+                                        <field name="NUM">4</field>
+                                      </block>
+                                    </value>
+                                    <value name="ELSERETURN">
+                                      <block type="math_multiply" id="EditorSettings_103">
+                                        <mutation items="2" />
+                                        <value name="NUM0">
+                                          <block type="component_set_get" id="EditorSettings_104">
+                                            <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="单位输入" />
+                                            <field name="COMPONENT_SELECTOR">单位输入</field>
+                                            <field name="PROP">Text</field>
+                                          </block>
+                                        </value>
+                                        <value name="NUM1">
+                                          <block type="math_number" id="EditorSettings_105">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="lexical_variable_set" id="EditorSettings_106">
+                                    <field name="VAR">global 间隔时间</field>
+                                    <value name="VALUE">
+                                      <block type="math_division" id="EditorSettings_107">
+                                        <value name="A">
+                                          <block type="math_division" id="EditorSettings_108">
+                                            <value name="A">
+                                              <block type="math_number" id="EditorSettings_109">
+                                                <field name="NUM">60000</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="lexical_variable_get" id="EditorSettings_110">
+                                                <field name="VAR">global 速度</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="lexical_variable_get" id="EditorSettings_111">
+                                            <field name="VAR">global 单位</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="lexical_variable_set" id="EditorSettings_112">
+                                        <field name="VAR">global 基准</field>
+                                        <value name="VALUE">
+                                          <block type="math_number" id="EditorSettings_113">
+                                            <field name="NUM">-1</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="lexical_variable_set" id="EditorSettings_114">
+                                            <field name="VAR">global 谱面</field>
+                                            <value name="VALUE">
+                                              <block type="lists_create_with" id="EditorSettings_115">
+                                                <mutation items="0" />
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="lexical_variable_set" id="EditorSettings_116">
+                                                <field name="VAR">global 物量</field>
+                                                <value name="VALUE">
+                                                  <block type="math_number" id="EditorSettings_117">
+                                                    <field name="NUM">0</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="component_method" id="EditorSettings_118">
+                                                    <mutation component_type="TextBox" method_name="HideKeyboard" is_generic="false" instance_name="名称输入" />
+                                                    <field name="COMPONENT_SELECTOR">名称输入</field>
+                                                    <next>
+                                                      <block type="controls_openAnotherScreenWithStartValue" id="EditorSettings_119">
+                                                        <value name="SCREENNAME">
+                                                          <block type="text" id="EditorSettings_120">
+                                                            <field name="TEXT">Recorder</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="STARTVALUE">
+                                                          <block type="lists_create_with" id="EditorSettings_121">
+                                                            <mutation items="9" />
+                                                            <value name="ADD0">
+                                                              <block type="lexical_variable_get" id="EditorSettings_122">
+                                                                <field name="VAR">global 谱面名</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD1">
+                                                              <block type="lexical_variable_get" id="EditorSettings_123">
+                                                                <field name="VAR">global 音乐名</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD2">
+                                                              <block type="lexical_variable_get" id="EditorSettings_124">
+                                                                <field name="VAR">global 过屏时间</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD3">
+                                                              <block type="lexical_variable_get" id="EditorSettings_125">
+                                                                <field name="VAR">global 模式</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD4">
+                                                              <block type="lexical_variable_get" id="EditorSettings_126">
+                                                                <field name="VAR">global 速度</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD5">
+                                                              <block type="lexical_variable_get" id="EditorSettings_127">
+                                                                <field name="VAR">global 单位</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD6">
+                                                              <block type="lexical_variable_get" id="EditorSettings_128">
+                                                                <field name="VAR">global 结束时间</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD7">
+                                                              <block type="procedures_callreturn" id="EditorSettings_129">
+                                                                <mutation name="复制列表">
+                                                                  <arg name="原值" />
+                                                                </mutation>
+                                                                <field name="PROCNAME">复制列表</field>
+                                                                <value name="ARG0">
+                                                                  <block type="lexical_variable_get" id="EditorSettings_130">
+                                                                    <field name="VAR">global 谱面</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD8">
+                                                              <block type="component_set_get" id="EditorSettings_131">
+                                                                <mutation component_type="CheckBox" set_or_get="get" property_name="Checked" is_generic="false" instance_name="多押设置" />
+                                                                <field name="COMPONENT_SELECTOR">多押设置</field>
+                                                                <field name="PROP">Checked</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="EditorSettings_132">
+            <mutation component_type="Notifier" method_name="ShowAlert" is_generic="false" instance_name="提示" />
+            <field name="COMPONENT_SELECTOR">提示</field>
+            <value name="ARG0">
+              <block type="text" id="EditorSettings_133">
+                <field name="TEXT">请填写谱面名称、正数过屏时间；吸附模式还需要正数BPM和吸附单位</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="EditorSettings_134" x="510" y="500" collapsed="true">
+    <mutation />
+    <field name="NAME">返回首页</field>
+    <statement name="STACK">
+      <block type="controls_closeScreenWithValue" id="EditorSettings_135">
+        <value name="SCREEN">
+          <block type="text" id="EditorSettings_136">
+            <field name="TEXT" />
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" id="EditorSettings_137" x="510" y="615" collapsed="true">
+    <mutation>
+      <arg name="原值" />
+    </mutation>
+    <field name="NAME">复制列表</field>
+    <field name="VAR0">原值</field>
+    <value name="RETURN">
+      <block type="controls_choose" id="EditorSettings_138">
+        <value name="TEST">
+          <block type="lists_is_list" id="EditorSettings_139">
+            <value name="ITEM">
+              <block type="lexical_variable_get" id="EditorSettings_140">
+                <field name="VAR">原值</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="THENRETURN">
+          <block type="local_declaration_expression" id="EditorSettings_141">
+            <mutation>
+              <localname name="副本" />
+            </mutation>
+            <field name="VAR0">副本</field>
+            <value name="DECL0">
+              <block type="lists_create_with" id="EditorSettings_142">
+                <mutation items="0" />
+              </block>
+            </value>
+            <value name="RETURN">
+              <block type="controls_do_then_return" id="EditorSettings_143">
+                <value name="VALUE">
+                  <block type="lexical_variable_get" id="EditorSettings_144">
+                    <field name="VAR">副本</field>
+                  </block>
+                </value>
+                <statement name="STM">
+                  <block type="controls_forEach" id="EditorSettings_145">
+                    <field name="VAR">元素</field>
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="EditorSettings_146">
+                        <field name="VAR">原值</field>
+                      </block>
+                    </value>
+                    <statement name="DO">
+                      <block type="lists_add_items" id="EditorSettings_147">
+                        <mutation items="1" />
+                        <value name="LIST">
+                          <block type="lexical_variable_get" id="EditorSettings_148">
+                            <field name="VAR">副本</field>
+                          </block>
+                        </value>
+                        <value name="ITEM0">
+                          <block type="procedures_callreturn" id="EditorSettings_149">
+                            <mutation name="复制列表">
+                              <arg name="原值" />
+                            </mutation>
+                            <field name="PROCNAME">复制列表</field>
+                            <value name="ARG0">
+                              <block type="lexical_variable_get" id="EditorSettings_150">
+                                <field name="VAR">元素</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </statement>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="ELSERETURN">
+          <block type="lexical_variable_get" id="EditorSettings_151">
+            <field name="VAR">原值</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" id="EditorSettings_152" x="510" y="730" collapsed="true">
+    <mutation component_type="FilePicker" is_generic="false" instance_name="音乐输入" event_name="AfterPicking" />
+    <field name="COMPONENT_SELECTOR">音乐输入</field>
+    <statement name="DO">
+      <block type="lexical_variable_set" id="EditorSettings_153">
+        <field name="VAR">global 音乐名</field>
+        <value name="VALUE">
+          <block type="component_set_get" id="EditorSettings_154">
+            <mutation component_type="FilePicker" set_or_get="get" property_name="Selection" is_generic="false" instance_name="音乐输入" />
+            <field name="COMPONENT_SELECTOR">音乐输入</field>
+            <field name="PROP">Selection</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="EditorSettings_155">
+            <mutation component_type="FilePicker" set_or_get="set" property_name="Text" is_generic="false" instance_name="音乐输入" />
+            <field name="COMPONENT_SELECTOR">音乐输入</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="EditorSettings_156">
+                <field name="TEXT">已选择音乐（点击更换）</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="EditorSettings_157">
+                <mutation component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="录制" />
+                <field name="COMPONENT_SELECTOR">录制</field>
+                <field name="PROP">Enabled</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="EditorSettings_158">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <yacodeblocks ya-version="224" language-version="34" />
+</xml>
