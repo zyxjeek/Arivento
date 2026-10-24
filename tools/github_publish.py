@@ -59,13 +59,16 @@ def main():
     sha=run('git','rev-parse','HEAD',capture=True).strip()
     run('git','push','-u','origin','main')
     tag='v'+name.removeprefix('Arivento_')
+    try:target=api(token,'/repos/'+args.repository+'/git/ref/tags/'+urllib.parse.quote(tag,safe=''))['object']['sha']
+    except urllib.error.HTTPError as e:
+        if e.code!=404:raise
+        target=api(token,'/repos/'+args.repository+'/git/refs','POST',{'ref':'refs/tags/'+tag,'sha':sha})['object']['sha']
+    if target!=sha:raise RuntimeError('Release 标签已指向其他提交；请生成新版本')
     try:release=api(token,'/repos/'+args.repository+'/releases/tags/'+tag)
     except urllib.error.HTTPError as e:
         if e.code!=404:raise
         body='AIA 与离线单文件制谱器。\n\n验证：四屏静态检查、38 项网页回归、33 项当前 AIA 积木模拟通过。\n尚未完成本版本 APK 编译及真机验收。\n\n'+ '\n'.join(f'{f.name}: SHA-256 `{hashlib.sha256(f.read_bytes()).hexdigest()}`' for f in [aia,html])
         release=api(token,'/repos/'+args.repository+'/releases','POST',{'tag_name':tag,'target_commitish':sha,'name':name,'body':body,'draft':True})
-    target=api(token,'/repos/'+args.repository+'/commits/'+urllib.parse.quote(tag,safe=''))['sha']
-    if target!=sha:raise RuntimeError('Release 标签已指向其他提交；请生成新版本')
     assets={a['name']:a for a in api(token,'/repos/'+args.repository+'/releases/'+str(release['id'])+'/assets')}
     for f in [aia,html]:
         digest='sha256:'+hashlib.sha256(f.read_bytes()).hexdigest()
