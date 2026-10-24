@@ -47,14 +47,14 @@ for screen in ['Screen1','Play']:
     load=local('原音量',method(db,'GetValue','打击音量',20),[put('打击音量',normalized(get('原音量')))])
     if screen=='Screen1':
         home=components['首页']['$Components'];index=next(i for i,c in enumerate(home) if c['$Name']=='打击音设置')+1
-        label=component('打击音量标题','Label',int(components['延迟标题']['$Version']),Text='打击音量：20%（原音量）',TextColor=白色,Width=-2,FontSize=15)
+        label=component('打击音量标题','Label',int(components['延迟标题']['$Version']),Text='打击音量：20%',TextColor=白色,Width=-2,FontSize=15)
         slider=component('打击音量滑条','Slider',3,MinValue=0,MaxValue=100,NumberOfSteps=100,ThumbPosition=20,ThumbEnabled='True',Width=-2,ColorLeft='&HFF56DEEF',ColorRight='&HFF334155',ThumbColor='&HFF56DEEF')
         uid=max(int(c.get('Uuid','0')) for c in components.values())+1
         label['Uuid']=str(uid);slider['Uuid']=str(uid+1);home[index:index]=[label,slider]
         root.insert(0,block('global_declaration',{'NAME':'音量已就绪'},{'VALUE':False}))
         PROCS['应用打击音量']=[]
         过程('应用打击音量',[
-            设('打击音量标题',join('打击音量：',g('打击音量'),'%（20%为原音量）')),
+            设('打击音量标题',join('打击音量：',g('打击音量'),'%')),
             iff(非(等(取('校准打击','Source'),filename())),[设('校准打击',filename(),'Source')])])
         append(init,[load,设('打击音量滑条',g('打击音量'),'ThumbPosition'),call('应用打击音量'),put('音量已就绪',True)])
         事件('打击音量滑条','PositionChanged',[iff(g('音量已就绪'),[
