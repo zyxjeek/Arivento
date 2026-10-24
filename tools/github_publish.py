@@ -67,7 +67,7 @@ def main():
     try:release=api(token,'/repos/'+args.repository+'/releases/tags/'+tag)
     except urllib.error.HTTPError as e:
         if e.code!=404:raise
-        body='AIA 与离线单文件制谱器。\n\n验证：四屏静态检查、38 项网页回归、33 项当前 AIA 积木模拟通过。\n尚未完成本版本 APK 编译及真机验收。\n\n'+ '\n'.join(f'{f.name}: SHA-256 `{hashlib.sha256(f.read_bytes()).hexdigest()}`' for f in [aia,html])
+        body='AIA 与离线单文件制谱器。\n\n'+args.message+'\n\n验证：四屏静态检查、网页回归、当前 AIA 积木模拟通过，具体数量以测试输出为准。\n尚未完成本版本 APK 编译及真机验收。\n\n'+ '\n'.join(f'{f.name}: SHA-256 `{hashlib.sha256(f.read_bytes()).hexdigest()}`' for f in [aia,html])
         release=api(token,'/repos/'+args.repository+'/releases','POST',{'tag_name':tag,'target_commitish':sha,'name':name,'body':body,'draft':True})
     assets={a['name']:a for a in api(token,'/repos/'+args.repository+'/releases/'+str(release['id'])+'/assets')}
     for f in [aia,html]:
