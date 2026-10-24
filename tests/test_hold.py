@@ -1,4 +1,4 @@
-import copy,itertools,json,sys,unittest,zipfile
+import copy,hashlib,itertools,json,sys,unittest,zipfile
 from pathlib import Path
 import test_native_tracks as old
 
@@ -81,9 +81,10 @@ class Hold(unittest.TestCase):
             with self.subTest(notes=notes):
                 r=self.load(notes);self.assertFalse(r.globals['有效']);self.assertIn('音符',r.globals['校验问题'])
     def test_legacy_unchanged(self):
-        with zipfile.ZipFile(AIA) as z,zipfile.ZipFile(ROOT/'archive/hold_base_1016/Arivento.aia') as oldz:
-            for n in z.namelist():
-                if Path(n).stem in ['Recorder','EditorSettings']:self.assertEqual(z.read(n),oldz.read(n))
+        baseline={'EditorSettings.bky':'9958212a297fda3a3b857230589b6295722d2ec543bc02b47d0247e2553bc9fa','EditorSettings.scm':'12403ad5c95575bad5c03f16401a23d8b9abc928072e2da8f51b65aabd866f0c','Recorder.bky':'aca5dede5e1cfa5d774b68dfe7553d78905130b3b4d095bb64384638352d72c7','Recorder.scm':'7d03abab4aae90e12d7b6efaa3a33025dae9201fc10e1adebed4bb3e375881c3'}
+        with zipfile.ZipFile(AIA) as z:
+            actual={Path(n).name:hashlib.sha256(z.read(n)).hexdigest() for n in z.namelist() if Path(n).stem in ['Recorder','EditorSettings']}
+        self.assertEqual(actual,baseline)
     def test_many_segmented_notes(self):
         r=self.play([[i%4+1,1000+i*200,1100+i*200] for i in range(180)],end=38000)
         for i in range(180):r.hit(i%4+1,1000+i*200);r.advance(1100+i*200);r.release(i%4+1)
