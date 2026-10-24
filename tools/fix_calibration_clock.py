@@ -30,8 +30,11 @@ def now():return method('校准时钟','SystemTime')
 def target(counter,delay):return add(500,mul(g(counter),1000),delay)
 def nextbeat(delay):return maximum(0,add(unary('FLOOR',div(sub(sub(g('校准用时'),500),delay),1000)),1))
 def sound(counter,delay,name):
+    play=method(name,'Play')
+    if name=='校准打击' and any(b.get('type')=='global_declaration' and b.findtext("field[@name='NAME']")=='打击音量' for b in root):
+        play=iff(compare('GT',g('打击音量'),0),[play])
     return iff(全(等(g('校准状态'),2),compare('GTE',g('校准用时'),target(counter,copy.deepcopy(delay)))),[
-        iff(compare('LTE',sub(g('校准用时'),target(counter,copy.deepcopy(delay))),120),[method(name,'Play')]),
+        iff(compare('LTE',sub(g('校准用时'),target(counter,copy.deepcopy(delay))),120),[play]),
         put(counter,nextbeat(delay))])
 if not any(b.get('type')=='global_declaration' and b.findtext("field[@name='NAME']")=='校准节拍号' for b in root):
     root.insert(0,block('global_declaration',{'NAME':'校准节拍号'},{'VALUE':0}))
