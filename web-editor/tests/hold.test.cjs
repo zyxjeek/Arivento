@@ -7,7 +7,7 @@ function editor(){
  const s={C,notes:[],selected:new Set(),history:[],future:[],clipboard:[],nextId:1,cursor:0,pendingHold:null,laneNotes:[[],[],[],[]],gesture:null,playing:false,meta:{...C.defaults()},gutter:112,width:512,pxMs:.192,tool:'hold',dirty:false,errors:[],point:e=>e,selectionUI(){},toast:t=>s.errors.push(t),fail:e=>s.errors.push(e.message),cloneNotes:()=>s.notes.map(n=>({...n})),setTimeout,clearTimeout};
  s.refresh=()=>{s.laneNotes=[1,2,3,4].map(lane=>s.notes.filter(n=>n.lane===lane));};s.edited=()=>{s.notes=C.normalize(s.notes);s.refresh();};
  vm.createContext(s);
- for(const name of ['action','holdClick','cancelHold','visibleNotes','nearest','place','safePlace','finishPointer','copySelected','paste','snapSelected','undo']){
+ for(const name of ['action','holdClick','cancelHold','visibleNotes','nearest','place','safePlace','finishPointer','copySelected','paste','snapSelected','undo','holdHandle','dragHandle']){
   const line=source.split('\n').find(l=>l.trim().startsWith('function '+name+'('));assert.ok(line,name);vm.runInContext(line,s);
  }
  s.click=(lane,time)=>{s.gesture={id:1,moved:false,touch:true,before:s.cloneNotes()};s.finishPointer({pointerId:1,lane,time,x:150});};return s;
@@ -39,6 +39,27 @@ test('粘贴和撤销重做保留 Hold 尾部',()=>{
 });
 test('吸附后零长度或冲突时整组回滚',()=>{
  const s=editor();s.notes=[{id:1,lane:1,time:1001,end:1010},{id:2,lane:2,time:1110}];s.selected=new Set([1,2]);const before=plain(s.notes);s.snapSelected();assert.deepEqual(plain(s.notes),before);assert.equal(s.history.length,0);
+});
+const drag=(s,lane,from,to)=>{s.gesture={id:1,moved:true,touch:false,before:s.cloneNotes(),handle:s.holdHandle({lane,time:from,x:150})};assert.ok(s.gesture.handle);s.finishPointer({pointerId:1,lane,time:to,x:150});};
+test('拖动长条首尾吸附网格，另一端不变，可撤销',()=>{
+ const s=editor();s.tool='draw';s.notes=[{id:1,lane:1,time:1000,end:2000}];s.refresh();
+ drag(s,1,2000,3010);assert.deepEqual(plain(s.notes.map(C.pack)),[[1,1000,3000]]);drag(s,1,1000,490);assert.deepEqual(plain(s.notes.map(C.pack)),[[1,500,3000]]);assert.equal(s.history.length,2);
+ s.undo();assert.deepEqual(plain(s.notes.map(C.pack)),[[1,1000,3000]]);s.undo();assert.deepEqual(plain(s.notes.map(C.pack)),[[1,1000,2000]]);
+});
+test('拖动不穿过另一端或同轨相邻音符，不同轨不受影响',()=>{
+ const s=editor();s.tool='select';s.notes=[{id:1,lane:1,time:500},{id:2,lane:1,time:1000,end:2000},{id:3,lane:1,time:3000},{id:4,lane:2,time:2500}];s.refresh();
+ drag(s,1,2000,5000);assert.deepEqual(plain(s.notes.find(n=>n.id===2).end),2875);drag(s,1,2875,100);assert.equal(s.notes.find(n=>n.id===2).end,1125);drag(s,1,1000,4000);assert.equal(s.notes.find(n=>n.id===2).time,1000);drag(s,1,1000,0);assert.equal(s.notes.find(n=>n.id===2).time,625);assert.equal(s.errors.length,0);
+ C.normalize(s.notes);
+});
+test('首尾手柄只命中 Hold 且不影响其他操作',()=>{
+ const s=editor();s.notes=[{id:1,lane:1,time:1000,end:2000},{id:2,lane:2,time:1000}];s.refresh();s.tool='draw';
+ assert.deepEqual(plain(s.holdHandle({lane:1,time:1010,x:150})),{id:1,edge:'time'});assert.deepEqual(plain(s.holdHandle({lane:1,time:1995,x:150})),{id:1,edge:'end'});
+ for(const p of [{lane:1,time:1500,x:150},{lane:2,time:1000,x:150},{lane:1,time:1000,x:50}])assert.equal(s.holdHandle(p),null);
+ for(const tool of ['erase','pan']){s.tool=tool;assert.equal(s.holdHandle({lane:1,time:1000,x:150}),null);}s.tool='draw';s.playing=true;assert.equal(s.holdHandle({lane:1,time:1000,x:150}),null);s.playing=false;s.pendingHold={lane:3,time:0};assert.equal(s.holdHandle({lane:1,time:1000,x:150}),null);
+});
+test('手势取消恢复原长条，未拖动的点击不写撤销',()=>{
+ const s=editor();s.tool='select';s.notes=[{id:1,lane:1,time:1000,end:2000}];s.refresh();s.gesture={id:1,moved:true,before:s.cloneNotes(),handle:{id:1,edge:'end'}};s.dragHandle(s.gesture,{time:3000});assert.equal(s.notes[0].end,3000);s.finishPointer({pointerId:1,lane:1,time:3000,x:150},true);assert.equal(s.notes[0].end,2000);assert.equal(s.visibleNotes(1000,1000)[0].end,2000);assert.equal(s.history.length,0);
+ drag(s,1,2000,2000);assert.equal(s.history.length,0);
 });
 test('批量框选覆盖条身',()=>{
  const s=editor();s.notes=[{id:1,lane:1,time:1000,end:9000}];s.refresh();s.tool='select';s.gesture={id:1,moved:true,add:false,start:{time:3000,x:120}};s.finishPointer({pointerId:1,time:4000,x:200});assert.ok(s.selected.has(1));

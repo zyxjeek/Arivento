@@ -44,7 +44,7 @@
 !/native/
 /native/*
 # current-native-start
-!/native/Arivento_1031_1/
+!/native/Arivento_1031_2/
 # current-native-end
 **/__pycache__/
 **/node_modules/
