@@ -12,7 +12,9 @@ s.AIA=current;h.old.base.AIA=current;h.AIA=current;cal.saved.AIA=current
 h.old.Runtime=s.Runtime;h.AndroidRuntime=s.Runtime;cal.saved.Runtime=s.Runtime
 import test_hit_volume
 import test_music_permission
+import test_chart_tags
 suite=unittest.defaultTestLoader.loadTestsFromTestCase(s.Simple)
+suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_chart_tags.ChartTags))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_hit_volume.HitVolume))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_music_permission.MusicPermission))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(h.Hold))

@@ -51,7 +51,7 @@ def main():
         if not html.exists():html.write_bytes((ROOT/'web-editor/source.html').read_bytes())
     run(sys.executable,'-B','-X','utf8','tools/project.py','check')
     if html.read_bytes()!=(ROOT/'web-editor/source.html').read_bytes():raise RuntimeError('Creator 交付与源码不一致')
-    run('node','--test','web-editor/tests/core.test.cjs','web-editor/tests/hold.test.cjs','web-editor/tests/pitch.test.cjs','web-editor/fix_1016/sync.test.cjs')
+    run('node','--test','web-editor/tests/core.test.cjs','web-editor/tests/hold.test.cjs','web-editor/tests/pitch.test.cjs','web-editor/tests/tags.test.cjs','web-editor/fix_1016/sync.test.cjs')
     run(sys.executable,'-B','-X','utf8','tests/run_current.py')
     sync_sources(name)
     run('git','add','-A')
