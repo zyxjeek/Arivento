@@ -13,7 +13,9 @@ h.old.Runtime=s.Runtime;h.AndroidRuntime=s.Runtime;cal.saved.Runtime=s.Runtime
 import test_hit_volume
 import test_music_permission
 import test_chart_tags
+import test_chord_hint
 suite=unittest.defaultTestLoader.loadTestsFromTestCase(s.Simple)
+suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_chord_hint.ChordHint))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_chart_tags.ChartTags))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_hit_volume.HitVolume))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(test_music_permission.MusicPermission))

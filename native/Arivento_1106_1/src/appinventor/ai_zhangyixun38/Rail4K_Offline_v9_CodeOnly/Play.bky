@@ -1,4 +1,20 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="global_declaration" id="Play_chord_0">
+    <field name="NAME">上一头时</field>
+    <value name="VALUE">
+      <block type="math_number" id="Play_chord_1">
+        <field name="NUM">-1000000000000</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="Play_chord_2">
+    <field name="NAME">上一游玩键</field>
+    <value name="VALUE">
+      <block type="lists_create_with" id="Play_chord_3">
+        <mutation items="0" />
+      </block>
+    </value>
+  </block>
   <block type="global_declaration" id="Play_hit_volume_0">
     <field name="NAME">打击音量</field>
     <value name="VALUE">
@@ -5071,261 +5087,114 @@ Miss </field>
                   </block>
                 </value>
                 <next>
-                  <block type="local_declaration_statement" id="Play_hit_volume_1003">
-                    <mutation>
-                      <localname name="分段" />
-                    </mutation>
-                    <field name="VAR0">分段</field>
-                    <value name="DECL0">
-                      <block type="lists_create_with" id="Play_hit_volume_1004">
-                        <mutation items="0" />
+                  <block type="lexical_variable_set" id="Play_chord_4">
+                    <field name="VAR">global 上一头时</field>
+                    <value name="VALUE">
+                      <block type="math_number" id="Play_chord_5">
+                        <field name="NUM">-1000000000000</field>
                       </block>
                     </value>
-                    <statement name="STACK">
-                      <block type="controls_forEach" id="Play_hit_volume_1005">
-                        <field name="VAR">音符</field>
-                        <value name="LIST">
-                          <block type="lexical_variable_get" id="Play_hit_volume_1006">
-                            <field name="VAR">global 谱面</field>
+                    <next>
+                      <block type="lexical_variable_set" id="Play_chord_6">
+                        <field name="VAR">global 上一游玩键</field>
+                        <value name="VALUE">
+                          <block type="lists_create_with" id="Play_chord_7">
+                            <mutation items="0" />
                           </block>
                         </value>
-                        <statement name="DO">
-                          <block type="lexical_variable_set" id="Play_hit_volume_1007">
-                            <field name="VAR">global 结束时间</field>
-                            <value name="VALUE">
-                              <block type="math_on_list" id="Play_hit_volume_1008">
-                                <mutation items="2" />
-                                <field name="OP">MAX</field>
-                                <value name="NUM0">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1009">
-                                    <field name="VAR">global 结束时间</field>
-                                  </block>
-                                </value>
-                                <value name="NUM1">
-                                  <block type="math_add" id="Play_hit_volume_1010">
-                                    <mutation items="3" />
-                                    <value name="NUM0">
-                                      <block type="controls_choose" id="Play_hit_volume_1011">
-                                        <value name="TEST">
-                                          <block type="math_compare" id="Play_hit_volume_1012">
-                                            <field name="OP">EQ</field>
-                                            <value name="A">
-                                              <block type="lists_length" id="Play_hit_volume_1013">
-                                                <value name="LIST">
-                                                  <block type="lexical_variable_get" id="Play_hit_volume_1014">
-                                                    <field name="VAR">音符</field>
-                                                  </block>
-                                                </value>
-                                              </block>
-                                            </value>
-                                            <value name="B">
-                                              <block type="math_number" id="Play_hit_volume_1015">
-                                                <field name="NUM">3</field>
-                                              </block>
-                                            </value>
-                                          </block>
-                                        </value>
-                                        <value name="THENRETURN">
-                                          <block type="lists_select_item" id="Play_hit_volume_1016">
-                                            <value name="LIST">
-                                              <block type="lexical_variable_get" id="Play_hit_volume_1017">
-                                                <field name="VAR">音符</field>
-                                              </block>
-                                            </value>
-                                            <value name="NUM">
-                                              <block type="math_number" id="Play_hit_volume_1018">
-                                                <field name="NUM">3</field>
-                                              </block>
-                                            </value>
-                                          </block>
-                                        </value>
-                                        <value name="ELSERETURN">
-                                          <block type="lists_select_item" id="Play_hit_volume_1019">
-                                            <value name="LIST">
-                                              <block type="lexical_variable_get" id="Play_hit_volume_1020">
-                                                <field name="VAR">音符</field>
-                                              </block>
-                                            </value>
-                                            <value name="NUM">
-                                              <block type="math_number" id="Play_hit_volume_1021">
-                                                <field name="NUM">2</field>
-                                              </block>
-                                            </value>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </value>
-                                    <value name="NUM1">
-                                      <block type="lexical_variable_get" id="Play_hit_volume_1022">
-                                        <field name="VAR">global 谱面延迟</field>
-                                      </block>
-                                    </value>
-                                    <value name="NUM2">
-                                      <block type="math_number" id="Play_hit_volume_1023">
-                                        <field name="NUM">500</field>
-                                      </block>
-                                    </value>
-                                  </block>
-                                </value>
+                        <next>
+                          <block type="local_declaration_statement" id="Play_hit_volume_1003">
+                            <mutation>
+                              <localname name="分段" />
+                            </mutation>
+                            <field name="VAR0">分段</field>
+                            <value name="DECL0">
+                              <block type="lists_create_with" id="Play_hit_volume_1004">
+                                <mutation items="0" />
                               </block>
                             </value>
-                            <next>
-                              <block type="controls_if" id="Play_hit_volume_1024">
-                                <value name="IF0">
-                                  <block type="math_compare" id="Play_hit_volume_1025">
-                                    <field name="OP">EQ</field>
-                                    <value name="A">
-                                      <block type="lists_length" id="Play_hit_volume_1026">
-                                        <value name="LIST">
-                                          <block type="lexical_variable_get" id="Play_hit_volume_1027">
-                                            <field name="VAR">分段</field>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </value>
-                                    <value name="B">
-                                      <block type="math_number" id="Play_hit_volume_1028">
-                                        <field name="NUM">0</field>
-                                      </block>
-                                    </value>
+                            <statement name="STACK">
+                              <block type="controls_forEach" id="Play_hit_volume_1005">
+                                <field name="VAR">音符</field>
+                                <value name="LIST">
+                                  <block type="lexical_variable_get" id="Play_hit_volume_1006">
+                                    <field name="VAR">global 谱面</field>
                                   </block>
                                 </value>
-                                <statement name="DO0">
-                                  <block type="lists_add_items" id="Play_hit_volume_1029">
-                                    <mutation items="1" />
-                                    <value name="LIST">
-                                      <block type="lexical_variable_get" id="Play_hit_volume_1030">
-                                        <field name="VAR">global 游玩分段</field>
-                                      </block>
-                                    </value>
-                                    <value name="ITEM0">
-                                      <block type="lexical_variable_get" id="Play_hit_volume_1031">
-                                        <field name="VAR">分段</field>
-                                      </block>
-                                    </value>
-                                  </block>
-                                </statement>
-                                <next>
-                                  <block type="lists_add_items" id="Play_hit_volume_1032">
-                                    <mutation items="1" />
-                                    <value name="LIST">
-                                      <block type="lexical_variable_get" id="Play_hit_volume_1033">
-                                        <field name="VAR">分段</field>
-                                      </block>
-                                    </value>
-                                    <value name="ITEM0">
-                                      <block type="lists_create_with" id="Play_hit_volume_1034">
-                                        <mutation items="4" />
-                                        <value name="ADD0">
-                                          <block type="lists_select_item" id="Play_hit_volume_1035">
-                                            <value name="LIST">
-                                              <block type="lexical_variable_get" id="Play_hit_volume_1036">
-                                                <field name="VAR">音符</field>
-                                              </block>
-                                            </value>
-                                            <value name="NUM">
-                                              <block type="math_number" id="Play_hit_volume_1037">
-                                                <field name="NUM">1</field>
-                                              </block>
-                                            </value>
+                                <statement name="DO">
+                                  <block type="lexical_variable_set" id="Play_hit_volume_1007">
+                                    <field name="VAR">global 结束时间</field>
+                                    <value name="VALUE">
+                                      <block type="math_on_list" id="Play_hit_volume_1008">
+                                        <mutation items="2" />
+                                        <field name="OP">MAX</field>
+                                        <value name="NUM0">
+                                          <block type="lexical_variable_get" id="Play_hit_volume_1009">
+                                            <field name="VAR">global 结束时间</field>
                                           </block>
                                         </value>
-                                        <value name="ADD1">
-                                          <block type="math_add" id="Play_hit_volume_1038">
-                                            <mutation items="2" />
+                                        <value name="NUM1">
+                                          <block type="math_add" id="Play_hit_volume_1010">
+                                            <mutation items="3" />
                                             <value name="NUM0">
-                                              <block type="lists_select_item" id="Play_hit_volume_1039">
-                                                <value name="LIST">
-                                                  <block type="lexical_variable_get" id="Play_hit_volume_1040">
-                                                    <field name="VAR">音符</field>
-                                                  </block>
-                                                </value>
-                                                <value name="NUM">
-                                                  <block type="math_number" id="Play_hit_volume_1041">
-                                                    <field name="NUM">2</field>
-                                                  </block>
-                                                </value>
-                                              </block>
-                                            </value>
-                                            <value name="NUM1">
-                                              <block type="lexical_variable_get" id="Play_hit_volume_1042">
-                                                <field name="VAR">global 谱面延迟</field>
-                                              </block>
-                                            </value>
-                                          </block>
-                                        </value>
-                                        <value name="ADD2">
-                                          <block type="math_number" id="Play_hit_volume_1043">
-                                            <field name="NUM">0</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD3">
-                                          <block type="controls_choose" id="Play_hit_volume_1044">
-                                            <value name="TEST">
-                                              <block type="math_compare" id="Play_hit_volume_1045">
-                                                <field name="OP">EQ</field>
-                                                <value name="A">
-                                                  <block type="lists_length" id="Play_hit_volume_1046">
-                                                    <value name="LIST">
-                                                      <block type="lexical_variable_get" id="Play_hit_volume_1047">
-                                                        <field name="VAR">音符</field>
+                                              <block type="controls_choose" id="Play_hit_volume_1011">
+                                                <value name="TEST">
+                                                  <block type="math_compare" id="Play_hit_volume_1012">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="lists_length" id="Play_hit_volume_1013">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Play_hit_volume_1014">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
                                                       </block>
                                                     </value>
-                                                  </block>
-                                                </value>
-                                                <value name="B">
-                                                  <block type="math_number" id="Play_hit_volume_1048">
-                                                    <field name="NUM">3</field>
-                                                  </block>
-                                                </value>
-                                              </block>
-                                            </value>
-                                            <value name="THENRETURN">
-                                              <block type="math_add" id="Play_hit_volume_1049">
-                                                <mutation items="2" />
-                                                <value name="NUM0">
-                                                  <block type="lists_select_item" id="Play_hit_volume_1050">
-                                                    <value name="LIST">
-                                                      <block type="lexical_variable_get" id="Play_hit_volume_1051">
-                                                        <field name="VAR">音符</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="NUM">
-                                                      <block type="math_number" id="Play_hit_volume_1052">
+                                                    <value name="B">
+                                                      <block type="math_number" id="Play_hit_volume_1015">
                                                         <field name="NUM">3</field>
                                                       </block>
                                                     </value>
                                                   </block>
                                                 </value>
-                                                <value name="NUM1">
-                                                  <block type="lexical_variable_get" id="Play_hit_volume_1053">
-                                                    <field name="VAR">global 谱面延迟</field>
-                                                  </block>
-                                                </value>
-                                              </block>
-                                            </value>
-                                            <value name="ELSERETURN">
-                                              <block type="math_add" id="Play_hit_volume_1054">
-                                                <mutation items="2" />
-                                                <value name="NUM0">
-                                                  <block type="lists_select_item" id="Play_hit_volume_1055">
+                                                <value name="THENRETURN">
+                                                  <block type="lists_select_item" id="Play_hit_volume_1016">
                                                     <value name="LIST">
-                                                      <block type="lexical_variable_get" id="Play_hit_volume_1056">
+                                                      <block type="lexical_variable_get" id="Play_hit_volume_1017">
                                                         <field name="VAR">音符</field>
                                                       </block>
                                                     </value>
                                                     <value name="NUM">
-                                                      <block type="math_number" id="Play_hit_volume_1057">
+                                                      <block type="math_number" id="Play_hit_volume_1018">
+                                                        <field name="NUM">3</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ELSERETURN">
+                                                  <block type="lists_select_item" id="Play_hit_volume_1019">
+                                                    <value name="LIST">
+                                                      <block type="lexical_variable_get" id="Play_hit_volume_1020">
+                                                        <field name="VAR">音符</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NUM">
+                                                      <block type="math_number" id="Play_hit_volume_1021">
                                                         <field name="NUM">2</field>
                                                       </block>
                                                     </value>
                                                   </block>
                                                 </value>
-                                                <value name="NUM1">
-                                                  <block type="lexical_variable_get" id="Play_hit_volume_1058">
-                                                    <field name="VAR">global 谱面延迟</field>
-                                                  </block>
-                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="NUM1">
+                                              <block type="lexical_variable_get" id="Play_hit_volume_1022">
+                                                <field name="VAR">global 谱面延迟</field>
+                                              </block>
+                                            </value>
+                                            <value name="NUM2">
+                                              <block type="math_number" id="Play_hit_volume_1023">
+                                                <field name="NUM">500</field>
                                               </block>
                                             </value>
                                           </block>
@@ -5333,46 +5202,339 @@ Miss </field>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="controls_if" id="Play_hit_volume_1059">
+                                      <block type="controls_if" id="Play_hit_volume_1024">
                                         <value name="IF0">
-                                          <block type="math_compare" id="Play_hit_volume_1060">
+                                          <block type="math_compare" id="Play_hit_volume_1025">
                                             <field name="OP">EQ</field>
                                             <value name="A">
-                                              <block type="lists_length" id="Play_hit_volume_1061">
+                                              <block type="lists_length" id="Play_hit_volume_1026">
                                                 <value name="LIST">
-                                                  <block type="lexical_variable_get" id="Play_hit_volume_1062">
+                                                  <block type="lexical_variable_get" id="Play_hit_volume_1027">
                                                     <field name="VAR">分段</field>
                                                   </block>
                                                 </value>
                                               </block>
                                             </value>
                                             <value name="B">
-                                              <block type="math_number" id="Play_hit_volume_1063">
-                                                <field name="NUM">64</field>
+                                              <block type="math_number" id="Play_hit_volume_1028">
+                                                <field name="NUM">0</field>
                                               </block>
                                             </value>
                                           </block>
                                         </value>
                                         <statement name="DO0">
-                                          <block type="lexical_variable_set" id="Play_hit_volume_1064">
-                                            <field name="VAR">分段</field>
-                                            <value name="VALUE">
-                                              <block type="lists_create_with" id="Play_hit_volume_1065">
-                                                <mutation items="0" />
+                                          <block type="lists_add_items" id="Play_hit_volume_1029">
+                                            <mutation items="1" />
+                                            <value name="LIST">
+                                              <block type="lexical_variable_get" id="Play_hit_volume_1030">
+                                                <field name="VAR">global 游玩分段</field>
+                                              </block>
+                                            </value>
+                                            <value name="ITEM0">
+                                              <block type="lexical_variable_get" id="Play_hit_volume_1031">
+                                                <field name="VAR">分段</field>
                                               </block>
                                             </value>
                                           </block>
                                         </statement>
+                                        <next>
+                                          <block type="lists_add_items" id="Play_hit_volume_1032">
+                                            <mutation items="1" />
+                                            <value name="LIST">
+                                              <block type="lexical_variable_get" id="Play_hit_volume_1033">
+                                                <field name="VAR">分段</field>
+                                              </block>
+                                            </value>
+                                            <value name="ITEM0">
+                                              <block type="lists_create_with" id="Play_hit_volume_1034">
+                                                <mutation items="5" />
+                                                <value name="ADD0">
+                                                  <block type="lists_select_item" id="Play_hit_volume_1035">
+                                                    <value name="LIST">
+                                                      <block type="lexical_variable_get" id="Play_hit_volume_1036">
+                                                        <field name="VAR">音符</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NUM">
+                                                      <block type="math_number" id="Play_hit_volume_1037">
+                                                        <field name="NUM">1</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD1">
+                                                  <block type="math_add" id="Play_hit_volume_1038">
+                                                    <mutation items="2" />
+                                                    <value name="NUM0">
+                                                      <block type="lists_select_item" id="Play_hit_volume_1039">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Play_hit_volume_1040">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Play_hit_volume_1041">
+                                                            <field name="NUM">2</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NUM1">
+                                                      <block type="lexical_variable_get" id="Play_hit_volume_1042">
+                                                        <field name="VAR">global 谱面延迟</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD2">
+                                                  <block type="math_number" id="Play_hit_volume_1043">
+                                                    <field name="NUM">0</field>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD3">
+                                                  <block type="controls_choose" id="Play_hit_volume_1044">
+                                                    <value name="TEST">
+                                                      <block type="math_compare" id="Play_hit_volume_1045">
+                                                        <field name="OP">EQ</field>
+                                                        <value name="A">
+                                                          <block type="lists_length" id="Play_hit_volume_1046">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Play_hit_volume_1047">
+                                                                <field name="VAR">音符</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <block type="math_number" id="Play_hit_volume_1048">
+                                                            <field name="NUM">3</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="THENRETURN">
+                                                      <block type="math_add" id="Play_hit_volume_1049">
+                                                        <mutation items="2" />
+                                                        <value name="NUM0">
+                                                          <block type="lists_select_item" id="Play_hit_volume_1050">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Play_hit_volume_1051">
+                                                                <field name="VAR">音符</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM">
+                                                              <block type="math_number" id="Play_hit_volume_1052">
+                                                                <field name="NUM">3</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM1">
+                                                          <block type="lexical_variable_get" id="Play_hit_volume_1053">
+                                                            <field name="VAR">global 谱面延迟</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ELSERETURN">
+                                                      <block type="math_add" id="Play_hit_volume_1054">
+                                                        <mutation items="2" />
+                                                        <value name="NUM0">
+                                                          <block type="lists_select_item" id="Play_hit_volume_1055">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Play_hit_volume_1056">
+                                                                <field name="VAR">音符</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM">
+                                                              <block type="math_number" id="Play_hit_volume_1057">
+                                                                <field name="NUM">2</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM1">
+                                                          <block type="lexical_variable_get" id="Play_hit_volume_1058">
+                                                            <field name="VAR">global 谱面延迟</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD4">
+                                                  <block type="logic_boolean" id="Play_chord_8">
+                                                    <field name="BOOL">FALSE</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="controls_if" id="Play_chord_9">
+                                                <value name="IF0">
+                                                  <block type="math_compare" id="Play_chord_10">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="lexical_variable_get" id="Play_chord_11">
+                                                        <field name="VAR">global 上一头时</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="lists_select_item" id="Play_chord_12">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Play_chord_13">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Play_chord_14">
+                                                            <field name="NUM">2</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO0">
+                                                  <block type="lists_replace_item" id="Play_chord_15">
+                                                    <value name="LIST">
+                                                      <block type="lexical_variable_get" id="Play_chord_16">
+                                                        <field name="VAR">global 上一游玩键</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NUM">
+                                                      <block type="math_number" id="Play_chord_17">
+                                                        <field name="NUM">5</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ITEM">
+                                                      <block type="logic_boolean" id="Play_chord_18">
+                                                        <field name="BOOL">TRUE</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="lists_replace_item" id="Play_chord_19">
+                                                        <value name="LIST">
+                                                          <block type="lists_select_item" id="Play_chord_20">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Play_chord_21">
+                                                                <field name="VAR">分段</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM">
+                                                              <block type="lists_length" id="Play_chord_22">
+                                                                <value name="LIST">
+                                                                  <block type="lexical_variable_get" id="Play_chord_23">
+                                                                    <field name="VAR">分段</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Play_chord_24">
+                                                            <field name="NUM">5</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ITEM">
+                                                          <block type="logic_boolean" id="Play_chord_25">
+                                                            <field name="BOOL">TRUE</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="lexical_variable_set" id="Play_chord_26">
+                                                    <field name="VAR">global 上一头时</field>
+                                                    <value name="VALUE">
+                                                      <block type="lists_select_item" id="Play_chord_27">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Play_chord_28">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Play_chord_29">
+                                                            <field name="NUM">2</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="lexical_variable_set" id="Play_chord_30">
+                                                        <field name="VAR">global 上一游玩键</field>
+                                                        <value name="VALUE">
+                                                          <block type="lists_select_item" id="Play_chord_31">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Play_chord_32">
+                                                                <field name="VAR">分段</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM">
+                                                              <block type="lists_length" id="Play_chord_33">
+                                                                <value name="LIST">
+                                                                  <block type="lexical_variable_get" id="Play_chord_34">
+                                                                    <field name="VAR">分段</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="controls_if" id="Play_hit_volume_1059">
+                                                            <value name="IF0">
+                                                              <block type="math_compare" id="Play_hit_volume_1060">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="lists_length" id="Play_hit_volume_1061">
+                                                                    <value name="LIST">
+                                                                      <block type="lexical_variable_get" id="Play_hit_volume_1062">
+                                                                        <field name="VAR">分段</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="math_number" id="Play_hit_volume_1063">
+                                                                    <field name="NUM">64</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <statement name="DO0">
+                                                              <block type="lexical_variable_set" id="Play_hit_volume_1064">
+                                                                <field name="VAR">分段</field>
+                                                                <value name="VALUE">
+                                                                  <block type="lists_create_with" id="Play_hit_volume_1065">
+                                                                    <mutation items="0" />
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </statement>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
                                       </block>
                                     </next>
                                   </block>
-                                </next>
+                                </statement>
                               </block>
-                            </next>
+                            </statement>
                           </block>
-                        </statement>
+                        </next>
                       </block>
-                    </statement>
+                    </next>
                   </block>
                 </next>
               </block>
@@ -7442,76 +7604,62 @@ Miss </field>
                   </block>
                 </statement>
                 <next>
-                  <block type="component_set_get" id="Play_hit_volume_1462">
-                    <mutation component_type="Canvas" property_name="LineWidth" set_or_get="set" is_generic="true" />
-                    <field name="PROP">LineWidth</field>
-                    <value name="COMPONENT">
-                      <block type="lists_select_item" id="Play_hit_volume_1463">
-                        <value name="LIST">
-                          <block type="lexical_variable_get" id="Play_hit_volume_1464">
-                            <field name="VAR">global 轨道画布</field>
-                          </block>
-                        </value>
-                        <value name="NUM">
-                          <block type="lists_select_item" id="Play_hit_volume_1465">
+                  <block type="controls_if" id="Play_chord_35">
+                    <value name="IF0">
+                      <block type="logic_operation" id="Play_chord_36">
+                        <mutation items="2" />
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="lists_select_item" id="Play_chord_37">
                             <value name="LIST">
-                              <block type="procedures_callreturn" id="Play_hit_volume_1466">
+                              <block type="procedures_callreturn" id="Play_chord_38">
                                 <mutation name="取游玩键">
                                   <arg name="键号" />
                                 </mutation>
                                 <field name="PROCNAME">取游玩键</field>
                                 <value name="ARG0">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1467">
+                                  <block type="lexical_variable_get" id="Play_chord_39">
                                     <field name="VAR">键号</field>
                                   </block>
                                 </value>
                               </block>
                             </value>
                             <value name="NUM">
-                              <block type="math_number" id="Play_hit_volume_1468">
-                                <field name="NUM">1</field>
+                              <block type="math_number" id="Play_chord_40">
+                                <field name="NUM">5</field>
                               </block>
                             </value>
                           </block>
                         </value>
-                      </block>
-                    </value>
-                    <value name="VALUE">
-                      <block type="math_number" id="Play_hit_volume_1469">
-                        <field name="NUM">16</field>
-                      </block>
-                    </value>
-                    <next>
-                      <block type="controls_if" id="Play_hit_volume_1470">
-                        <value name="IF0">
-                          <block type="logic_operation" id="Play_hit_volume_1471">
+                        <value name="B">
+                          <block type="logic_operation" id="Play_chord_41">
                             <mutation items="2" />
                             <field name="OP">AND</field>
                             <value name="A">
-                              <block type="math_compare" id="Play_hit_volume_1472">
+                              <block type="math_compare" id="Play_chord_42">
                                 <field name="OP">GTE</field>
                                 <value name="A">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1473">
+                                  <block type="lexical_variable_get" id="Play_chord_43">
                                     <field name="VAR">头纵</field>
                                   </block>
                                 </value>
                                 <value name="B">
-                                  <block type="math_number" id="Play_hit_volume_1474">
+                                  <block type="math_number" id="Play_chord_44">
                                     <field name="NUM">0</field>
                                   </block>
                                 </value>
                               </block>
                             </value>
                             <value name="B">
-                              <block type="math_compare" id="Play_hit_volume_1475">
+                              <block type="math_compare" id="Play_chord_45">
                                 <field name="OP">LTE</field>
                                 <value name="A">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1476">
+                                  <block type="lexical_variable_get" id="Play_chord_46">
                                     <field name="VAR">头纵</field>
                                   </block>
                                 </value>
                                 <value name="B">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1477">
+                                  <block type="lexical_variable_get" id="Play_chord_47">
                                     <field name="VAR">global 画高</field>
                                   </block>
                                 </value>
@@ -7519,33 +7667,76 @@ Miss </field>
                             </value>
                           </block>
                         </value>
-                        <statement name="DO0">
-                          <block type="component_method" id="Play_hit_volume_1478">
-                            <mutation component_type="Canvas" method_name="DrawLine" is_generic="true" />
-                            <value name="COMPONENT">
-                              <block type="lists_select_item" id="Play_hit_volume_1479">
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="component_set_get" id="Play_chord_48">
+                        <mutation component_type="Canvas" property_name="PaintColor" set_or_get="set" is_generic="true" />
+                        <field name="PROP">PaintColor</field>
+                        <value name="COMPONENT">
+                          <block type="lists_select_item" id="Play_chord_49">
+                            <value name="LIST">
+                              <block type="lexical_variable_get" id="Play_chord_50">
+                                <field name="VAR">global 轨道画布</field>
+                              </block>
+                            </value>
+                            <value name="NUM">
+                              <block type="lists_select_item" id="Play_chord_51">
                                 <value name="LIST">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1480">
+                                  <block type="procedures_callreturn" id="Play_chord_52">
+                                    <mutation name="取游玩键">
+                                      <arg name="键号" />
+                                    </mutation>
+                                    <field name="PROCNAME">取游玩键</field>
+                                    <value name="ARG0">
+                                      <block type="lexical_variable_get" id="Play_chord_53">
+                                        <field name="VAR">键号</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="NUM">
+                                  <block type="math_number" id="Play_chord_54">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="VALUE">
+                          <block type="math_number" id="Play_chord_55">
+                            <field name="NUM">-10929</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="Play_chord_56">
+                            <mutation component_type="Canvas" property_name="LineWidth" set_or_get="set" is_generic="true" />
+                            <field name="PROP">LineWidth</field>
+                            <value name="COMPONENT">
+                              <block type="lists_select_item" id="Play_chord_57">
+                                <value name="LIST">
+                                  <block type="lexical_variable_get" id="Play_chord_58">
                                     <field name="VAR">global 轨道画布</field>
                                   </block>
                                 </value>
                                 <value name="NUM">
-                                  <block type="lists_select_item" id="Play_hit_volume_1481">
+                                  <block type="lists_select_item" id="Play_chord_59">
                                     <value name="LIST">
-                                      <block type="procedures_callreturn" id="Play_hit_volume_1482">
+                                      <block type="procedures_callreturn" id="Play_chord_60">
                                         <mutation name="取游玩键">
                                           <arg name="键号" />
                                         </mutation>
                                         <field name="PROCNAME">取游玩键</field>
                                         <value name="ARG0">
-                                          <block type="lexical_variable_get" id="Play_hit_volume_1483">
+                                          <block type="lexical_variable_get" id="Play_chord_61">
                                             <field name="VAR">键号</field>
                                           </block>
                                         </value>
                                       </block>
                                     </value>
                                     <value name="NUM">
-                                      <block type="math_number" id="Play_hit_volume_1484">
+                                      <block type="math_number" id="Play_chord_62">
                                         <field name="NUM">1</field>
                                       </block>
                                     </value>
@@ -7553,37 +7744,349 @@ Miss </field>
                                 </value>
                               </block>
                             </value>
-                            <value name="ARG0">
-                              <block type="math_number" id="Play_hit_volume_1485">
-                                <field name="NUM">9</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="Play_chord_63">
+                                <field name="NUM">24</field>
                               </block>
                             </value>
-                            <value name="ARG1">
-                              <block type="lexical_variable_get" id="Play_hit_volume_1486">
-                                <field name="VAR">头纵</field>
-                              </block>
-                            </value>
-                            <value name="ARG2">
-                              <block type="math_subtract" id="Play_hit_volume_1487">
-                                <value name="A">
-                                  <block type="lexical_variable_get" id="Play_hit_volume_1488">
-                                    <field name="VAR">global 轨宽</field>
+                            <next>
+                              <block type="component_method" id="Play_chord_64">
+                                <mutation component_type="Canvas" method_name="DrawLine" is_generic="true" />
+                                <value name="COMPONENT">
+                                  <block type="lists_select_item" id="Play_chord_65">
+                                    <value name="LIST">
+                                      <block type="lexical_variable_get" id="Play_chord_66">
+                                        <field name="VAR">global 轨道画布</field>
+                                      </block>
+                                    </value>
+                                    <value name="NUM">
+                                      <block type="lists_select_item" id="Play_chord_67">
+                                        <value name="LIST">
+                                          <block type="procedures_callreturn" id="Play_chord_68">
+                                            <mutation name="取游玩键">
+                                              <arg name="键号" />
+                                            </mutation>
+                                            <field name="PROCNAME">取游玩键</field>
+                                            <value name="ARG0">
+                                              <block type="lexical_variable_get" id="Play_chord_69">
+                                                <field name="VAR">键号</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="NUM">
+                                          <block type="math_number" id="Play_chord_70">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
                                   </block>
                                 </value>
-                                <value name="B">
-                                  <block type="math_number" id="Play_hit_volume_1489">
-                                    <field name="NUM">9</field>
+                                <value name="ARG0">
+                                  <block type="math_number" id="Play_chord_71">
+                                    <field name="NUM">5</field>
                                   </block>
                                 </value>
+                                <value name="ARG1">
+                                  <block type="lexical_variable_get" id="Play_chord_72">
+                                    <field name="VAR">头纵</field>
+                                  </block>
+                                </value>
+                                <value name="ARG2">
+                                  <block type="math_subtract" id="Play_chord_73">
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="Play_chord_74">
+                                        <field name="VAR">global 轨宽</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="Play_chord_75">
+                                        <field name="NUM">5</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="ARG3">
+                                  <block type="lexical_variable_get" id="Play_chord_76">
+                                    <field name="VAR">头纵</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="component_set_get" id="Play_chord_77">
+                                    <mutation component_type="Canvas" property_name="PaintColor" set_or_get="set" is_generic="true" />
+                                    <field name="PROP">PaintColor</field>
+                                    <value name="COMPONENT">
+                                      <block type="lists_select_item" id="Play_chord_78">
+                                        <value name="LIST">
+                                          <block type="lexical_variable_get" id="Play_chord_79">
+                                            <field name="VAR">global 轨道画布</field>
+                                          </block>
+                                        </value>
+                                        <value name="NUM">
+                                          <block type="lists_select_item" id="Play_chord_80">
+                                            <value name="LIST">
+                                              <block type="procedures_callreturn" id="Play_chord_81">
+                                                <mutation name="取游玩键">
+                                                  <arg name="键号" />
+                                                </mutation>
+                                                <field name="PROCNAME">取游玩键</field>
+                                                <value name="ARG0">
+                                                  <block type="lexical_variable_get" id="Play_chord_82">
+                                                    <field name="VAR">键号</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="NUM">
+                                              <block type="math_number" id="Play_chord_83">
+                                                <field name="NUM">1</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="VALUE">
+                                      <block type="controls_choose" id="Play_chord_84">
+                                        <value name="TEST">
+                                          <block type="math_compare" id="Play_chord_85">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                              <block type="lists_select_item" id="Play_chord_86">
+                                                <value name="LIST">
+                                                  <block type="procedures_callreturn" id="Play_chord_87">
+                                                    <mutation name="取游玩键">
+                                                      <arg name="键号" />
+                                                    </mutation>
+                                                    <field name="PROCNAME">取游玩键</field>
+                                                    <value name="ARG0">
+                                                      <block type="lexical_variable_get" id="Play_chord_88">
+                                                        <field name="VAR">键号</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="NUM">
+                                                  <block type="math_number" id="Play_chord_89">
+                                                    <field name="NUM">3</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id="Play_chord_90">
+                                                <field name="NUM">1</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="THENRETURN">
+                                          <block type="math_number" id="Play_chord_91">
+                                            <field name="NUM">-10066330</field>
+                                          </block>
+                                        </value>
+                                        <value name="ELSERETURN">
+                                          <block type="controls_choose" id="Play_chord_92">
+                                            <value name="TEST">
+                                              <block type="math_compare" id="Play_chord_93">
+                                                <field name="OP">GTE</field>
+                                                <value name="A">
+                                                  <block type="lists_select_item" id="Play_chord_94">
+                                                    <value name="LIST">
+                                                      <block type="procedures_callreturn" id="Play_chord_95">
+                                                        <mutation name="取游玩键">
+                                                          <arg name="键号" />
+                                                        </mutation>
+                                                        <field name="PROCNAME">取游玩键</field>
+                                                        <value name="ARG0">
+                                                          <block type="lexical_variable_get" id="Play_chord_96">
+                                                            <field name="VAR">键号</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NUM">
+                                                      <block type="math_number" id="Play_chord_97">
+                                                        <field name="NUM">3</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="math_number" id="Play_chord_98">
+                                                    <field name="NUM">4</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="THENRETURN">
+                                              <block type="math_number" id="Play_chord_99">
+                                                <field name="NUM">-1379585</field>
+                                              </block>
+                                            </value>
+                                            <value name="ELSERETURN">
+                                              <block type="math_number" id="Play_chord_100">
+                                                <field name="NUM">-11084049</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="component_set_get" id="Play_hit_volume_1462">
+                        <mutation component_type="Canvas" property_name="LineWidth" set_or_get="set" is_generic="true" />
+                        <field name="PROP">LineWidth</field>
+                        <value name="COMPONENT">
+                          <block type="lists_select_item" id="Play_hit_volume_1463">
+                            <value name="LIST">
+                              <block type="lexical_variable_get" id="Play_hit_volume_1464">
+                                <field name="VAR">global 轨道画布</field>
                               </block>
                             </value>
-                            <value name="ARG3">
-                              <block type="lexical_variable_get" id="Play_hit_volume_1490">
-                                <field name="VAR">头纵</field>
+                            <value name="NUM">
+                              <block type="lists_select_item" id="Play_hit_volume_1465">
+                                <value name="LIST">
+                                  <block type="procedures_callreturn" id="Play_hit_volume_1466">
+                                    <mutation name="取游玩键">
+                                      <arg name="键号" />
+                                    </mutation>
+                                    <field name="PROCNAME">取游玩键</field>
+                                    <value name="ARG0">
+                                      <block type="lexical_variable_get" id="Play_hit_volume_1467">
+                                        <field name="VAR">键号</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="NUM">
+                                  <block type="math_number" id="Play_hit_volume_1468">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
                               </block>
                             </value>
                           </block>
-                        </statement>
+                        </value>
+                        <value name="VALUE">
+                          <block type="math_number" id="Play_hit_volume_1469">
+                            <field name="NUM">16</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="controls_if" id="Play_hit_volume_1470">
+                            <value name="IF0">
+                              <block type="logic_operation" id="Play_hit_volume_1471">
+                                <mutation items="2" />
+                                <field name="OP">AND</field>
+                                <value name="A">
+                                  <block type="math_compare" id="Play_hit_volume_1472">
+                                    <field name="OP">GTE</field>
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="Play_hit_volume_1473">
+                                        <field name="VAR">头纵</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="Play_hit_volume_1474">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_compare" id="Play_hit_volume_1475">
+                                    <field name="OP">LTE</field>
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="Play_hit_volume_1476">
+                                        <field name="VAR">头纵</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="lexical_variable_get" id="Play_hit_volume_1477">
+                                        <field name="VAR">global 画高</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="component_method" id="Play_hit_volume_1478">
+                                <mutation component_type="Canvas" method_name="DrawLine" is_generic="true" />
+                                <value name="COMPONENT">
+                                  <block type="lists_select_item" id="Play_hit_volume_1479">
+                                    <value name="LIST">
+                                      <block type="lexical_variable_get" id="Play_hit_volume_1480">
+                                        <field name="VAR">global 轨道画布</field>
+                                      </block>
+                                    </value>
+                                    <value name="NUM">
+                                      <block type="lists_select_item" id="Play_hit_volume_1481">
+                                        <value name="LIST">
+                                          <block type="procedures_callreturn" id="Play_hit_volume_1482">
+                                            <mutation name="取游玩键">
+                                              <arg name="键号" />
+                                            </mutation>
+                                            <field name="PROCNAME">取游玩键</field>
+                                            <value name="ARG0">
+                                              <block type="lexical_variable_get" id="Play_hit_volume_1483">
+                                                <field name="VAR">键号</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="NUM">
+                                          <block type="math_number" id="Play_hit_volume_1484">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="ARG0">
+                                  <block type="math_number" id="Play_hit_volume_1485">
+                                    <field name="NUM">9</field>
+                                  </block>
+                                </value>
+                                <value name="ARG1">
+                                  <block type="lexical_variable_get" id="Play_hit_volume_1486">
+                                    <field name="VAR">头纵</field>
+                                  </block>
+                                </value>
+                                <value name="ARG2">
+                                  <block type="math_subtract" id="Play_hit_volume_1487">
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="Play_hit_volume_1488">
+                                        <field name="VAR">global 轨宽</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="Play_hit_volume_1489">
+                                        <field name="NUM">9</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="ARG3">
+                                  <block type="lexical_variable_get" id="Play_hit_volume_1490">
+                                    <field name="VAR">头纵</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
                       </block>
                     </next>
                   </block>
