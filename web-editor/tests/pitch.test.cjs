@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('node:assert/strict'),P=require('../pitch-audio.js');
+const test=require('node:test'),assert=require('node:assert/strict'),P=require('./source.cjs').pitch;
 function render(channels,sr,rate){const g=P.stretch(channels,sr,rate);let r;do{r=g.next();}while(!r.done);return r.value;}
 function tone(sr,hz,seconds=2){return Float32Array.from({length:sr*seconds},(_,i)=>.5*Math.sin(2*Math.PI*hz*i/sr));}
 function hz(samples,sr){let crossings=0;const start=Math.round(sr*.3),end=samples.length-Math.round(sr*.3);for(let i=start;i<end-1;i++)if(samples[i]<=0&&samples[i+1]>0)crossings++;return crossings*sr/(end-start);}

@@ -1,7 +1,7 @@
 from pathlib import Path
 import argparse, json, struct, zipfile
 
-SCREENS = {'Screen1', 'Play', 'EditorSettings', 'Recorder'}
+SCREENS = {'Screen1', 'Play'}
 
 def classes(data):
     def u32(offset): return struct.unpack_from('<I', data, offset)[0]

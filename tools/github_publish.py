@@ -51,8 +51,8 @@ def main():
         if not html.exists():html.write_bytes((ROOT/'web-editor/source.html').read_bytes())
     run(sys.executable,'-B','-X','utf8','tools/project.py','check')
     if html.read_bytes()!=(ROOT/'web-editor/source.html').read_bytes():raise RuntimeError('Creator 交付与源码不一致')
-    run('node','--test','web-editor/tests/core.test.cjs','web-editor/tests/hold.test.cjs','web-editor/tests/pitch.test.cjs','web-editor/tests/tags.test.cjs','web-editor/fix_1016/sync.test.cjs')
-    run(sys.executable,'-B','-X','utf8','tests/run_current.py')
+    run('node','--test','web-editor/tests/*.test.cjs')
+    run(sys.executable,'-B','-X','utf8','-m','unittest','discover','-s','tests')
     sync_sources(name)
     run('git','add','-A')
     if run('git','diff','--cached','--name-only',capture=True).strip():run('git','commit','-m',args.message)
@@ -67,8 +67,8 @@ def main():
     try:release=api(token,'/repos/'+args.repository+'/releases/tags/'+tag)
     except urllib.error.HTTPError as e:
         if e.code!=404:raise
-        body='AIA 与离线单文件制谱器。\n\n'+args.message+'\n\n验证：四屏静态检查、网页回归、当前 AIA 积木模拟通过，具体数量以测试输出为准。\n尚未完成本版本 APK 编译及真机验收。\n\n'+ '\n'.join(f'{f.name}: SHA-256 `{hashlib.sha256(f.read_bytes()).hexdigest()}`' for f in [aia,html])
-        release=api(token,'/repos/'+args.repository+'/releases','POST',{'tag_name':tag,'target_commitish':sha,'name':name,'body':body,'draft':True})
+        body='AIA 与离线单文件制谱器。\n\n'+args.message+'\n\n'+ '\n'.join(f'{f.name}: SHA-256 `{hashlib.sha256(f.read_bytes()).hexdigest()}`' for f in [aia,html])
+        release=next((r for r in api(token,'/repos/'+args.repository+'/releases?per_page=30') if r['tag_name']==tag),None) or api(token,'/repos/'+args.repository+'/releases','POST',{'tag_name':tag,'target_commitish':sha,'name':name,'body':body,'draft':True})
     assets={a['name']:a for a in api(token,'/repos/'+args.repository+'/releases/'+str(release['id'])+'/assets')}
     for f in [aia,html]:
         digest='sha256:'+hashlib.sha256(f.read_bytes()).hexdigest()

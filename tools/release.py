@@ -4,9 +4,7 @@ from zoneinfo import ZoneInfo
 import argparse,json,re,shutil,zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-SOURCE=ROOT/'native/Rail4K_1011_1'
-if (ROOT/'tools/current_release.json').exists():
-    SOURCE=ROOT/'native'/json.loads((ROOT/'tools/current_release.json').read_text(encoding='utf-8'))['name']
+SOURCE=ROOT/'native'/json.loads((ROOT/'tools/current_release.json').read_text(encoding='utf-8'))['name']
 
 def release(version=None,date=None):
     date=date or datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%m%d')
@@ -39,7 +37,7 @@ def release(version=None,date=None):
     aia=stage/(name+'.aia')
     with zipfile.ZipFile(aia,'x',zipfile.ZIP_DEFLATED) as z:
         for n,data in files.items():z.writestr(n,data)
-    with zipfile.ZipFile(aia) as z:assert z.testzip() is None and sum(n.endswith('.scm') for n in z.namelist())==4
+    with zipfile.ZipFile(aia) as z:assert z.testzip() is None and sum(n.endswith('.scm') for n in z.namelist())==2
     for p in list(dist.iterdir()):
         if p.is_file() and p.suffix.lower() in ('.aia','.html','.zip'):
             dest=archive/p.name

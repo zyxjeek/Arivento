@@ -1,6 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
-const C=require('../hold-core.js'),html=fs.readFileSync(__dirname+'/../source.html','utf8');
-const source=html.slice(html.indexOf('        (() => {'),html.lastIndexOf('</script>'));
+const {core:C,html,app:source}=require('./source.cjs');
 const chart=notes=>['Hold','song.mp3',500,2,120,4,2000,notes];
 const plain=v=>JSON.parse(JSON.stringify(v));
 function editor(){

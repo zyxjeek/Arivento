@@ -1,0 +1,3663 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="global_declaration" x="40" y="40" id="Screen1_0">
+    <field name="NAME">当前谱</field>
+    <value name="VALUE">
+      <block type="lists_create_with" id="Screen1_1">
+        <mutation items="0" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="100" id="Screen1_2">
+    <field name="NAME">读取中</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="Screen1_3">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="160" id="Screen1_4">
+    <field name="NAME">音乐就绪</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="Screen1_5">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="220" id="Screen1_6">
+    <field name="NAME">保存列表</field>
+    <value name="VALUE">
+      <block type="lists_create_with" id="Screen1_7">
+        <mutation items="0" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="280" id="Screen1_8">
+    <field name="NAME">谱面地址</field>
+    <value name="VALUE">
+      <block type="text" id="Screen1_9">
+        <field name="TEXT" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="340" id="Screen1_10">
+    <field name="NAME">待用音乐</field>
+    <value name="VALUE">
+      <block type="text" id="Screen1_11">
+        <field name="TEXT" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="400" id="Screen1_12">
+    <field name="NAME">检查音乐地址</field>
+    <value name="VALUE">
+      <block type="text" id="Screen1_13">
+        <field name="TEXT" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="460" id="Screen1_14">
+    <field name="NAME">正在检查</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="Screen1_15">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="520" id="Screen1_16">
+    <field name="NAME">检查失败</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="Screen1_17">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="580" id="Screen1_18">
+    <field name="NAME">音乐权限拒绝</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="Screen1_19">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="640" id="Screen1_20">
+    <field name="NAME">校验问题</field>
+    <value name="VALUE">
+      <block type="text" id="Screen1_21">
+        <field name="TEXT" />
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="700" id="Screen1_22">
+    <field name="NAME">校准起点</field>
+    <value name="VALUE">
+      <block type="math_number" id="Screen1_23">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="760" id="Screen1_24">
+    <field name="NAME">校准上次</field>
+    <value name="VALUE">
+      <block type="math_number" id="Screen1_25">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="40" y="820" id="Screen1_26">
+    <field name="NAME">校准节拍号</field>
+    <value name="VALUE">
+      <block type="math_number" id="Screen1_27">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="520" y="40" id="Screen1_28">
+    <field name="NAME">校准打击号</field>
+    <value name="VALUE">
+      <block type="math_number" id="Screen1_29">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" x="520" y="100" id="Screen1_30">
+    <field name="NAME">试听延迟</field>
+    <value name="VALUE">
+      <block type="math_number" id="Screen1_31">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="520" y="160" collapsed="true" id="Screen1_32">
+    <mutation component_type="Form" is_generic="false" instance_name="Screen1" event_name="Initialize" />
+    <field name="COMPONENT_SELECTOR">Screen1</field>
+    <statement name="DO">
+      <block type="lexical_variable_set" id="Screen1_33">
+        <field name="VAR">global 保存列表</field>
+        <value name="VALUE">
+          <block type="component_method" id="Screen1_34">
+            <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="本地记录" />
+            <field name="COMPONENT_SELECTOR">本地记录</field>
+            <value name="ARG0">
+              <block type="text" id="Screen1_35">
+                <field name="TEXT">保存的谱面</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="lists_create_with" id="Screen1_36">
+                <mutation items="0" />
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="procedures_callnoreturn" id="Screen1_37">
+            <mutation name="刷新保存列表" />
+            <field name="PROCNAME">刷新保存列表</field>
+            <next>
+              <block type="local_declaration_statement" id="Screen1_38">
+                <mutation>
+                  <localname name="原延迟" />
+                </mutation>
+                <field name="VAR0">原延迟</field>
+                <value name="DECL0">
+                  <block type="component_method" id="Screen1_39">
+                    <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="本地记录" />
+                    <field name="COMPONENT_SELECTOR">本地记录</field>
+                    <value name="ARG0">
+                      <block type="text" id="Screen1_40">
+                        <field name="TEXT">谱面延迟</field>
+                      </block>
+                    </value>
+                    <value name="ARG1">
+                      <block type="math_number" id="Screen1_41">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="STACK">
+                  <block type="component_set_get" id="Screen1_42">
+                    <mutation component_type="TextBox" set_or_get="set" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                    <field name="COMPONENT_SELECTOR">延迟输入</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="controls_choose" id="Screen1_43">
+                        <value name="TEST">
+                          <block type="procedures_callreturn" id="Screen1_44">
+                            <mutation name="合法延迟">
+                              <arg name="值" />
+                            </mutation>
+                            <field name="PROCNAME">合法延迟</field>
+                            <value name="ARG0">
+                              <block type="lexical_variable_get" id="Screen1_45">
+                                <field name="VAR">原延迟</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="THENRETURN">
+                          <block type="lexical_variable_get" id="Screen1_46">
+                            <field name="VAR">原延迟</field>
+                          </block>
+                        </value>
+                        <value name="ELSERETURN">
+                          <block type="math_number" id="Screen1_47">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="component_set_get" id="Screen1_48">
+                    <mutation component_type="CheckBox" set_or_get="set" property_name="Checked" is_generic="false" instance_name="打击音设置" />
+                    <field name="COMPONENT_SELECTOR">打击音设置</field>
+                    <field name="PROP">Checked</field>
+                    <value name="VALUE">
+                      <block type="component_method" id="Screen1_49">
+                        <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="本地记录" />
+                        <field name="COMPONENT_SELECTOR">本地记录</field>
+                        <value name="ARG0">
+                          <block type="text" id="Screen1_50">
+                            <field name="TEXT">打击音效</field>
+                          </block>
+                        </value>
+                        <value name="ARG1">
+                          <block type="logic_boolean" id="Screen1_51">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" x="520" y="220" collapsed="true" id="Screen1_52">
+    <mutation>
+      <arg name="值" />
+    </mutation>
+    <field name="NAME">合法延迟</field>
+    <field name="VAR0">值</field>
+    <value name="RETURN">
+      <block type="logic_operation" id="Screen1_53">
+        <mutation items="2" />
+        <field name="OP">AND</field>
+        <value name="A">
+          <block type="logic_operation" id="Screen1_54">
+            <mutation items="2" />
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="math_is_a_number" id="Screen1_55">
+                <field name="OP">NUMBER</field>
+                <value name="NUM">
+                  <block type="lexical_variable_get" id="Screen1_56">
+                    <field name="VAR">值</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_compare" id="Screen1_57">
+                <field name="OP">GTE</field>
+                <value name="A">
+                  <block type="lexical_variable_get" id="Screen1_58">
+                    <field name="VAR">值</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="Screen1_59">
+                    <field name="NUM">-400</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="B">
+          <block type="math_compare" id="Screen1_60">
+            <field name="OP">LTE</field>
+            <value name="A">
+              <block type="lexical_variable_get" id="Screen1_61">
+                <field name="VAR">值</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="Screen1_62">
+                <field name="NUM">400</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="520" y="280" collapsed="true" id="Screen1_63">
+    <mutation component_type="Button" is_generic="false" instance_name="开始" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">开始</field>
+    <statement name="DO">
+      <block type="controls_if" id="Screen1_64">
+        <mutation else="1" />
+        <value name="IF0">
+          <block type="logic_operation" id="Screen1_65">
+            <mutation items="2" />
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_operation" id="Screen1_66">
+                <mutation items="2" />
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="procedures_callreturn" id="Screen1_67">
+                    <mutation name="合法延迟">
+                      <arg name="值" />
+                    </mutation>
+                    <field name="PROCNAME">合法延迟</field>
+                    <value name="ARG0">
+                      <block type="component_set_get" id="Screen1_68">
+                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                        <field name="COMPONENT_SELECTOR">延迟输入</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_is_a_number" id="Screen1_69">
+                    <field name="OP">NUMBER</field>
+                    <value name="NUM">
+                      <block type="component_set_get" id="Screen1_70">
+                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="游玩过屏输入" />
+                        <field name="COMPONENT_SELECTOR">游玩过屏输入</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_compare" id="Screen1_71">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="component_set_get" id="Screen1_72">
+                    <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="游玩过屏输入" />
+                    <field name="COMPONENT_SELECTOR">游玩过屏输入</field>
+                    <field name="PROP">Text</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="Screen1_73">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="Screen1_74">
+            <mutation name="保存延迟" />
+            <field name="PROCNAME">保存延迟</field>
+            <next>
+              <block type="local_declaration_statement" id="Screen1_75">
+                <mutation>
+                  <localname name="值" />
+                </mutation>
+                <field name="VAR0">值</field>
+                <value name="DECL0">
+                  <block type="lists_copy" id="Screen1_76">
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_77">
+                        <field name="VAR">global 当前谱</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="STACK">
+                  <block type="lists_add_items" id="Screen1_78">
+                    <mutation items="3" />
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_79">
+                        <field name="VAR">值</field>
+                      </block>
+                    </value>
+                    <value name="ITEM0">
+                      <block type="component_set_get" id="Screen1_80">
+                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                        <field name="COMPONENT_SELECTOR">延迟输入</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ITEM1">
+                      <block type="component_set_get" id="Screen1_81">
+                        <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="游玩过屏输入" />
+                        <field name="COMPONENT_SELECTOR">游玩过屏输入</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ITEM2">
+                      <block type="component_set_get" id="Screen1_82">
+                        <mutation component_type="CheckBox" set_or_get="get" property_name="Checked" is_generic="false" instance_name="打击音设置" />
+                        <field name="COMPONENT_SELECTOR">打击音设置</field>
+                        <field name="PROP">Checked</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_openAnotherScreenWithStartValue" id="Screen1_83">
+                        <value name="SCREENNAME">
+                          <block type="text" id="Screen1_84">
+                            <field name="TEXT">Play</field>
+                          </block>
+                        </value>
+                        <value name="STARTVALUE">
+                          <block type="lexical_variable_get" id="Screen1_85">
+                            <field name="VAR">值</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="Screen1_86">
+            <mutation component_type="Notifier" method_name="ShowAlert" is_generic="false" instance_name="提示" />
+            <field name="COMPONENT_SELECTOR">提示</field>
+            <value name="ARG0">
+              <block type="text" id="Screen1_87">
+                <field name="TEXT">延迟须在 -400～400ms，过屏时间须大于 0ms</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="520" y="340" collapsed="true" id="Screen1_88">
+    <mutation />
+    <field name="NAME">保存延迟</field>
+    <statement name="STACK">
+      <block type="controls_if" id="Screen1_89">
+        <value name="IF0">
+          <block type="procedures_callreturn" id="Screen1_90">
+            <mutation name="合法延迟">
+              <arg name="值" />
+            </mutation>
+            <field name="PROCNAME">合法延迟</field>
+            <value name="ARG0">
+              <block type="component_set_get" id="Screen1_91">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                <field name="COMPONENT_SELECTOR">延迟输入</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_method" id="Screen1_92">
+            <mutation component_type="TinyDB" method_name="StoreValue" is_generic="false" instance_name="本地记录" />
+            <field name="COMPONENT_SELECTOR">本地记录</field>
+            <value name="ARG0">
+              <block type="text" id="Screen1_93">
+                <field name="TEXT">谱面延迟</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="component_set_get" id="Screen1_94">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                <field name="COMPONENT_SELECTOR">延迟输入</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="520" y="400" collapsed="true" id="Screen1_95">
+    <mutation component_type="TextBox" is_generic="false" instance_name="延迟输入" event_name="LostFocus" />
+    <field name="COMPONENT_SELECTOR">延迟输入</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_96">
+        <mutation name="保存延迟" />
+        <field name="PROCNAME">保存延迟</field>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="520" y="460" collapsed="true" id="Screen1_97">
+    <mutation component_type="CheckBox" is_generic="false" instance_name="打击音设置" event_name="Changed" />
+    <field name="COMPONENT_SELECTOR">打击音设置</field>
+    <statement name="DO">
+      <block type="component_method" id="Screen1_98">
+        <mutation component_type="TinyDB" method_name="StoreValue" is_generic="false" instance_name="本地记录" />
+        <field name="COMPONENT_SELECTOR">本地记录</field>
+        <value name="ARG0">
+          <block type="text" id="Screen1_99">
+            <field name="TEXT">打击音效</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="component_set_get" id="Screen1_100">
+            <mutation component_type="CheckBox" set_or_get="get" property_name="Checked" is_generic="false" instance_name="打击音设置" />
+            <field name="COMPONENT_SELECTOR">打击音设置</field>
+            <field name="PROP">Checked</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="520" y="520" collapsed="true" id="Screen1_101">
+    <mutation />
+    <field name="NAME">刷新入口</field>
+    <statement name="STACK">
+      <block type="local_declaration_statement" id="Screen1_102">
+        <mutation>
+          <localname name="忙" />
+        </mutation>
+        <field name="VAR0">忙</field>
+        <value name="DECL0">
+          <block type="logic_operation" id="Screen1_103">
+            <mutation items="2" />
+            <field name="OP">OR</field>
+            <value name="A">
+              <block type="lexical_variable_get" id="Screen1_104">
+                <field name="VAR">global 读取中</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="lexical_variable_get" id="Screen1_105">
+                <field name="VAR">global 正在检查</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="component_set_get" id="Screen1_106">
+            <mutation component_type="FilePicker" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="选谱" />
+            <field name="COMPONENT_SELECTOR">选谱</field>
+            <field name="PROP">Enabled</field>
+            <value name="VALUE">
+              <block type="logic_negate" id="Screen1_107">
+                <value name="BOOL">
+                  <block type="lexical_variable_get" id="Screen1_108">
+                    <field name="VAR">忙</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="Screen1_109">
+                <mutation component_type="ListPicker" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="保存谱面" />
+                <field name="COMPONENT_SELECTOR">保存谱面</field>
+                <field name="PROP">Enabled</field>
+                <value name="VALUE">
+                  <block type="logic_negate" id="Screen1_110">
+                    <value name="BOOL">
+                      <block type="lexical_variable_get" id="Screen1_111">
+                        <field name="VAR">忙</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="Screen1_112">
+                    <mutation component_type="FilePicker" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="选音乐" />
+                    <field name="COMPONENT_SELECTOR">选音乐</field>
+                    <field name="PROP">Enabled</field>
+                    <value name="VALUE">
+                      <block type="logic_operation" id="Screen1_113">
+                        <mutation items="2" />
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="math_compare" id="Screen1_114">
+                            <field name="OP">EQ</field>
+                            <value name="A">
+                              <block type="lists_length" id="Screen1_115">
+                                <value name="LIST">
+                                  <block type="lexical_variable_get" id="Screen1_116">
+                                    <field name="VAR">global 当前谱</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="Screen1_117">
+                                <field name="NUM">8</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="logic_negate" id="Screen1_118">
+                            <value name="BOOL">
+                              <block type="lexical_variable_get" id="Screen1_119">
+                                <field name="VAR">忙</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="Screen1_120">
+                        <mutation component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="开始" />
+                        <field name="COMPONENT_SELECTOR">开始</field>
+                        <field name="PROP">Enabled</field>
+                        <value name="VALUE">
+                          <block type="logic_operation" id="Screen1_121">
+                            <mutation items="2" />
+                            <field name="OP">AND</field>
+                            <value name="A">
+                              <block type="lexical_variable_get" id="Screen1_122">
+                                <field name="VAR">global 音乐就绪</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="logic_negate" id="Screen1_123">
+                                <value name="BOOL">
+                                  <block type="lexical_variable_get" id="Screen1_124">
+                                    <field name="VAR">忙</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="520" y="580" collapsed="true" id="Screen1_125">
+    <mutation>
+      <arg name="文本" />
+    </mutation>
+    <field name="NAME">提示问题</field>
+    <field name="VAR0">文本</field>
+    <statement name="STACK">
+      <block type="component_set_get" id="Screen1_126">
+        <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="读取状态" />
+        <field name="COMPONENT_SELECTOR">读取状态</field>
+        <field name="PROP">Text</field>
+        <value name="VALUE">
+          <block type="lexical_variable_get" id="Screen1_127">
+            <field name="VAR">文本</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_method" id="Screen1_128">
+            <mutation component_type="Notifier" method_name="ShowAlert" is_generic="false" instance_name="提示" />
+            <field name="COMPONENT_SELECTOR">提示</field>
+            <value name="ARG0">
+              <block type="lexical_variable_get" id="Screen1_129">
+                <field name="VAR">文本</field>
+              </block>
+            </value>
+            <next>
+              <block type="procedures_callnoreturn" id="Screen1_130">
+                <mutation name="刷新入口" />
+                <field name="PROCNAME">刷新入口</field>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="520" y="640" collapsed="true" id="Screen1_131">
+    <mutation component_type="FilePicker" is_generic="false" instance_name="选谱" event_name="AfterPicking" />
+    <field name="COMPONENT_SELECTOR">选谱</field>
+    <statement name="DO">
+      <block type="lexical_variable_set" id="Screen1_132">
+        <field name="VAR">global 待用音乐</field>
+        <value name="VALUE">
+          <block type="text" id="Screen1_133">
+            <field name="TEXT" />
+          </block>
+        </value>
+        <next>
+          <block type="procedures_callnoreturn" id="Screen1_134">
+            <mutation name="读取本地谱">
+              <arg name="地址" />
+            </mutation>
+            <field name="PROCNAME">读取本地谱</field>
+            <value name="ARG0">
+              <block type="component_set_get" id="Screen1_135">
+                <mutation component_type="FilePicker" set_or_get="get" property_name="Selection" is_generic="false" instance_name="选谱" />
+                <field name="COMPONENT_SELECTOR">选谱</field>
+                <field name="PROP">Selection</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="520" y="700" collapsed="true" id="Screen1_136">
+    <mutation component_type="ListPicker" is_generic="false" instance_name="保存谱面" event_name="AfterPicking" />
+    <field name="COMPONENT_SELECTOR">保存谱面</field>
+    <statement name="DO">
+      <block type="local_declaration_statement" id="Screen1_137">
+        <mutation>
+          <localname name="记录" />
+        </mutation>
+        <field name="VAR0">记录</field>
+        <value name="DECL0">
+          <block type="lists_select_item" id="Screen1_138">
+            <value name="LIST">
+              <block type="lexical_variable_get" id="Screen1_139">
+                <field name="VAR">global 保存列表</field>
+              </block>
+            </value>
+            <value name="NUM">
+              <block type="component_set_get" id="Screen1_140">
+                <mutation component_type="ListPicker" set_or_get="get" property_name="SelectionIndex" is_generic="false" instance_name="保存谱面" />
+                <field name="COMPONENT_SELECTOR">保存谱面</field>
+                <field name="PROP">SelectionIndex</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="lexical_variable_set" id="Screen1_141">
+            <field name="VAR">global 待用音乐</field>
+            <value name="VALUE">
+              <block type="lists_select_item" id="Screen1_142">
+                <value name="LIST">
+                  <block type="lexical_variable_get" id="Screen1_143">
+                    <field name="VAR">记录</field>
+                  </block>
+                </value>
+                <value name="NUM">
+                  <block type="math_number" id="Screen1_144">
+                    <field name="NUM">3</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="procedures_callnoreturn" id="Screen1_145">
+                <mutation name="读取本地谱">
+                  <arg name="地址" />
+                </mutation>
+                <field name="PROCNAME">读取本地谱</field>
+                <value name="ARG0">
+                  <block type="lists_select_item" id="Screen1_146">
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_147">
+                        <field name="VAR">记录</field>
+                      </block>
+                    </value>
+                    <value name="NUM">
+                      <block type="math_number" id="Screen1_148">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="520" y="760" collapsed="true" id="Screen1_149">
+    <mutation>
+      <arg name="地址" />
+    </mutation>
+    <field name="NAME">读取本地谱</field>
+    <field name="VAR0">地址</field>
+    <statement name="STACK">
+      <block type="lexical_variable_set" id="Screen1_150">
+        <field name="VAR">global 谱面地址</field>
+        <value name="VALUE">
+          <block type="lexical_variable_get" id="Screen1_151">
+            <field name="VAR">地址</field>
+          </block>
+        </value>
+        <next>
+          <block type="lexical_variable_set" id="Screen1_152">
+            <field name="VAR">global 读取中</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_153">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_154">
+                <field name="VAR">global 音乐就绪</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="Screen1_155">
+                    <field name="BOOL">FALSE</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="lexical_variable_set" id="Screen1_156">
+                    <field name="VAR">global 当前谱</field>
+                    <value name="VALUE">
+                      <block type="lists_create_with" id="Screen1_157">
+                        <mutation items="0" />
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="Screen1_158">
+                        <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="当前谱名" />
+                        <field name="COMPONENT_SELECTOR">当前谱名</field>
+                        <field name="PROP">Text</field>
+                        <value name="VALUE">
+                          <block type="text" id="Screen1_159">
+                            <field name="TEXT">正在读取谱面</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="Screen1_160">
+                            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="读取状态" />
+                            <field name="COMPONENT_SELECTOR">读取状态</field>
+                            <field name="PROP">Text</field>
+                            <value name="VALUE">
+                              <block type="text" id="Screen1_161">
+                                <field name="TEXT">正在读取谱面源文件</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="procedures_callnoreturn" id="Screen1_162">
+                                <mutation name="刷新入口" />
+                                <field name="PROCNAME">刷新入口</field>
+                                <next>
+                                  <block type="component_method" id="Screen1_163">
+                                    <mutation component_type="File" method_name="ReadFrom" is_generic="false" instance_name="谱面文件" />
+                                    <field name="COMPONENT_SELECTOR">谱面文件</field>
+                                    <value name="ARG0">
+                                      <block type="lexical_variable_get" id="Screen1_164">
+                                        <field name="VAR">地址</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="520" y="820" collapsed="true" id="Screen1_165">
+    <mutation component_type="File" is_generic="false" instance_name="谱面文件" event_name="GotText" param_name0="内容" />
+    <field name="COMPONENT_SELECTOR">谱面文件</field>
+    <statement name="DO">
+      <block type="lexical_variable_set" id="Screen1_166">
+        <field name="VAR">global 读取中</field>
+        <value name="VALUE">
+          <block type="logic_boolean" id="Screen1_167">
+            <field name="BOOL">FALSE</field>
+          </block>
+        </value>
+        <next>
+          <block type="local_declaration_statement" id="Screen1_168">
+            <mutation>
+              <localname name="数据" />
+            </mutation>
+            <field name="VAR0">数据</field>
+            <value name="DECL0">
+              <block type="component_method" id="Screen1_169">
+                <mutation component_type="Web" method_name="JsonTextDecode" is_generic="false" instance_name="文本转换" />
+                <field name="COMPONENT_SELECTOR">文本转换</field>
+                <value name="ARG0">
+                  <block type="text_trim" id="Screen1_170">
+                    <value name="TEXT">
+                      <block type="text_replace_all" id="Screen1_171">
+                        <value name="TEXT">
+                          <block type="lexical_variable_get" id="Screen1_172">
+                            <field name="VAR">内容</field>
+                          </block>
+                        </value>
+                        <value name="SEGMENT">
+                          <block type="text" id="Screen1_173">
+                            <field name="TEXT">﻿</field>
+                          </block>
+                        </value>
+                        <value name="REPLACEMENT">
+                          <block type="text" id="Screen1_174">
+                            <field name="TEXT" />
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="STACK">
+              <block type="controls_if" id="Screen1_175">
+                <mutation else="1" />
+                <value name="IF0">
+                  <block type="math_compare" id="Screen1_176">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="procedures_callreturn" id="Screen1_177">
+                        <mutation name="检查谱面">
+                          <arg name="数据" />
+                        </mutation>
+                        <field name="PROCNAME">检查谱面</field>
+                        <value name="ARG0">
+                          <block type="lexical_variable_get" id="Screen1_178">
+                            <field name="VAR">数据</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="text" id="Screen1_179">
+                        <field name="TEXT" />
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="lexical_variable_set" id="Screen1_180">
+                    <field name="VAR">global 当前谱</field>
+                    <value name="VALUE">
+                      <block type="lexical_variable_get" id="Screen1_181">
+                        <field name="VAR">数据</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="Screen1_182">
+                        <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="当前谱名" />
+                        <field name="COMPONENT_SELECTOR">当前谱名</field>
+                        <field name="PROP">Text</field>
+                        <value name="VALUE">
+                          <block type="lists_select_item" id="Screen1_183">
+                            <value name="LIST">
+                              <block type="lexical_variable_get" id="Screen1_184">
+                                <field name="VAR">数据</field>
+                              </block>
+                            </value>
+                            <value name="NUM">
+                              <block type="math_number" id="Screen1_185">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="Screen1_186">
+                            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="读取状态" />
+                            <field name="COMPONENT_SELECTOR">读取状态</field>
+                            <field name="PROP">Text</field>
+                            <value name="VALUE">
+                              <block type="text" id="Screen1_187">
+                                <field name="TEXT">已读取谱面：请选择对应的本地音乐</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="controls_if" id="Screen1_188">
+                                <value name="IF0">
+                                  <block type="logic_negate" id="Screen1_189">
+                                    <value name="BOOL">
+                                      <block type="math_compare" id="Screen1_190">
+                                        <field name="OP">EQ</field>
+                                        <value name="A">
+                                          <block type="lexical_variable_get" id="Screen1_191">
+                                            <field name="VAR">global 待用音乐</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="text" id="Screen1_192">
+                                            <field name="TEXT" />
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="procedures_callnoreturn" id="Screen1_193">
+                                    <mutation name="连接音乐">
+                                      <arg name="地址" />
+                                    </mutation>
+                                    <field name="PROCNAME">连接音乐</field>
+                                    <value name="ARG0">
+                                      <block type="lexical_variable_get" id="Screen1_194">
+                                        <field name="VAR">global 待用音乐</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <statement name="ELSE">
+                  <block type="component_set_get" id="Screen1_195">
+                    <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="当前谱名" />
+                    <field name="COMPONENT_SELECTOR">当前谱名</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="Screen1_196">
+                        <field name="TEXT">尚未选择谱面</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="procedures_callnoreturn" id="Screen1_197">
+                        <mutation name="提示问题">
+                          <arg name="文本" />
+                        </mutation>
+                        <field name="PROCNAME">提示问题</field>
+                        <value name="ARG0">
+                          <block type="lexical_variable_get" id="Screen1_198">
+                            <field name="VAR">global 校验问题</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_199">
+                <field name="VAR">global 待用音乐</field>
+                <value name="VALUE">
+                  <block type="text" id="Screen1_200">
+                    <field name="TEXT" />
+                  </block>
+                </value>
+                <next>
+                  <block type="procedures_callnoreturn" id="Screen1_201">
+                    <mutation name="刷新入口" />
+                    <field name="PROCNAME">刷新入口</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" x="1000" y="40" collapsed="true" id="Screen1_202">
+    <mutation>
+      <arg name="数据" />
+    </mutation>
+    <field name="NAME">检查谱面</field>
+    <field name="VAR0">数据</field>
+    <value name="RETURN">
+      <block type="controls_do_then_return" id="Screen1_203">
+        <value name="VALUE">
+          <block type="lexical_variable_get" id="Screen1_204">
+            <field name="VAR">global 校验问题</field>
+          </block>
+        </value>
+        <statement name="STM">
+          <block type="lexical_variable_set" id="Screen1_205">
+            <field name="VAR">global 校验问题</field>
+            <value name="VALUE">
+              <block type="text" id="Screen1_206">
+                <field name="TEXT">谱面必须为合法八项列表</field>
+              </block>
+            </value>
+            <next>
+              <block type="controls_if" id="Screen1_207">
+                <value name="IF0">
+                  <block type="logic_operation" id="Screen1_208">
+                    <mutation items="2" />
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="logic_operation" id="Screen1_209">
+                        <mutation items="2" />
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="logic_operation" id="Screen1_210">
+                            <mutation items="2" />
+                            <field name="OP">AND</field>
+                            <value name="A">
+                              <block type="logic_operation" id="Screen1_211">
+                                <mutation items="2" />
+                                <field name="OP">AND</field>
+                                <value name="A">
+                                  <block type="logic_operation" id="Screen1_212">
+                                    <mutation items="2" />
+                                    <field name="OP">AND</field>
+                                    <value name="A">
+                                      <block type="lists_is_list" id="Screen1_213">
+                                        <value name="ITEM">
+                                          <block type="lexical_variable_get" id="Screen1_214">
+                                            <field name="VAR">数据</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_compare" id="Screen1_215">
+                                        <field name="OP">EQ</field>
+                                        <value name="A">
+                                          <block type="lists_length" id="Screen1_216">
+                                            <value name="LIST">
+                                              <block type="lexical_variable_get" id="Screen1_217">
+                                                <field name="VAR">数据</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_number" id="Screen1_218">
+                                            <field name="NUM">8</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="text_is_string" id="Screen1_219">
+                                    <value name="ITEM">
+                                      <block type="lists_select_item" id="Screen1_220">
+                                        <value name="LIST">
+                                          <block type="lexical_variable_get" id="Screen1_221">
+                                            <field name="VAR">数据</field>
+                                          </block>
+                                        </value>
+                                        <value name="NUM">
+                                          <block type="math_number" id="Screen1_222">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_is_a_number" id="Screen1_223">
+                                <field name="OP">NUMBER</field>
+                                <value name="NUM">
+                                  <block type="lists_select_item" id="Screen1_224">
+                                    <value name="LIST">
+                                      <block type="lexical_variable_get" id="Screen1_225">
+                                        <field name="VAR">数据</field>
+                                      </block>
+                                    </value>
+                                    <value name="NUM">
+                                      <block type="math_number" id="Screen1_226">
+                                        <field name="NUM">7</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lists_is_list" id="Screen1_227">
+                            <value name="ITEM">
+                              <block type="lists_select_item" id="Screen1_228">
+                                <value name="LIST">
+                                  <block type="lexical_variable_get" id="Screen1_229">
+                                    <field name="VAR">数据</field>
+                                  </block>
+                                </value>
+                                <value name="NUM">
+                                  <block type="math_number" id="Screen1_230">
+                                    <field name="NUM">8</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_compare" id="Screen1_231">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lists_length" id="Screen1_232">
+                            <value name="LIST">
+                              <block type="lists_select_item" id="Screen1_233">
+                                <value name="LIST">
+                                  <block type="lexical_variable_get" id="Screen1_234">
+                                    <field name="VAR">数据</field>
+                                  </block>
+                                </value>
+                                <value name="NUM">
+                                  <block type="math_number" id="Screen1_235">
+                                    <field name="NUM">8</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="Screen1_236">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="lexical_variable_set" id="Screen1_237">
+                    <field name="VAR">global 校验问题</field>
+                    <value name="VALUE">
+                      <block type="text" id="Screen1_238">
+                        <field name="TEXT" />
+                      </block>
+                    </value>
+                    <next>
+                      <block type="local_declaration_statement" id="Screen1_239">
+                        <mutation>
+                          <localname name="上尾" />
+                          <localname name="前时" />
+                        </mutation>
+                        <field name="VAR0">上尾</field>
+                        <field name="VAR1">前时</field>
+                        <value name="DECL0">
+                          <block type="lists_create_with" id="Screen1_240">
+                            <mutation items="4" />
+                            <value name="ADD0">
+                              <block type="math_number" id="Screen1_241">
+                                <field name="NUM">-1</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="math_number" id="Screen1_242">
+                                <field name="NUM">-1</field>
+                              </block>
+                            </value>
+                            <value name="ADD2">
+                              <block type="math_number" id="Screen1_243">
+                                <field name="NUM">-1</field>
+                              </block>
+                            </value>
+                            <value name="ADD3">
+                              <block type="math_number" id="Screen1_244">
+                                <field name="NUM">-1</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="DECL1">
+                          <block type="math_number" id="Screen1_245">
+                            <field name="NUM">-1</field>
+                          </block>
+                        </value>
+                        <statement name="STACK">
+                          <block type="controls_forRange" id="Screen1_246">
+                            <field name="VAR">序号</field>
+                            <value name="START">
+                              <block type="math_number" id="Screen1_247">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <value name="END">
+                              <block type="lists_length" id="Screen1_248">
+                                <value name="LIST">
+                                  <block type="lists_select_item" id="Screen1_249">
+                                    <value name="LIST">
+                                      <block type="lexical_variable_get" id="Screen1_250">
+                                        <field name="VAR">数据</field>
+                                      </block>
+                                    </value>
+                                    <value name="NUM">
+                                      <block type="math_number" id="Screen1_251">
+                                        <field name="NUM">8</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="STEP">
+                              <block type="math_number" id="Screen1_252">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <statement name="DO">
+                              <block type="controls_if" id="Screen1_253">
+                                <value name="IF0">
+                                  <block type="math_compare" id="Screen1_254">
+                                    <field name="OP">EQ</field>
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="Screen1_255">
+                                        <field name="VAR">global 校验问题</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="text" id="Screen1_256">
+                                        <field name="TEXT" />
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="local_declaration_statement" id="Screen1_257">
+                                    <mutation>
+                                      <localname name="音符" />
+                                    </mutation>
+                                    <field name="VAR0">音符</field>
+                                    <value name="DECL0">
+                                      <block type="lists_select_item" id="Screen1_258">
+                                        <value name="LIST">
+                                          <block type="lists_select_item" id="Screen1_259">
+                                            <value name="LIST">
+                                              <block type="lexical_variable_get" id="Screen1_260">
+                                                <field name="VAR">数据</field>
+                                              </block>
+                                            </value>
+                                            <value name="NUM">
+                                              <block type="math_number" id="Screen1_261">
+                                                <field name="NUM">8</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="NUM">
+                                          <block type="lexical_variable_get" id="Screen1_262">
+                                            <field name="VAR">序号</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="STACK">
+                                      <block type="controls_if" id="Screen1_263">
+                                        <mutation else="1" />
+                                        <value name="IF0">
+                                          <block type="logic_operation" id="Screen1_264">
+                                            <mutation items="2" />
+                                            <field name="OP">AND</field>
+                                            <value name="A">
+                                              <block type="logic_operation" id="Screen1_265">
+                                                <mutation items="2" />
+                                                <field name="OP">AND</field>
+                                                <value name="A">
+                                                  <block type="logic_operation" id="Screen1_266">
+                                                    <mutation items="2" />
+                                                    <field name="OP">AND</field>
+                                                    <value name="A">
+                                                      <block type="logic_operation" id="Screen1_267">
+                                                        <mutation items="2" />
+                                                        <field name="OP">AND</field>
+                                                        <value name="A">
+                                                          <block type="logic_operation" id="Screen1_268">
+                                                            <mutation items="2" />
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_operation" id="Screen1_269">
+                                                                <mutation items="2" />
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_operation" id="Screen1_270">
+                                                                    <mutation items="2" />
+                                                                    <field name="OP">AND</field>
+                                                                    <value name="A">
+                                                                      <block type="lists_is_list" id="Screen1_271">
+                                                                        <value name="ITEM">
+                                                                          <block type="lexical_variable_get" id="Screen1_272">
+                                                                            <field name="VAR">音符</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="lists_is_in" id="Screen1_273">
+                                                                        <value name="LIST">
+                                                                          <block type="lists_create_with" id="Screen1_274">
+                                                                            <mutation items="2" />
+                                                                            <value name="ADD0">
+                                                                              <block type="math_number" id="Screen1_275">
+                                                                                <field name="NUM">2</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="ADD1">
+                                                                              <block type="math_number" id="Screen1_276">
+                                                                                <field name="NUM">3</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="ITEM">
+                                                                          <block type="lists_length" id="Screen1_277">
+                                                                            <value name="LIST">
+                                                                              <block type="lexical_variable_get" id="Screen1_278">
+                                                                                <field name="VAR">音符</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="lists_is_in" id="Screen1_279">
+                                                                    <value name="LIST">
+                                                                      <block type="lists_create_with" id="Screen1_280">
+                                                                        <mutation items="4" />
+                                                                        <value name="ADD0">
+                                                                          <block type="math_number" id="Screen1_281">
+                                                                            <field name="NUM">1</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="ADD1">
+                                                                          <block type="math_number" id="Screen1_282">
+                                                                            <field name="NUM">2</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="ADD2">
+                                                                          <block type="math_number" id="Screen1_283">
+                                                                            <field name="NUM">3</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="ADD3">
+                                                                          <block type="math_number" id="Screen1_284">
+                                                                            <field name="NUM">4</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="ITEM">
+                                                                      <block type="lists_select_item" id="Screen1_285">
+                                                                        <value name="LIST">
+                                                                          <block type="lexical_variable_get" id="Screen1_286">
+                                                                            <field name="VAR">音符</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="NUM">
+                                                                          <block type="math_number" id="Screen1_287">
+                                                                            <field name="NUM">1</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="math_is_a_number" id="Screen1_288">
+                                                                <field name="OP">NUMBER</field>
+                                                                <value name="NUM">
+                                                                  <block type="lists_select_item" id="Screen1_289">
+                                                                    <value name="LIST">
+                                                                      <block type="lexical_variable_get" id="Screen1_290">
+                                                                        <field name="VAR">音符</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="NUM">
+                                                                      <block type="math_number" id="Screen1_291">
+                                                                        <field name="NUM">2</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <block type="math_is_a_number" id="Screen1_292">
+                                                            <field name="OP">NUMBER</field>
+                                                            <value name="NUM">
+                                                              <block type="lists_select_item" id="Screen1_293">
+                                                                <value name="LIST">
+                                                                  <block type="lexical_variable_get" id="Screen1_294">
+                                                                    <field name="VAR">音符</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="NUM">
+                                                                  <block type="lists_length" id="Screen1_295">
+                                                                    <value name="LIST">
+                                                                      <block type="lexical_variable_get" id="Screen1_296">
+                                                                        <field name="VAR">音符</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_compare" id="Screen1_297">
+                                                        <field name="OP">GTE</field>
+                                                        <value name="A">
+                                                          <block type="lists_select_item" id="Screen1_298">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Screen1_299">
+                                                                <field name="VAR">音符</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM">
+                                                              <block type="math_number" id="Screen1_300">
+                                                                <field name="NUM">2</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <block type="lexical_variable_get" id="Screen1_301">
+                                                            <field name="VAR">前时</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="math_compare" id="Screen1_302">
+                                                    <field name="OP">GT</field>
+                                                    <value name="A">
+                                                      <block type="lists_select_item" id="Screen1_303">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Screen1_304">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Screen1_305">
+                                                            <field name="NUM">2</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="lists_select_item" id="Screen1_306">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Screen1_307">
+                                                            <field name="VAR">上尾</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="lists_select_item" id="Screen1_308">
+                                                            <value name="LIST">
+                                                              <block type="lexical_variable_get" id="Screen1_309">
+                                                                <field name="VAR">音符</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM">
+                                                              <block type="math_number" id="Screen1_310">
+                                                                <field name="NUM">1</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="logic_operation" id="Screen1_311">
+                                                <mutation items="2" />
+                                                <field name="OP">OR</field>
+                                                <value name="A">
+                                                  <block type="math_compare" id="Screen1_312">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="lists_length" id="Screen1_313">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Screen1_314">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="Screen1_315">
+                                                        <field name="NUM">2</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="math_compare" id="Screen1_316">
+                                                    <field name="OP">GT</field>
+                                                    <value name="A">
+                                                      <block type="lists_select_item" id="Screen1_317">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Screen1_318">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Screen1_319">
+                                                            <field name="NUM">3</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="lists_select_item" id="Screen1_320">
+                                                        <value name="LIST">
+                                                          <block type="lexical_variable_get" id="Screen1_321">
+                                                            <field name="VAR">音符</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="NUM">
+                                                          <block type="math_number" id="Screen1_322">
+                                                            <field name="NUM">2</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="lists_replace_item" id="Screen1_323">
+                                            <value name="LIST">
+                                              <block type="lexical_variable_get" id="Screen1_324">
+                                                <field name="VAR">上尾</field>
+                                              </block>
+                                            </value>
+                                            <value name="NUM">
+                                              <block type="lists_select_item" id="Screen1_325">
+                                                <value name="LIST">
+                                                  <block type="lexical_variable_get" id="Screen1_326">
+                                                    <field name="VAR">音符</field>
+                                                  </block>
+                                                </value>
+                                                <value name="NUM">
+                                                  <block type="math_number" id="Screen1_327">
+                                                    <field name="NUM">1</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="ITEM">
+                                              <block type="lists_select_item" id="Screen1_328">
+                                                <value name="LIST">
+                                                  <block type="lexical_variable_get" id="Screen1_329">
+                                                    <field name="VAR">音符</field>
+                                                  </block>
+                                                </value>
+                                                <value name="NUM">
+                                                  <block type="lists_length" id="Screen1_330">
+                                                    <value name="LIST">
+                                                      <block type="lexical_variable_get" id="Screen1_331">
+                                                        <field name="VAR">音符</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="lexical_variable_set" id="Screen1_332">
+                                                <field name="VAR">前时</field>
+                                                <value name="VALUE">
+                                                  <block type="lists_select_item" id="Screen1_333">
+                                                    <value name="LIST">
+                                                      <block type="lexical_variable_get" id="Screen1_334">
+                                                        <field name="VAR">音符</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NUM">
+                                                      <block type="math_number" id="Screen1_335">
+                                                        <field name="NUM">2</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                        <statement name="ELSE">
+                                          <block type="lexical_variable_set" id="Screen1_336">
+                                            <field name="VAR">global 校验问题</field>
+                                            <value name="VALUE">
+                                              <block type="text_join" id="Screen1_337">
+                                                <mutation items="3" />
+                                                <value name="ADD0">
+                                                  <block type="text" id="Screen1_338">
+                                                    <field name="TEXT">第 </field>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD1">
+                                                  <block type="lexical_variable_get" id="Screen1_339">
+                                                    <field name="VAR">序号</field>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD2">
+                                                  <block type="text" id="Screen1_340">
+                                                    <field name="TEXT"> 个音符格式、时间或同轨占用不正确</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </statement>
+                              </block>
+                            </statement>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="1000" y="100" collapsed="true" id="Screen1_341">
+    <mutation component_type="FilePicker" is_generic="false" instance_name="选音乐" event_name="AfterPicking" />
+    <field name="COMPONENT_SELECTOR">选音乐</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_342">
+        <mutation name="连接音乐">
+          <arg name="地址" />
+        </mutation>
+        <field name="PROCNAME">连接音乐</field>
+        <value name="ARG0">
+          <block type="component_set_get" id="Screen1_343">
+            <mutation component_type="FilePicker" set_or_get="get" property_name="Selection" is_generic="false" instance_name="选音乐" />
+            <field name="COMPONENT_SELECTOR">选音乐</field>
+            <field name="PROP">Selection</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="160" collapsed="true" id="Screen1_344">
+    <mutation>
+      <arg name="地址" />
+    </mutation>
+    <field name="NAME">连接音乐</field>
+    <field name="VAR0">地址</field>
+    <statement name="STACK">
+      <block type="lexical_variable_set" id="Screen1_345">
+        <field name="VAR">global 检查音乐地址</field>
+        <value name="VALUE">
+          <block type="lexical_variable_get" id="Screen1_346">
+            <field name="VAR">地址</field>
+          </block>
+        </value>
+        <next>
+          <block type="lexical_variable_set" id="Screen1_347">
+            <field name="VAR">global 音乐权限拒绝</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_348">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_349">
+                <field name="VAR">global 音乐就绪</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="Screen1_350">
+                    <field name="BOOL">FALSE</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="lexical_variable_set" id="Screen1_351">
+                    <field name="VAR">global 检查失败</field>
+                    <value name="VALUE">
+                      <block type="logic_boolean" id="Screen1_352">
+                        <field name="BOOL">FALSE</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="lexical_variable_set" id="Screen1_353">
+                        <field name="VAR">global 正在检查</field>
+                        <value name="VALUE">
+                          <block type="logic_boolean" id="Screen1_354">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="procedures_callnoreturn" id="Screen1_355">
+                            <mutation name="刷新入口" />
+                            <field name="PROCNAME">刷新入口</field>
+                            <next>
+                              <block type="component_set_get" id="Screen1_356">
+                                <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="读取状态" />
+                                <field name="COMPONENT_SELECTOR">读取状态</field>
+                                <field name="PROP">Text</field>
+                                <value name="VALUE">
+                                  <block type="text" id="Screen1_357">
+                                    <field name="TEXT">正在检查音乐；如有权限弹窗，请允许读取音频</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="component_set_get" id="Screen1_358">
+                                    <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="音乐检查时钟" />
+                                    <field name="COMPONENT_SELECTOR">音乐检查时钟</field>
+                                    <field name="PROP">TimerEnabled</field>
+                                    <value name="VALUE">
+                                      <block type="logic_boolean" id="Screen1_359">
+                                        <field name="BOOL">TRUE</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="component_set_get" id="Screen1_360">
+                                        <mutation component_type="Player" set_or_get="set" property_name="Source" is_generic="false" instance_name="音乐检查" />
+                                        <field name="COMPONENT_SELECTOR">音乐检查</field>
+                                        <field name="PROP">Source</field>
+                                        <value name="VALUE">
+                                          <block type="lexical_variable_get" id="Screen1_361">
+                                            <field name="VAR">地址</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="procedures_callnoreturn" id="Screen1_362">
+                                            <mutation name="继续音乐检查" />
+                                            <field name="PROCNAME">继续音乐检查</field>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="220" collapsed="true" id="Screen1_363">
+    <mutation />
+    <field name="NAME">继续音乐检查</field>
+    <statement name="STACK">
+      <block type="controls_if" id="Screen1_364">
+        <value name="IF0">
+          <block type="lexical_variable_get" id="Screen1_365">
+            <field name="VAR">global 正在检查</field>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_if" id="Screen1_366">
+            <mutation elseif="1" />
+            <value name="IF0">
+              <block type="lexical_variable_get" id="Screen1_367">
+                <field name="VAR">global 检查失败</field>
+              </block>
+            </value>
+            <value name="IF1">
+              <block type="math_compare" id="Screen1_368">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="component_set_get" id="Screen1_369">
+                    <mutation component_type="Player" set_or_get="get" property_name="Source" is_generic="false" instance_name="音乐检查" />
+                    <field name="COMPONENT_SELECTOR">音乐检查</field>
+                    <field name="PROP">Source</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="lexical_variable_get" id="Screen1_370">
+                    <field name="VAR">global 检查音乐地址</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="procedures_callnoreturn" id="Screen1_371">
+                <mutation name="完成音乐检查">
+                  <arg name="成功" />
+                </mutation>
+                <field name="PROCNAME">完成音乐检查</field>
+                <value name="ARG0">
+                  <block type="logic_boolean" id="Screen1_372">
+                    <field name="BOOL">FALSE</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <statement name="DO1">
+              <block type="component_method" id="Screen1_373">
+                <mutation component_type="Player" method_name="Start" is_generic="false" instance_name="音乐检查" />
+                <field name="COMPONENT_SELECTOR">音乐检查</field>
+                <next>
+                  <block type="procedures_callnoreturn" id="Screen1_374">
+                    <mutation name="完成音乐检查">
+                      <arg name="成功" />
+                    </mutation>
+                    <field name="PROCNAME">完成音乐检查</field>
+                    <value name="ARG0">
+                      <block type="logic_operation" id="Screen1_375">
+                        <mutation items="2" />
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="logic_negate" id="Screen1_376">
+                            <value name="BOOL">
+                              <block type="lexical_variable_get" id="Screen1_377">
+                                <field name="VAR">global 检查失败</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="component_set_get" id="Screen1_378">
+                            <mutation component_type="Player" set_or_get="get" property_name="IsPlaying" is_generic="false" instance_name="音乐检查" />
+                            <field name="COMPONENT_SELECTOR">音乐检查</field>
+                            <field name="PROP">IsPlaying</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1000" y="280" collapsed="true" id="Screen1_379">
+    <mutation component_type="Clock" is_generic="false" instance_name="音乐检查时钟" event_name="Timer" />
+    <field name="COMPONENT_SELECTOR">音乐检查时钟</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_380">
+        <mutation name="继续音乐检查" />
+        <field name="PROCNAME">继续音乐检查</field>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="340" collapsed="true" id="Screen1_381">
+    <mutation>
+      <arg name="成功" />
+    </mutation>
+    <field name="NAME">完成音乐检查</field>
+    <field name="VAR0">成功</field>
+    <statement name="STACK">
+      <block type="component_set_get" id="Screen1_382">
+        <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="音乐检查时钟" />
+        <field name="COMPONENT_SELECTOR">音乐检查时钟</field>
+        <field name="PROP">TimerEnabled</field>
+        <value name="VALUE">
+          <block type="logic_boolean" id="Screen1_383">
+            <field name="BOOL">FALSE</field>
+          </block>
+        </value>
+        <next>
+          <block type="lexical_variable_set" id="Screen1_384">
+            <field name="VAR">global 正在检查</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_385">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_method" id="Screen1_386">
+                <mutation component_type="Player" method_name="Stop" is_generic="false" instance_name="音乐检查" />
+                <field name="COMPONENT_SELECTOR">音乐检查</field>
+                <next>
+                  <block type="component_set_get" id="Screen1_387">
+                    <mutation component_type="Player" set_or_get="set" property_name="Source" is_generic="false" instance_name="音乐检查" />
+                    <field name="COMPONENT_SELECTOR">音乐检查</field>
+                    <field name="PROP">Source</field>
+                    <value name="VALUE">
+                      <block type="text" id="Screen1_388">
+                        <field name="TEXT" />
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="Screen1_389">
+                        <mutation else="1" />
+                        <value name="IF0">
+                          <block type="lexical_variable_get" id="Screen1_390">
+                            <field name="VAR">成功</field>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="lists_replace_item" id="Screen1_391">
+                            <value name="LIST">
+                              <block type="lexical_variable_get" id="Screen1_392">
+                                <field name="VAR">global 当前谱</field>
+                              </block>
+                            </value>
+                            <value name="NUM">
+                              <block type="math_number" id="Screen1_393">
+                                <field name="NUM">2</field>
+                              </block>
+                            </value>
+                            <value name="ITEM">
+                              <block type="lexical_variable_get" id="Screen1_394">
+                                <field name="VAR">global 检查音乐地址</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="lexical_variable_set" id="Screen1_395">
+                                <field name="VAR">global 音乐就绪</field>
+                                <value name="VALUE">
+                                  <block type="logic_boolean" id="Screen1_396">
+                                    <field name="BOOL">TRUE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="procedures_callnoreturn" id="Screen1_397">
+                                    <mutation name="保存当前谱" />
+                                    <field name="PROCNAME">保存当前谱</field>
+                                    <next>
+                                      <block type="component_set_get" id="Screen1_398">
+                                        <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="读取状态" />
+                                        <field name="COMPONENT_SELECTOR">读取状态</field>
+                                        <field name="PROP">Text</field>
+                                        <value name="VALUE">
+                                          <block type="text" id="Screen1_399">
+                                            <field name="TEXT">已保存谱面与音乐，可以开始游玩</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="procedures_callnoreturn" id="Screen1_400">
+                                            <mutation name="刷新入口" />
+                                            <field name="PROCNAME">刷新入口</field>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <statement name="ELSE">
+                          <block type="procedures_callnoreturn" id="Screen1_401">
+                            <mutation name="提示问题">
+                              <arg name="文本" />
+                            </mutation>
+                            <field name="PROCNAME">提示问题</field>
+                            <value name="ARG0">
+                              <block type="controls_choose" id="Screen1_402">
+                                <value name="TEST">
+                                  <block type="lexical_variable_get" id="Screen1_403">
+                                    <field name="VAR">global 音乐权限拒绝</field>
+                                  </block>
+                                </value>
+                                <value name="THENRETURN">
+                                  <block type="text" id="Screen1_404">
+                                    <field name="TEXT">未获得音乐访问权限，请重新选择音乐并允许读取音频</field>
+                                  </block>
+                                </value>
+                                <value name="ELSERETURN">
+                                  <block type="text" id="Screen1_405">
+                                    <field name="TEXT">音乐源文件找不到、无访问权限或无法播放，请重新选择本地音乐</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="400" collapsed="true" id="Screen1_406">
+    <mutation />
+    <field name="NAME">保存当前谱</field>
+    <statement name="STACK">
+      <block type="local_declaration_statement" id="Screen1_407">
+        <mutation>
+          <localname name="位置" />
+          <localname name="记录" />
+        </mutation>
+        <field name="VAR0">位置</field>
+        <field name="VAR1">记录</field>
+        <value name="DECL0">
+          <block type="math_number" id="Screen1_408">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="DECL1">
+          <block type="lists_create_with" id="Screen1_409">
+            <mutation items="3" />
+            <value name="ADD0">
+              <block type="lists_select_item" id="Screen1_410">
+                <value name="LIST">
+                  <block type="lexical_variable_get" id="Screen1_411">
+                    <field name="VAR">global 当前谱</field>
+                  </block>
+                </value>
+                <value name="NUM">
+                  <block type="math_number" id="Screen1_412">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="lexical_variable_get" id="Screen1_413">
+                <field name="VAR">global 谱面地址</field>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="lists_select_item" id="Screen1_414">
+                <value name="LIST">
+                  <block type="lexical_variable_get" id="Screen1_415">
+                    <field name="VAR">global 当前谱</field>
+                  </block>
+                </value>
+                <value name="NUM">
+                  <block type="math_number" id="Screen1_416">
+                    <field name="NUM">2</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="controls_forRange" id="Screen1_417">
+            <field name="VAR">序号</field>
+            <value name="START">
+              <block type="math_number" id="Screen1_418">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <value name="END">
+              <block type="lists_length" id="Screen1_419">
+                <value name="LIST">
+                  <block type="lexical_variable_get" id="Screen1_420">
+                    <field name="VAR">global 保存列表</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="STEP">
+              <block type="math_number" id="Screen1_421">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="controls_if" id="Screen1_422">
+                <value name="IF0">
+                  <block type="math_compare" id="Screen1_423">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="lists_select_item" id="Screen1_424">
+                        <value name="LIST">
+                          <block type="lists_select_item" id="Screen1_425">
+                            <value name="LIST">
+                              <block type="lexical_variable_get" id="Screen1_426">
+                                <field name="VAR">global 保存列表</field>
+                              </block>
+                            </value>
+                            <value name="NUM">
+                              <block type="lexical_variable_get" id="Screen1_427">
+                                <field name="VAR">序号</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="NUM">
+                          <block type="math_number" id="Screen1_428">
+                            <field name="NUM">2</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="lexical_variable_get" id="Screen1_429">
+                        <field name="VAR">global 谱面地址</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="lexical_variable_set" id="Screen1_430">
+                    <field name="VAR">位置</field>
+                    <value name="VALUE">
+                      <block type="lexical_variable_get" id="Screen1_431">
+                        <field name="VAR">序号</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+            <next>
+              <block type="controls_if" id="Screen1_432">
+                <mutation else="1" />
+                <value name="IF0">
+                  <block type="math_compare" id="Screen1_433">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="lexical_variable_get" id="Screen1_434">
+                        <field name="VAR">位置</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="Screen1_435">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="lists_add_items" id="Screen1_436">
+                    <mutation items="1" />
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_437">
+                        <field name="VAR">global 保存列表</field>
+                      </block>
+                    </value>
+                    <value name="ITEM0">
+                      <block type="lexical_variable_get" id="Screen1_438">
+                        <field name="VAR">记录</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <statement name="ELSE">
+                  <block type="lists_replace_item" id="Screen1_439">
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_440">
+                        <field name="VAR">global 保存列表</field>
+                      </block>
+                    </value>
+                    <value name="NUM">
+                      <block type="lexical_variable_get" id="Screen1_441">
+                        <field name="VAR">位置</field>
+                      </block>
+                    </value>
+                    <value name="ITEM">
+                      <block type="lexical_variable_get" id="Screen1_442">
+                        <field name="VAR">记录</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="component_method" id="Screen1_443">
+            <mutation component_type="TinyDB" method_name="StoreValue" is_generic="false" instance_name="本地记录" />
+            <field name="COMPONENT_SELECTOR">本地记录</field>
+            <value name="ARG0">
+              <block type="text" id="Screen1_444">
+                <field name="TEXT">保存的谱面</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="lexical_variable_get" id="Screen1_445">
+                <field name="VAR">global 保存列表</field>
+              </block>
+            </value>
+            <next>
+              <block type="procedures_callnoreturn" id="Screen1_446">
+                <mutation name="刷新保存列表" />
+                <field name="PROCNAME">刷新保存列表</field>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="460" collapsed="true" id="Screen1_447">
+    <mutation />
+    <field name="NAME">刷新保存列表</field>
+    <statement name="STACK">
+      <block type="local_declaration_statement" id="Screen1_448">
+        <mutation>
+          <localname name="名称表" />
+        </mutation>
+        <field name="VAR0">名称表</field>
+        <value name="DECL0">
+          <block type="lists_create_with" id="Screen1_449">
+            <mutation items="0" />
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="controls_forEach" id="Screen1_450">
+            <field name="VAR">记录</field>
+            <value name="LIST">
+              <block type="lexical_variable_get" id="Screen1_451">
+                <field name="VAR">global 保存列表</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="lists_add_items" id="Screen1_452">
+                <mutation items="1" />
+                <value name="LIST">
+                  <block type="lexical_variable_get" id="Screen1_453">
+                    <field name="VAR">名称表</field>
+                  </block>
+                </value>
+                <value name="ITEM0">
+                  <block type="lists_select_item" id="Screen1_454">
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_455">
+                        <field name="VAR">记录</field>
+                      </block>
+                    </value>
+                    <value name="NUM">
+                      <block type="math_number" id="Screen1_456">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="component_set_get" id="Screen1_457">
+                <mutation component_type="ListPicker" set_or_get="set" property_name="Elements" is_generic="false" instance_name="保存谱面" />
+                <field name="COMPONENT_SELECTOR">保存谱面</field>
+                <field name="PROP">Elements</field>
+                <value name="VALUE">
+                  <block type="lexical_variable_get" id="Screen1_458">
+                    <field name="VAR">名称表</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="component_set_get" id="Screen1_459">
+            <mutation component_type="ListPicker" set_or_get="set" property_name="Text" is_generic="false" instance_name="保存谱面" />
+            <field name="COMPONENT_SELECTOR">保存谱面</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text_join" id="Screen1_460">
+                <mutation items="3" />
+                <value name="ADD0">
+                  <block type="text" id="Screen1_461">
+                    <field name="TEXT">保存的谱面（</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="lists_length" id="Screen1_462">
+                    <value name="LIST">
+                      <block type="lexical_variable_get" id="Screen1_463">
+                        <field name="VAR">global 保存列表</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="text" id="Screen1_464">
+                    <field name="TEXT">）</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1000" y="520" collapsed="true" id="Screen1_465">
+    <mutation component_type="Form" is_generic="false" instance_name="Screen1" event_name="ErrorOccurred" param_name0="组件" param_name1="函数" param_name2="编号" param_name3="消息" />
+    <field name="COMPONENT_SELECTOR">Screen1</field>
+    <statement name="DO">
+      <block type="controls_if" id="Screen1_466">
+        <mutation elseif="2" else="1" />
+        <value name="IF0">
+          <block type="math_compare" id="Screen1_467">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="lexical_variable_get" id="Screen1_468">
+                <field name="VAR">组件</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="component_component_block" id="Screen1_469">
+                <mutation component_type="Player" instance_name="音乐检查" />
+                <field name="COMPONENT_SELECTOR">音乐检查</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="IF1">
+          <block type="logic_operation" id="Screen1_470">
+            <mutation items="2" />
+            <field name="OP">OR</field>
+            <value name="A">
+              <block type="math_compare" id="Screen1_471">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="lexical_variable_get" id="Screen1_472">
+                    <field name="VAR">组件</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="component_component_block" id="Screen1_473">
+                    <mutation component_type="Sound" instance_name="校准节拍" />
+                    <field name="COMPONENT_SELECTOR">校准节拍</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_compare" id="Screen1_474">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="lexical_variable_get" id="Screen1_475">
+                    <field name="VAR">组件</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="component_component_block" id="Screen1_476">
+                    <mutation component_type="Sound" instance_name="校准打击" />
+                    <field name="COMPONENT_SELECTOR">校准打击</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="IF2">
+          <block type="math_compare" id="Screen1_477">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="lexical_variable_get" id="Screen1_478">
+                <field name="VAR">组件</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="component_component_block" id="Screen1_479">
+                <mutation component_type="File" instance_name="谱面文件" />
+                <field name="COMPONENT_SELECTOR">谱面文件</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="lexical_variable_set" id="Screen1_480">
+            <field name="VAR">global 检查失败</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_481">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="DO1">
+          <block type="component_set_get" id="Screen1_482">
+            <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="校准时钟" />
+            <field name="COMPONENT_SELECTOR">校准时钟</field>
+            <field name="PROP">TimerEnabled</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_483">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="Screen1_484">
+                <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="校准提示" />
+                <field name="COMPONENT_SELECTOR">校准提示</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="Screen1_485">
+                    <field name="TEXT">校准声音无法播放，请返回后重试。</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="DO2">
+          <block type="lexical_variable_set" id="Screen1_486">
+            <field name="VAR">global 读取中</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_487">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_488">
+                <field name="VAR">global 待用音乐</field>
+                <value name="VALUE">
+                  <block type="text" id="Screen1_489">
+                    <field name="TEXT" />
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="Screen1_490">
+                    <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="当前谱名" />
+                    <field name="COMPONENT_SELECTOR">当前谱名</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="Screen1_491">
+                        <field name="TEXT">源谱面不可用</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="procedures_callnoreturn" id="Screen1_492">
+                        <mutation name="提示问题">
+                          <arg name="文本" />
+                        </mutation>
+                        <field name="PROCNAME">提示问题</field>
+                        <value name="ARG0">
+                          <block type="text" id="Screen1_493">
+                            <field name="TEXT">谱面源文件找不到或无访问权限，请重新导入本地谱面</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_set_get" id="Screen1_494">
+            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="读取状态" />
+            <field name="COMPONENT_SELECTOR">读取状态</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="lexical_variable_get" id="Screen1_495">
+                <field name="VAR">消息</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1000" y="580" collapsed="true" id="Screen1_496">
+    <mutation component_type="Form" is_generic="false" instance_name="Screen1" event_name="PermissionDenied" param_name0="组件" param_name1="函数" param_name2="权限" />
+    <field name="COMPONENT_SELECTOR">Screen1</field>
+    <statement name="DO">
+      <block type="controls_if" id="Screen1_497">
+        <mutation else="1" />
+        <value name="IF0">
+          <block type="math_compare" id="Screen1_498">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="lexical_variable_get" id="Screen1_499">
+                <field name="VAR">组件</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="component_component_block" id="Screen1_500">
+                <mutation component_type="Player" instance_name="音乐检查" />
+                <field name="COMPONENT_SELECTOR">音乐检查</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="lexical_variable_set" id="Screen1_501">
+            <field name="VAR">global 检查失败</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_502">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_503">
+                <field name="VAR">global 音乐权限拒绝</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="Screen1_504">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="lexical_variable_set" id="Screen1_505">
+            <field name="VAR">global 读取中</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_506">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_507">
+                <field name="VAR">global 待用音乐</field>
+                <value name="VALUE">
+                  <block type="text" id="Screen1_508">
+                    <field name="TEXT" />
+                  </block>
+                </value>
+                <next>
+                  <block type="procedures_callnoreturn" id="Screen1_509">
+                    <mutation name="提示问题">
+                      <arg name="文本" />
+                    </mutation>
+                    <field name="PROCNAME">提示问题</field>
+                    <value name="ARG0">
+                      <block type="text" id="Screen1_510">
+                        <field name="TEXT">无法访问源文件，请重新选择谱面或音乐以授予访问权限</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1000" y="640" collapsed="true" id="Screen1_511">
+    <mutation component_type="Form" is_generic="false" instance_name="Screen1" event_name="BackPressed" />
+    <field name="COMPONENT_SELECTOR">Screen1</field>
+    <statement name="DO">
+      <block type="controls_if" id="Screen1_512">
+        <mutation else="1" />
+        <value name="IF0">
+          <block type="component_set_get" id="Screen1_513">
+            <mutation component_type="VerticalArrangement" set_or_get="get" property_name="Visible" is_generic="false" instance_name="校准页" />
+            <field name="COMPONENT_SELECTOR">校准页</field>
+            <field name="PROP">Visible</field>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="Screen1_514">
+            <mutation name="关闭校准" />
+            <field name="PROCNAME">关闭校准</field>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="controls_closeApplication" id="Screen1_515" />
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1000" y="700" collapsed="true" id="Screen1_516">
+    <mutation component_type="Button" is_generic="false" instance_name="校准入口" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">校准入口</field>
+    <statement name="DO">
+      <block type="component_set_get" id="Screen1_517">
+        <mutation component_type="TextBox" set_or_get="set" property_name="Text" is_generic="false" instance_name="校准数值" />
+        <field name="COMPONENT_SELECTOR">校准数值</field>
+        <field name="PROP">Text</field>
+        <value name="VALUE">
+          <block type="controls_choose" id="Screen1_518">
+            <value name="TEST">
+              <block type="procedures_callreturn" id="Screen1_519">
+                <mutation name="合法延迟">
+                  <arg name="值" />
+                </mutation>
+                <field name="PROCNAME">合法延迟</field>
+                <value name="ARG0">
+                  <block type="component_set_get" id="Screen1_520">
+                    <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                    <field name="COMPONENT_SELECTOR">延迟输入</field>
+                    <field name="PROP">Text</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="THENRETURN">
+              <block type="component_set_get" id="Screen1_521">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="延迟输入" />
+                <field name="COMPONENT_SELECTOR">延迟输入</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+            <value name="ELSERETURN">
+              <block type="math_number" id="Screen1_522">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="procedures_callnoreturn" id="Screen1_523">
+            <mutation name="调整校准" />
+            <field name="PROCNAME">调整校准</field>
+            <next>
+              <block type="component_set_get" id="Screen1_524">
+                <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="首页" />
+                <field name="COMPONENT_SELECTOR">首页</field>
+                <field name="PROP">Visible</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="Screen1_525">
+                    <field name="BOOL">FALSE</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="Screen1_526">
+                    <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="校准页" />
+                    <field name="COMPONENT_SELECTOR">校准页</field>
+                    <field name="PROP">Visible</field>
+                    <value name="VALUE">
+                      <block type="logic_boolean" id="Screen1_527">
+                        <field name="BOOL">TRUE</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="procedures_callnoreturn" id="Screen1_528">
+                        <mutation name="启动校准" />
+                        <field name="PROCNAME">启动校准</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="760" collapsed="true" id="Screen1_529">
+    <mutation />
+    <field name="NAME">启动校准</field>
+    <statement name="STACK">
+      <block type="lexical_variable_set" id="Screen1_530">
+        <field name="VAR">global 校准节拍号</field>
+        <value name="VALUE">
+          <block type="math_number" id="Screen1_531">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <next>
+          <block type="lexical_variable_set" id="Screen1_532">
+            <field name="VAR">global 校准打击号</field>
+            <value name="VALUE">
+              <block type="math_number" id="Screen1_533">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <next>
+              <block type="lexical_variable_set" id="Screen1_534">
+                <field name="VAR">global 校准上次</field>
+                <value name="VALUE">
+                  <block type="math_number" id="Screen1_535">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="lexical_variable_set" id="Screen1_536">
+                    <field name="VAR">global 校准起点</field>
+                    <value name="VALUE">
+                      <block type="component_method" id="Screen1_537">
+                        <mutation component_type="Clock" method_name="SystemTime" is_generic="false" instance_name="校准时钟" />
+                        <field name="COMPONENT_SELECTOR">校准时钟</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="Screen1_538">
+                        <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="校准时钟" />
+                        <field name="COMPONENT_SELECTOR">校准时钟</field>
+                        <field name="PROP">TimerEnabled</field>
+                        <value name="VALUE">
+                          <block type="logic_boolean" id="Screen1_539">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1000" y="820" collapsed="true" id="Screen1_540">
+    <mutation />
+    <field name="NAME">调整校准</field>
+    <statement name="STACK">
+      <block type="controls_if" id="Screen1_541">
+        <mutation else="1" />
+        <value name="IF0">
+          <block type="procedures_callreturn" id="Screen1_542">
+            <mutation name="合法延迟">
+              <arg name="值" />
+            </mutation>
+            <field name="PROCNAME">合法延迟</field>
+            <value name="ARG0">
+              <block type="component_set_get" id="Screen1_543">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="校准数值" />
+                <field name="COMPONENT_SELECTOR">校准数值</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="lexical_variable_set" id="Screen1_544">
+            <field name="VAR">global 试听延迟</field>
+            <value name="VALUE">
+              <block type="component_set_get" id="Screen1_545">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="校准数值" />
+                <field name="COMPONENT_SELECTOR">校准数值</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="Screen1_546">
+                <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="校准提示" />
+                <field name="COMPONENT_SELECTOR">校准提示</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="Screen1_547">
+                    <field name="TEXT">调节数值，让节拍器与打击音重合。</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_set_get" id="Screen1_548">
+            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="校准提示" />
+            <field name="COMPONENT_SELECTOR">校准提示</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="Screen1_549">
+                <field name="TEXT">请输入 -400～400 的数值</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1480" y="40" collapsed="true" id="Screen1_550">
+    <mutation>
+      <arg name="变化" />
+    </mutation>
+    <field name="NAME">校准微调</field>
+    <field name="VAR0">变化</field>
+    <statement name="STACK">
+      <block type="controls_if" id="Screen1_551">
+        <value name="IF0">
+          <block type="math_is_a_number" id="Screen1_552">
+            <field name="OP">NUMBER</field>
+            <value name="NUM">
+              <block type="component_set_get" id="Screen1_553">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="校准数值" />
+                <field name="COMPONENT_SELECTOR">校准数值</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set_get" id="Screen1_554">
+            <mutation component_type="TextBox" set_or_get="set" property_name="Text" is_generic="false" instance_name="校准数值" />
+            <field name="COMPONENT_SELECTOR">校准数值</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="math_on_list" id="Screen1_555">
+                <mutation items="2" />
+                <field name="OP">MAX</field>
+                <value name="NUM0">
+                  <block type="math_number" id="Screen1_556">
+                    <field name="NUM">-400</field>
+                  </block>
+                </value>
+                <value name="NUM1">
+                  <block type="math_on_list" id="Screen1_557">
+                    <mutation items="2" />
+                    <field name="OP">MIN</field>
+                    <value name="NUM0">
+                      <block type="math_number" id="Screen1_558">
+                        <field name="NUM">400</field>
+                      </block>
+                    </value>
+                    <value name="NUM1">
+                      <block type="math_add" id="Screen1_559">
+                        <mutation items="2" />
+                        <value name="NUM0">
+                          <block type="component_set_get" id="Screen1_560">
+                            <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="校准数值" />
+                            <field name="COMPONENT_SELECTOR">校准数值</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="NUM1">
+                          <block type="lexical_variable_get" id="Screen1_561">
+                            <field name="VAR">变化</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="procedures_callnoreturn" id="Screen1_562">
+            <mutation name="调整校准" />
+            <field name="PROCNAME">调整校准</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1480" y="100" collapsed="true" id="Screen1_563">
+    <mutation component_type="Button" is_generic="false" instance_name="校准减少" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">校准减少</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_564">
+        <mutation name="校准微调">
+          <arg name="变化" />
+        </mutation>
+        <field name="PROCNAME">校准微调</field>
+        <value name="ARG0">
+          <block type="math_number" id="Screen1_565">
+            <field name="NUM">-10</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1480" y="160" collapsed="true" id="Screen1_566">
+    <mutation component_type="Button" is_generic="false" instance_name="校准增加" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">校准增加</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_567">
+        <mutation name="校准微调">
+          <arg name="变化" />
+        </mutation>
+        <field name="PROCNAME">校准微调</field>
+        <value name="ARG0">
+          <block type="math_number" id="Screen1_568">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1480" y="220" collapsed="true" id="Screen1_569">
+    <mutation component_type="TextBox" is_generic="false" instance_name="校准数值" event_name="LostFocus" />
+    <field name="COMPONENT_SELECTOR">校准数值</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_570">
+        <mutation name="调整校准" />
+        <field name="PROCNAME">调整校准</field>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1480" y="280" collapsed="true" id="Screen1_571">
+    <mutation component_type="Clock" is_generic="false" instance_name="校准时钟" event_name="Timer" />
+    <field name="COMPONENT_SELECTOR">校准时钟</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_572">
+        <mutation name="更新校准" />
+        <field name="PROCNAME">更新校准</field>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="1480" y="340" collapsed="true" id="Screen1_573">
+    <mutation />
+    <field name="NAME">更新校准</field>
+    <statement name="STACK">
+      <block type="local_declaration_statement" id="Screen1_574">
+        <mutation>
+          <localname name="用时" />
+        </mutation>
+        <field name="VAR0">用时</field>
+        <value name="DECL0">
+          <block type="math_subtract" id="Screen1_575">
+            <value name="A">
+              <block type="component_method" id="Screen1_576">
+                <mutation component_type="Clock" method_name="SystemTime" is_generic="false" instance_name="校准时钟" />
+                <field name="COMPONENT_SELECTOR">校准时钟</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="lexical_variable_get" id="Screen1_577">
+                <field name="VAR">global 校准起点</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="controls_if" id="Screen1_578">
+            <mutation else="1" />
+            <value name="IF0">
+              <block type="math_compare" id="Screen1_579">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="lexical_variable_get" id="Screen1_580">
+                    <field name="VAR">用时</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="lexical_variable_get" id="Screen1_581">
+                    <field name="VAR">global 校准上次</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="procedures_callnoreturn" id="Screen1_582">
+                <mutation name="启动校准" />
+                <field name="PROCNAME">启动校准</field>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="lexical_variable_set" id="Screen1_583">
+                <field name="VAR">global 校准上次</field>
+                <value name="VALUE">
+                  <block type="lexical_variable_get" id="Screen1_584">
+                    <field name="VAR">用时</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="lexical_variable_set" id="Screen1_585">
+                    <field name="VAR">global 校准节拍号</field>
+                    <value name="VALUE">
+                      <block type="procedures_callreturn" id="Screen1_586">
+                        <mutation name="校准发声">
+                          <arg name="声音" />
+                          <arg name="序号" />
+                          <arg name="偏移" />
+                          <arg name="用时" />
+                        </mutation>
+                        <field name="PROCNAME">校准发声</field>
+                        <value name="ARG0">
+                          <block type="component_component_block" id="Screen1_587">
+                            <mutation component_type="Sound" instance_name="校准节拍" />
+                            <field name="COMPONENT_SELECTOR">校准节拍</field>
+                          </block>
+                        </value>
+                        <value name="ARG1">
+                          <block type="lexical_variable_get" id="Screen1_588">
+                            <field name="VAR">global 校准节拍号</field>
+                          </block>
+                        </value>
+                        <value name="ARG2">
+                          <block type="math_number" id="Screen1_589">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                        <value name="ARG3">
+                          <block type="lexical_variable_get" id="Screen1_590">
+                            <field name="VAR">用时</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="lexical_variable_set" id="Screen1_591">
+                        <field name="VAR">global 校准打击号</field>
+                        <value name="VALUE">
+                          <block type="procedures_callreturn" id="Screen1_592">
+                            <mutation name="校准发声">
+                              <arg name="声音" />
+                              <arg name="序号" />
+                              <arg name="偏移" />
+                              <arg name="用时" />
+                            </mutation>
+                            <field name="PROCNAME">校准发声</field>
+                            <value name="ARG0">
+                              <block type="component_component_block" id="Screen1_593">
+                                <mutation component_type="Sound" instance_name="校准打击" />
+                                <field name="COMPONENT_SELECTOR">校准打击</field>
+                              </block>
+                            </value>
+                            <value name="ARG1">
+                              <block type="lexical_variable_get" id="Screen1_594">
+                                <field name="VAR">global 校准打击号</field>
+                              </block>
+                            </value>
+                            <value name="ARG2">
+                              <block type="lexical_variable_get" id="Screen1_595">
+                                <field name="VAR">global 试听延迟</field>
+                              </block>
+                            </value>
+                            <value name="ARG3">
+                              <block type="lexical_variable_get" id="Screen1_596">
+                                <field name="VAR">用时</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_method" id="Screen1_597">
+                            <mutation component_type="Canvas" method_name="Clear" is_generic="false" instance_name="校准画布" />
+                            <field name="COMPONENT_SELECTOR">校准画布</field>
+                            <next>
+                              <block type="component_set_get" id="Screen1_598">
+                                <mutation component_type="Canvas" set_or_get="set" property_name="PaintColor" is_generic="false" instance_name="校准画布" />
+                                <field name="COMPONENT_SELECTOR">校准画布</field>
+                                <field name="PROP">PaintColor</field>
+                                <value name="VALUE">
+                                  <block type="math_number" id="Screen1_599">
+                                    <field name="NUM">-1</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="component_set_get" id="Screen1_600">
+                                    <mutation component_type="Canvas" set_or_get="set" property_name="LineWidth" is_generic="false" instance_name="校准画布" />
+                                    <field name="COMPONENT_SELECTOR">校准画布</field>
+                                    <field name="PROP">LineWidth</field>
+                                    <value name="VALUE">
+                                      <block type="math_number" id="Screen1_601">
+                                        <field name="NUM">2</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="component_method" id="Screen1_602">
+                                        <mutation component_type="Canvas" method_name="DrawLine" is_generic="false" instance_name="校准画布" />
+                                        <field name="COMPONENT_SELECTOR">校准画布</field>
+                                        <value name="ARG0">
+                                          <block type="math_number" id="Screen1_603">
+                                            <field name="NUM">15</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG1">
+                                          <block type="math_number" id="Screen1_604">
+                                            <field name="NUM">140</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG2">
+                                          <block type="math_subtract" id="Screen1_605">
+                                            <value name="A">
+                                              <block type="component_set_get" id="Screen1_606">
+                                                <mutation component_type="Canvas" set_or_get="get" property_name="Width" is_generic="false" instance_name="校准画布" />
+                                                <field name="COMPONENT_SELECTOR">校准画布</field>
+                                                <field name="PROP">Width</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id="Screen1_607">
+                                                <field name="NUM">15</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="ARG3">
+                                          <block type="math_number" id="Screen1_608">
+                                            <field name="NUM">140</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="component_set_get" id="Screen1_609">
+                                            <mutation component_type="Canvas" set_or_get="set" property_name="PaintColor" is_generic="false" instance_name="校准画布" />
+                                            <field name="COMPONENT_SELECTOR">校准画布</field>
+                                            <field name="PROP">PaintColor</field>
+                                            <value name="VALUE">
+                                              <block type="math_number" id="Screen1_610">
+                                                <field name="NUM">-11084049</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="component_set_get" id="Screen1_611">
+                                                <mutation component_type="Canvas" set_or_get="set" property_name="LineWidth" is_generic="false" instance_name="校准画布" />
+                                                <field name="COMPONENT_SELECTOR">校准画布</field>
+                                                <field name="PROP">LineWidth</field>
+                                                <value name="VALUE">
+                                                  <block type="math_number" id="Screen1_612">
+                                                    <field name="NUM">12</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="local_declaration_statement" id="Screen1_613">
+                                                    <mutation>
+                                                      <localname name="纵" />
+                                                    </mutation>
+                                                    <field name="VAR0">纵</field>
+                                                    <value name="DECL0">
+                                                      <block type="math_subtract" id="Screen1_614">
+                                                        <value name="A">
+                                                          <block type="math_number" id="Screen1_615">
+                                                            <field name="NUM">140</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <block type="math_multiply" id="Screen1_616">
+                                                            <mutation items="2" />
+                                                            <value name="NUM0">
+                                                              <block type="math_subtract" id="Screen1_617">
+                                                                <value name="A">
+                                                                  <block type="math_add" id="Screen1_618">
+                                                                    <mutation items="3" />
+                                                                    <value name="NUM0">
+                                                                      <block type="math_number" id="Screen1_619">
+                                                                        <field name="NUM">500</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="NUM1">
+                                                                      <block type="math_multiply" id="Screen1_620">
+                                                                        <mutation items="2" />
+                                                                        <value name="NUM0">
+                                                                          <block type="lexical_variable_get" id="Screen1_621">
+                                                                            <field name="VAR">global 校准打击号</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="NUM1">
+                                                                          <block type="math_number" id="Screen1_622">
+                                                                            <field name="NUM">1000</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="NUM2">
+                                                                      <block type="lexical_variable_get" id="Screen1_623">
+                                                                        <field name="VAR">global 试听延迟</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="lexical_variable_get" id="Screen1_624">
+                                                                    <field name="VAR">用时</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM1">
+                                                              <block type="math_number" id="Screen1_625">
+                                                                <field name="NUM">0.14</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <statement name="STACK">
+                                                      <block type="component_method" id="Screen1_626">
+                                                        <mutation component_type="Canvas" method_name="DrawLine" is_generic="false" instance_name="校准画布" />
+                                                        <field name="COMPONENT_SELECTOR">校准画布</field>
+                                                        <value name="ARG0">
+                                                          <block type="math_subtract" id="Screen1_627">
+                                                            <value name="A">
+                                                              <block type="math_division" id="Screen1_628">
+                                                                <value name="A">
+                                                                  <block type="component_set_get" id="Screen1_629">
+                                                                    <mutation component_type="Canvas" set_or_get="get" property_name="Width" is_generic="false" instance_name="校准画布" />
+                                                                    <field name="COMPONENT_SELECTOR">校准画布</field>
+                                                                    <field name="PROP">Width</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="math_number" id="Screen1_630">
+                                                                    <field name="NUM">2</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="math_number" id="Screen1_631">
+                                                                <field name="NUM">35</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG1">
+                                                          <block type="lexical_variable_get" id="Screen1_632">
+                                                            <field name="VAR">纵</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG2">
+                                                          <block type="math_add" id="Screen1_633">
+                                                            <mutation items="2" />
+                                                            <value name="NUM0">
+                                                              <block type="math_division" id="Screen1_634">
+                                                                <value name="A">
+                                                                  <block type="component_set_get" id="Screen1_635">
+                                                                    <mutation component_type="Canvas" set_or_get="get" property_name="Width" is_generic="false" instance_name="校准画布" />
+                                                                    <field name="COMPONENT_SELECTOR">校准画布</field>
+                                                                    <field name="PROP">Width</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="math_number" id="Screen1_636">
+                                                                    <field name="NUM">2</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="NUM1">
+                                                              <block type="math_number" id="Screen1_637">
+                                                                <field name="NUM">35</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG3">
+                                                          <block type="lexical_variable_get" id="Screen1_638">
+                                                            <field name="VAR">纵</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </statement>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" x="1480" y="400" collapsed="true" id="Screen1_639">
+    <mutation>
+      <arg name="声音" />
+      <arg name="序号" />
+      <arg name="偏移" />
+      <arg name="用时" />
+    </mutation>
+    <field name="NAME">校准发声</field>
+    <field name="VAR0">声音</field>
+    <field name="VAR1">序号</field>
+    <field name="VAR2">偏移</field>
+    <field name="VAR3">用时</field>
+    <value name="RETURN">
+      <block type="local_declaration_expression" id="Screen1_640">
+        <mutation>
+          <localname name="迟到" />
+        </mutation>
+        <field name="VAR0">迟到</field>
+        <value name="DECL0">
+          <block type="math_subtract" id="Screen1_641">
+            <value name="A">
+              <block type="lexical_variable_get" id="Screen1_642">
+                <field name="VAR">用时</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_add" id="Screen1_643">
+                <mutation items="3" />
+                <value name="NUM0">
+                  <block type="math_number" id="Screen1_644">
+                    <field name="NUM">500</field>
+                  </block>
+                </value>
+                <value name="NUM1">
+                  <block type="math_multiply" id="Screen1_645">
+                    <mutation items="2" />
+                    <value name="NUM0">
+                      <block type="lexical_variable_get" id="Screen1_646">
+                        <field name="VAR">序号</field>
+                      </block>
+                    </value>
+                    <value name="NUM1">
+                      <block type="math_number" id="Screen1_647">
+                        <field name="NUM">1000</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="NUM2">
+                  <block type="lexical_variable_get" id="Screen1_648">
+                    <field name="VAR">偏移</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="RETURN">
+          <block type="controls_do_then_return" id="Screen1_649">
+            <value name="VALUE">
+              <block type="controls_choose" id="Screen1_650">
+                <value name="TEST">
+                  <block type="math_compare" id="Screen1_651">
+                    <field name="OP">GTE</field>
+                    <value name="A">
+                      <block type="lexical_variable_get" id="Screen1_652">
+                        <field name="VAR">迟到</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="Screen1_653">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="THENRETURN">
+                  <block type="math_add" id="Screen1_654">
+                    <mutation items="2" />
+                    <value name="NUM0">
+                      <block type="math_single" id="Screen1_655">
+                        <field name="OP">FLOOR</field>
+                        <value name="NUM">
+                          <block type="math_division" id="Screen1_656">
+                            <value name="A">
+                              <block type="math_subtract" id="Screen1_657">
+                                <value name="A">
+                                  <block type="math_subtract" id="Screen1_658">
+                                    <value name="A">
+                                      <block type="lexical_variable_get" id="Screen1_659">
+                                        <field name="VAR">用时</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="lexical_variable_get" id="Screen1_660">
+                                        <field name="VAR">偏移</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number" id="Screen1_661">
+                                    <field name="NUM">500</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="Screen1_662">
+                                <field name="NUM">1000</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="NUM1">
+                      <block type="math_number" id="Screen1_663">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ELSERETURN">
+                  <block type="lexical_variable_get" id="Screen1_664">
+                    <field name="VAR">序号</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="STM">
+              <block type="controls_if" id="Screen1_665">
+                <value name="IF0">
+                  <block type="logic_operation" id="Screen1_666">
+                    <mutation items="2" />
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="math_compare" id="Screen1_667">
+                        <field name="OP">GTE</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="Screen1_668">
+                            <field name="VAR">迟到</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="Screen1_669">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_compare" id="Screen1_670">
+                        <field name="OP">LTE</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="Screen1_671">
+                            <field name="VAR">迟到</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="Screen1_672">
+                            <field name="NUM">120</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="component_method" id="Screen1_673">
+                    <mutation component_type="Sound" method_name="Play" is_generic="true" />
+                    <value name="COMPONENT">
+                      <block type="lexical_variable_get" id="Screen1_674">
+                        <field name="VAR">声音</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="1480" y="460" collapsed="true" id="Screen1_675">
+    <mutation />
+    <field name="NAME">关闭校准</field>
+    <statement name="STACK">
+      <block type="component_set_get" id="Screen1_676">
+        <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="校准时钟" />
+        <field name="COMPONENT_SELECTOR">校准时钟</field>
+        <field name="PROP">TimerEnabled</field>
+        <value name="VALUE">
+          <block type="logic_boolean" id="Screen1_677">
+            <field name="BOOL">FALSE</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="Screen1_678">
+            <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="校准页" />
+            <field name="COMPONENT_SELECTOR">校准页</field>
+            <field name="PROP">Visible</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Screen1_679">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="Screen1_680">
+                <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="首页" />
+                <field name="COMPONENT_SELECTOR">首页</field>
+                <field name="PROP">Visible</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="Screen1_681">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1480" y="520" collapsed="true" id="Screen1_682">
+    <mutation component_type="Button" is_generic="false" instance_name="校准应用" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">校准应用</field>
+    <statement name="DO">
+      <block type="controls_if" id="Screen1_683">
+        <mutation else="1" />
+        <value name="IF0">
+          <block type="procedures_callreturn" id="Screen1_684">
+            <mutation name="合法延迟">
+              <arg name="值" />
+            </mutation>
+            <field name="PROCNAME">合法延迟</field>
+            <value name="ARG0">
+              <block type="component_set_get" id="Screen1_685">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="校准数值" />
+                <field name="COMPONENT_SELECTOR">校准数值</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set_get" id="Screen1_686">
+            <mutation component_type="TextBox" set_or_get="set" property_name="Text" is_generic="false" instance_name="延迟输入" />
+            <field name="COMPONENT_SELECTOR">延迟输入</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="component_set_get" id="Screen1_687">
+                <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="校准数值" />
+                <field name="COMPONENT_SELECTOR">校准数值</field>
+                <field name="PROP">Text</field>
+              </block>
+            </value>
+            <next>
+              <block type="procedures_callnoreturn" id="Screen1_688">
+                <mutation name="保存延迟" />
+                <field name="PROCNAME">保存延迟</field>
+                <next>
+                  <block type="procedures_callnoreturn" id="Screen1_689">
+                    <mutation name="关闭校准" />
+                    <field name="PROCNAME">关闭校准</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_set_get" id="Screen1_690">
+            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="校准提示" />
+            <field name="COMPONENT_SELECTOR">校准提示</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="Screen1_691">
+                <field name="TEXT">请输入 -400～400 的数值</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="1480" y="580" collapsed="true" id="Screen1_692">
+    <mutation component_type="Button" is_generic="false" instance_name="校准返回" event_name="Click" />
+    <field name="COMPONENT_SELECTOR">校准返回</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="Screen1_693">
+        <mutation name="关闭校准" />
+        <field name="PROCNAME">关闭校准</field>
+      </block>
+    </statement>
+  </block>
+  <yacodeblocks ya-version="224" language-version="34" />
+</xml>

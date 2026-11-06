@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
-const C=require('../hold-core.js'),html=fs.readFileSync(__dirname+'/../source.html','utf8');
+const {core:C}=require('./source.cjs');
 const base=['标签谱','song.mp3',500,2,120,4,20000,[[1,1000],[2,1500,2500]]];
 const chart=tags=>JSON.stringify(base)+'\n//tags:'+JSON.stringify(tags);
 test('无标签时导出与旧格式逐字相同',()=>{
@@ -26,9 +26,4 @@ test('非法标签被拒绝',()=>{
  for(const tags of [[['',1]],[['  ',1]],[['A',-1]],[['A','1']],[['A',7200001]],[['A']],[['A',1,2]],'x',{}])assert.throws(()=>C.parse(chart(tags)),/标签格式不正确/);
  assert.throws(()=>C.parse(JSON.stringify(base)+'\n//tags:[oops'),/标签格式不正确/);
  assert.throws(()=>C.normalizeTags(Array.from({length:1001},(_,i)=>['A',i])),/标签格式不正确/);
-});
-test('网页副本与内嵌脚本一致',()=>{
- const crlf=s=>s.replace(/\r?\n/g,'\r\n');
- assert.ok(html.includes(crlf(fs.readFileSync(__dirname+'/../hold-core.js','utf8'))));
- assert.ok(html.includes(crlf(fs.readFileSync(__dirname+'/../hold-app.js','utf8'))));
 });

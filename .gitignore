@@ -5,7 +5,6 @@
 !/tools/
 /tools/*
 !/tools/*.py
-!/tools/*.ps1
 !/tools/current_release.json
 !/tests/
 /tests/*
@@ -13,38 +12,14 @@
 !/web-editor/
 /web-editor/*
 !/web-editor/source.html
-!/web-editor/hold-core.js
-!/web-editor/hold-app.js
-!/web-editor/pitch-audio.js
 !/web-editor/serve.py
 !/web-editor/tests/
 /web-editor/tests/*
 !/web-editor/tests/*.cjs
-!/web-editor/fix_1016/
-/web-editor/fix_1016/*
-!/web-editor/fix_1016/sync.test.cjs
-!/archive/
-/archive/*
-!/archive/历史目录/
-/archive/历史目录/*
-!/archive/历史目录/tests/
-/archive/历史目录/tests/*
-!/archive/历史目录/tests/*.py
-!/archive/历史目录/tests/*.js
-!/archive/历史目录/tools/
-/archive/历史目录/tools/*
-!/archive/历史目录/tools/*.py
-!/archive/历史目录/tools/*.cjs
-!/extensions/
-/extensions/*
-!/extensions/localfiles/
-/extensions/localfiles/*
-!/extensions/localfiles/src/
-!/extensions/localfiles/dependencies.json
 !/native/
 /native/*
 # current-native-start
-!/native/Arivento_1106_1/
+!/native/Arivento_1106_2/
 # current-native-end
 **/__pycache__/
 **/node_modules/
