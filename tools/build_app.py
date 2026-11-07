@@ -112,6 +112,26 @@ def remove(design,names):
         for k in c['$Components']:visit(k)
         if not c['$Components']:del c['$Components']
     visit(design['Properties'])
+def insert(design,anchor,comps):
+    every=components(design)
+    if comps[0]['$Name'] in every:return
+    ids=[int(c['Uuid']) for c in every.values() if str(c.get('Uuid','')).lstrip('-').isdigit()]
+    def number(c,n):
+        c['Uuid']=str(n)
+        for k in c.get('$Components',[]):n=number(k,n+1)
+        return n
+    n=max(ids,default=0)
+    for c in comps:n=number(c,n+1)
+    def visit(c):
+        kids=c.get('$Components',[])
+        for i,k in enumerate(kids):
+            if k['$Name']==anchor:kids[i+1:i+1]=comps;return True
+            if visit(k):return True
+    visit(design['Properties'])
+def ui(name,kind,version,**props):
+    kids=props.pop('kids',None);c={'$Name':name,'$Type':kind,'$Version':str(version),**{k:str(v) for k,v in props.items()}}
+    if kids:c['$Components']=kids
+    return c
 def write(screen,path,design,tops,procs):
     root=ET.Element('xml',xmlns='http://www.w3.org/1999/xhtml')
     for i,b in enumerate(tops):
@@ -130,9 +150,15 @@ def declare(names):
 def screen1():
     path,design=load('Screen1')
     remove(design,{'打击音量标题','打击音量滑条','底部入口','校准音乐'})
+    look=dict(BackgroundColor='&HFF151E32',TextColor='&HFFEAF2FF',FontSize=16,Height=40,MultiLine='False',NumbersOnly='True',Width=-1050)
+    insert(design,'开始',[ui('练习设置','CheckBox',3,Text='练习模式',TextColor='&HFFEAF2FF',Width=-2,FontSize=15),
+        ui('练习区','VerticalArrangement',4,Width=-2,Visible='False',kids=[
+            ui('练习标题','Label',5,Text='练习时间段（秒，结束留空则到谱面结尾）',Width=-2,TextColor='&HFFEAF2FF',FontSize=14),
+            ui('练习范围','HorizontalArrangement',4,Width=-2,kids=[ui('练习开始','TextBox',6,Text='0',Hint='开始',**look),ui('练习结束','TextBox',6,Text='',Hint='结束',**look)]),
+            ui('自动播放','CheckBox',3,Text='AutoPlay',TextColor='&HFFEAF2FF',Width=-2,FontSize=15)])])
     c=components(design);TYPES.clear();TYPES.update({k:v['$Type'] for k,v in c.items()})
     c['校准打击']['Source']='arivento_hit.wav';c['打击音设置']['Text']='打击音效'
-    PROCS.clear();declare({'合法延迟':['值'],'刷新入口':[],'提示问题':['文本'],'保存延迟':[],'读取本地谱':['地址'],'检查谱面':['数据'],'连接音乐':['地址'],
+    PROCS.clear();declare({'合法延迟':['值'],'练习范围':[],'刷新入口':[],'提示问题':['文本'],'保存延迟':[],'读取本地谱':['地址'],'检查谱面':['数据'],'连接音乐':['地址'],
         '继续音乐检查':[],'完成音乐检查':['成功'],'保存当前谱':[],'刷新保存列表':[],'启动校准':[],'调整校准':[],'校准微调':['变化'],'更新校准':[],'校准发声':['声音','序号','偏移','用时'],'关闭校准':[]})
     bad=join('第 ',L('序号'),' 个音符格式、时间或同轨占用不正确')
     tops=[*[glob(n,v) for n,v in [('当前谱',mklist()),('读取中',False),('音乐就绪',False),('保存列表',mklist()),('谱面地址',''),('待用音乐',''),('检查音乐地址',''),
@@ -142,10 +168,14 @@ def screen1():
         LET([('原延迟',meth('本地记录','GetValue','谱面延迟',0))],[put('延迟输入','Text',choose(callr('合法延迟',L('原延迟')),L('原延迟'),0))]),
         put('打击音设置','Checked',meth('本地记录','GetValue','打击音效',True))]),
     procr('合法延迟',['值'],AND(isnum(L('值')),cmp('GTE',L('值'),-400),cmp('LTE',L('值'),400))),
-    on('开始','Click',[IF(AND(callr('合法延迟',get('延迟输入','Text')),isnum(get('游玩过屏输入','Text')),cmp('GT',get('游玩过屏输入','Text'),0)),[
-        call('保存延迟'),LET([('值',copy(G('当前谱')))],[append(L('值'),get('延迟输入','Text'),get('游玩过屏输入','Text'),get('打击音设置','Checked')),
+    on('开始','Click',[LET([('范围',callr('练习范围'))],[IF(AND(callr('合法延迟',get('延迟输入','Text')),isnum(get('游玩过屏输入','Text')),cmp('GT',get('游玩过屏输入','Text'),0),islist(L('范围'))),[
+        call('保存延迟'),LET([('值',copy(G('当前谱')))],[append(L('值'),get('延迟输入','Text'),get('游玩过屏输入','Text'),get('打击音设置','Checked'),item(L('范围'),1),item(L('范围'),2),item(L('范围'),3)),
         el('controls_openAnotherScreenWithStartValue',values=[('SCREENNAME','Play'),('STARTVALUE',L('值'))])])],
-        else_=[alert('延迟须在 -400～400ms，过屏时间须大于 0ms')])]),
+        else_=[alert('延迟须在 -400～400ms，过屏时间须大于 0ms，练习结束时间须晚于开始时间')])])]),
+    procr('练习范围',[],LETX([('始',choose(eq(trim(get('练习开始','Text')),''),0,get('练习开始','Text'))),('终',choose(eq(trim(get('练习结束','Text')),''),div(item(G('当前谱'),7),1000),get('练习结束','Text')))],
+        choose(get('练习设置','Checked'),choose(AND(isnum(L('始')),isnum(L('终')),cmp('GTE',L('始'),0),cmp('GT',L('终'),L('始'))),mklist(mul(1000,L('始')),mul(1000,L('终')),get('自动播放','Checked')),''),
+            mklist(0,item(G('当前谱'),7),False)))),
+    on('练习设置','Changed',[put('练习区','Visible',get('练习设置','Checked'))]),
     proc('保存延迟',[IF(callr('合法延迟',get('延迟输入','Text')),[meth('本地记录','StoreValue','谱面延迟',get('延迟输入','Text'))])]),
     on('延迟输入','LostFocus',[call('保存延迟')]),
     on('打击音设置','Changed',[meth('本地记录','StoreValue','打击音效',get('打击音设置','Checked'))]),
@@ -221,11 +251,12 @@ def screen1():
 def play():
     path,design=load('Play')
     remove(design,{'打击音二','打击音三','打击音四','本地设置'})
+    insert(design,'返回',[ui('练习音乐','VideoPlayer',6,Width=1,Height=1,Volume=100)])
     c=components(design)
     hit=c.get('打击音一') or c['打击音'];hit['$Name']='打击音';hit['Source']='arivento_hit.wav'
     TYPES.clear();TYPES.update({k:v['$Type'] for k,v in components(design).items()})
     PROCS.clear();declare({'开局':[],'清空按压':[],'准备游玩键':[],'取游玩键':['键号'],'纵坐标':['时刻'],'走时':[],'推进下一键':[],'绘图':[],'绘制音符':['键号'],'记录判定':['键号','结果'],
-        '长条到期':[],'轨道按下':['轨道'],'轨道松开':['轨道'],'拖动':['轨道','横','纵'],'启动音乐':[],'停止游玩':[],'统计':[],'完成游玩':[],'返回首页':[]})
+        '长条到期':[],'击中':['键号','等级'],'轨道按下':['轨道'],'轨道松开':['轨道'],'拖动':['轨道','横','纵'],'启动音乐':[],'停止游玩':[],'统计':[],'完成游玩':[],'返回首页':[]})
     K=lambda n,i:item(callr('取游玩键',n),i)
     key=lambda i:item(L('键'),i)
     lanes=['轨道一','轨道二','轨道三','轨道四']
@@ -233,24 +264,27 @@ def play():
     tops=[*[glob(n,v) for n,v in [('当前谱',mklist()),('状态',0),('起点',0),('用时',-3000),('下一键',1),('完美',0),('良好',0),('漏击',0),('连击',0),('最大连击',0),('准确率',100),
         ('判定',1),('提示截止',-3000),('轨宽',0),('画高',0),('判定线',0),('物量',0),('过屏时间',500),('音乐名',''),('结束时间',0),('谱面延迟',0),('打击音开启',True),
         ('已播放',False),('播放请求',False),('播放起始',0),('游玩分段',mklist()),('缓存段号',0),('缓存分段',mklist()),('轨道画布',mklist()),
-        ('按住轨道',zeros()),('持续长条',zeros()),('显示长条',zeros()),('上一头时',0),('上一游玩键',mklist())]],
+        ('按住轨道',zeros()),('持续长条',zeros()),('显示长条',zeros()),('上一头时',0),('上一游玩键',mklist()),('起始',0),('跳转',False),('自动',False)]],
     on('Play','Initialize',[setg('轨道画布',mklist(*[comp(n) for n in lanes])),setg('当前谱',el('controls_getStartValue')),call('开局')]),
     on('重开','Click',[call('开局')]),
     proc('开局',[call('清空按压'),setg('音乐名',item(G('当前谱'),2)),setg('谱面延迟',item(G('当前谱'),9)),
-        setg('过屏时间',item(G('当前谱'),10)),setg('打击音开启',item(G('当前谱'),11)),setg('结束时间',add(item(G('当前谱'),7),mx(0,G('谱面延迟')))),call('准备游玩键'),
-        put('轨道区','Visible',True),put('信息','Height',-1012),setg('播放请求',False),meth('音乐','Stop'),put('音乐','Source',G('音乐名')),
-        *[setg(n,v) for n,v in [('用时',-3000),('下一键',1),('完美',0),('良好',0),('漏击',0),('连击',0),('最大连击',0),('提示截止',-3000),('已播放',False),('状态',1)]],
-        setg('起点',add(meth('时钟','SystemTime'),3000)),put('时钟','TimerEnabled',True),call('统计'),call('绘图')]),
+        setg('过屏时间',item(G('当前谱'),10)),setg('自动',item(G('当前谱'),14)),setg('打击音开启',OR(item(G('当前谱'),11),G('自动'))),
+        setg('起始',single('ROUND',mx(0,add(item(G('当前谱'),12),mn(0,G('谱面延迟')))))),setg('跳转',cmp('GT',G('起始'),0)),
+        setg('结束时间',add(mn(item(G('当前谱'),7),item(G('当前谱'),13)),mx(0,G('谱面延迟')))),call('准备游玩键'),
+        put('轨道区','Visible',True),put('信息','Height',-1012),setg('播放请求',False),meth('音乐','Stop'),meth('练习音乐','Pause'),
+        IF(G('跳转'),[put('练习音乐','Source',G('音乐名')),meth('练习音乐','SeekTo',G('起始'))],else_=[put('音乐','Source',G('音乐名'))]),
+        *[setg(n,v) for n,v in [('用时',sub(G('起始'),3000)),('下一键',1),('完美',0),('良好',0),('漏击',0),('连击',0),('最大连击',0),('提示截止',sub(G('起始'),3000)),('已播放',False),('状态',1)]],
+        setg('起点',add(meth('时钟','SystemTime'),sub(3000,G('起始')))),put('时钟','TimerEnabled',True),call('统计'),call('绘图')]),
     proc('清空按压',[setg('按住轨道',zeros()),setg('持续长条',zeros()),setg('显示长条',zeros())]),
-    proc('准备游玩键',[setg('缓存段号',0),setg('游玩分段',mklist()),setg('上一头时',-10**12),setg('物量',length(item(G('当前谱'),8))),
-        LET([('分段',mklist())],[EACH('音符',item(G('当前谱'),8),[
-            LET([('头',add(item(L('音符'),2),G('谱面延迟'))),('尾',add(item(L('音符'),length(L('音符'))),G('谱面延迟')))],[
+    proc('准备游玩键',[setg('缓存段号',0),setg('游玩分段',mklist()),setg('上一头时',-10**12),setg('物量',0),
+        LET([('分段',mklist())],[EACH('音符',item(G('当前谱'),8),[IF(AND(cmp('GTE',item(L('音符'),2),item(G('当前谱'),12)),cmp('LTE',item(L('音符'),2),item(G('当前谱'),13))),[
+            setg('物量',add(G('物量'),1)),LET([('头',add(item(L('音符'),2),G('谱面延迟'))),('尾',add(item(L('音符'),length(L('音符'))),G('谱面延迟')))],[
                 setg('结束时间',mx(G('结束时间'),add(L('尾'),500))),
                 IF(eq(length(L('分段')),0),[append(G('游玩分段'),L('分段'))]),
                 append(L('分段'),mklist(item(L('音符'),1),L('头'),0,L('尾'),eq(L('头'),G('上一头时')))),
                 IF(eq(L('头'),G('上一头时')),[replace(G('上一游玩键'),5,True)]),
                 setg('上一头时',L('头')),setg('上一游玩键',item(L('分段'),length(L('分段')))),
-                IF(eq(length(L('分段')),64),[setl('分段',mklist())])])])])]),
+                IF(eq(length(L('分段')),64),[setl('分段',mklist())])])])])])]),
     procr('取游玩键',['键号'],LETX([('段号',add(single('FLOOR',div(sub(L('键号'),1),64)),1))],DO(
         [IF(NOT(eq(G('缓存段号'),L('段号'))),[setg('缓存段号',L('段号')),setg('缓存分段',item(G('游玩分段'),L('段号')))])],
         item(G('缓存分段'),sub(L('键号'),mul(sub(L('段号'),1),64)))))),
@@ -258,16 +292,16 @@ def play():
     on('时钟','Timer',[call('走时'),IF(eq(G('状态'),1),[call('绘图')])]),
     proc('走时',[IF(eq(G('状态'),1),[
         IF(G('已播放'),[setg('用时',mx(G('用时'),sub(meth('时钟','SystemTime'),G('起点'))))],
-            else_=[setg('用时',mn(0,sub(meth('时钟','SystemTime'),G('起点')))),IF(cmp('GTE',G('用时'),0),[call('启动音乐')])]),
+            else_=[setg('用时',mn(G('起始'),sub(meth('时钟','SystemTime'),G('起点')))),IF(cmp('GTE',G('用时'),G('起始')),[call('启动音乐')])]),
         call('长条到期'),
         LET([('序号',G('下一键'))],[WHILE(AND(cmp('LTE',L('序号'),G('物量')),cmp('LTE',K(L('序号'),2),G('用时'))),[
-            LET([('键',callr('取游玩键',L('序号')))],[IF(AND(eq(key(3),0),OR(cmp('GT',G('用时'),add(key(2),160)),AND(cmp('GT',key(4),key(2)),cmp('GTE',G('用时'),key(4))))),[call('记录判定',L('序号'),1)])]),
+            LET([('键',callr('取游玩键',L('序号')))],[IF(AND(eq(key(3),0),G('自动')),[call('击中',L('序号'),3)],AND(eq(key(3),0),OR(cmp('GT',G('用时'),add(key(2),160)),AND(cmp('GT',key(4),key(2)),cmp('GTE',G('用时'),key(4))))),[call('记录判定',L('序号'),1)])]),
             setl('序号',add(L('序号'),1))])]),
         IF(cmp('GTE',G('用时'),G('结束时间')),[call('完成游玩')])])]),
     proc('推进下一键',[WHILE(AND(cmp('LTE',G('下一键'),G('物量')),NOT(eq(K(G('下一键'),3),0))),[setg('下一键',add(G('下一键'),1))])]),
     proc('绘图',[setg('画高',get('轨道一','Height')),setg('轨宽',get('轨道一','Width')),IF(AND(cmp('GT',G('轨宽'),18),cmp('GT',G('画高'),32)),[
         setg('判定线',mul(G('画高'),0.85)),
-        LET([('文字',choose(AND(G('播放请求'),NOT(G('已播放'))),'正在启动音乐',choose(cmp('LT',G('用时'),0),join('准备 ',single('CEILING',div(G('用时'),-1000))),
+        LET([('文字',choose(AND(G('播放请求'),NOT(G('已播放'))),'正在启动音乐',choose(cmp('LT',G('用时'),G('起始')),join('准备 ',single('CEILING',div(sub(G('用时'),G('起始')),-1000))),
             choose(cmp('LT',G('用时'),G('提示截止')),item(mklist('MISS','GOOD','PERFECT'),G('判定')),''))))],[
             RANGE('轨号',1,4,[LET([('画布',item(G('轨道画布'),L('轨号')))],[gmeth(L('画布'),'Canvas','Clear'),
                 gput(L('画布'),'Canvas','PaintColor',-14077110),gput(L('画布'),'Canvas','LineWidth',1),gmeth(L('画布'),'Canvas','DrawLine',0,0,0,G('画高')),
@@ -294,28 +328,28 @@ def play():
         setg('最大连击',mx(G('最大连击'),G('连击'))),setg('判定',L('结果')),setg('提示截止',add(G('用时'),550)),call('推进下一键'),call('统计')])])]),
     proc('长条到期',[RANGE('轨号',1,4,[LET([('键号',item(G('持续长条'),L('轨号')))],[IF(AND(cmp('GT',L('键号'),0),cmp('LTE',K(L('键号'),4),G('用时'))),[
         replace(G('持续长条'),L('轨号'),0),call('记录判定',L('键号'),sub(K(L('键号'),3),2))])])])]),
-    proc('轨道按下',['轨道'],[IF(AND(eq(G('状态'),1),eq(item(G('按住轨道'),L('轨道')),0)),[call('走时'),IF(eq(G('状态'),1),[replace(G('按住轨道'),L('轨道'),1),
+    proc('击中',['键号','等级'],[LET([('键',callr('取游玩键',L('键号')))],[IF(G('打击音开启'),[meth('打击音','Play')]),
+        IF(cmp('GT',key(4),key(2)),[replace(L('键'),3,add(L('等级'),2)),replace(G('持续长条'),key(1),L('键号')),replace(G('显示长条'),key(1),L('键号')),
+            setg('判定',L('等级')),setg('提示截止',add(G('用时'),550)),call('推进下一键')],else_=[call('记录判定',L('键号'),L('等级'))])])]),
+    proc('轨道按下',['轨道'],[IF(AND(eq(G('状态'),1),NOT(G('自动')),eq(item(G('按住轨道'),L('轨道')),0)),[call('走时'),IF(eq(G('状态'),1),[replace(G('按住轨道'),L('轨道'),1),
         LET([('序号',G('下一键')),('命中号',0)],[
             WHILE(AND(cmp('LTE',L('序号'),G('物量')),eq(L('命中号'),0),cmp('LTE',K(L('序号'),2),add(G('用时'),160))),[
                 IF(AND(eq(K(L('序号'),3),0),eq(K(L('序号'),1),L('轨道'))),[setl('命中号',L('序号'))]),setl('序号',add(L('序号'),1))]),
-            IF(cmp('GT',L('命中号'),0),[LET([('键',callr('取游玩键',L('命中号'))),('头部判定',choose(cmp('LTE',single('ABS',sub(G('用时'),K(L('命中号'),2))),80),3,2))],[
-                IF(G('打击音开启'),[meth('打击音','Play')]),
-                IF(cmp('GT',key(4),key(2)),[replace(L('键'),3,add(L('头部判定'),2)),replace(G('持续长条'),L('轨道'),L('命中号')),replace(G('显示长条'),L('轨道'),L('命中号')),
-                    setg('判定',L('头部判定')),setg('提示截止',add(G('用时'),550)),call('推进下一键')],else_=[call('记录判定',L('命中号'),L('头部判定'))])])])])])])]),
+            IF(cmp('GT',L('命中号'),0),[call('击中',L('命中号'),choose(cmp('LTE',single('ABS',sub(G('用时'),K(L('命中号'),2))),80),3,2))])])])])]),
     proc('轨道松开',['轨道'],[call('走时'),replace(G('按住轨道'),L('轨道'),0),LET([('键号',item(G('持续长条'),L('轨道')))],[
-        IF(cmp('GT',L('键号'),0),[replace(G('持续长条'),L('轨道'),0),call('记录判定',L('键号'),1)])])]),
+        IF(AND(cmp('GT',L('键号'),0),NOT(G('自动'))),[replace(G('持续长条'),L('轨道'),0),call('记录判定',L('键号'),1)])])]),
     proc('拖动',['轨道','横','纵'],[IF(OR(cmp('LTE',L('横'),0),cmp('GTE',L('横'),G('轨宽')),cmp('LTE',L('纵'),0),cmp('GTE',L('纵'),G('画高'))),[call('轨道松开',L('轨道'))])]),
     *[e for i,n in enumerate(lanes,1) for e in (on(n,'TouchDown',[call('轨道按下',i)],['横坐标','纵坐标']),on(n,'TouchUp',[call('轨道松开',i)],['横坐标','纵坐标']),
         on(n,'Dragged',[call('拖动',i,L('横坐标'),L('纵坐标'))],['起横','起纵','前横','前纵','横坐标','纵坐标','精灵']))],
-    proc('启动音乐',[IF(NOT(G('播放请求')),[setg('播放请求',True),setg('播放起始',meth('时钟','SystemTime')),meth('音乐','Start')]),
-        IF(get('音乐','IsPlaying'),[setg('已播放',True),setg('起点',meth('时钟','SystemTime')),setg('用时',0)],
+    proc('启动音乐',[IF(NOT(G('播放请求')),[setg('播放请求',True),setg('播放起始',meth('时钟','SystemTime')),IF(G('跳转'),[meth('练习音乐','Start')],else_=[meth('音乐','Start')])]),
+        IF(OR(G('跳转'),get('音乐','IsPlaying')),[setg('已播放',True),setg('起点',sub(meth('时钟','SystemTime'),G('起始'))),setg('用时',G('起始'))],
             cmp('GTE',sub(meth('时钟','SystemTime'),G('播放起始')),1500),[call('停止游玩'),put('信息','Text',join('音乐未能播放：',G('音乐名'))),
                 alert(join('无法播放 ',G('音乐名'),'。请重新选择可播放的本地音频，确认文件未移动或删除。'))])]),
-    proc('停止游玩',[call('清空按压'),setg('状态',3),put('时钟','TimerEnabled',False),meth('音乐','Stop')]),
+    proc('停止游玩',[call('清空按压'),setg('状态',3),put('时钟','TimerEnabled',False),meth('音乐','Stop'),meth('练习音乐','Pause')]),
     proc('统计',[LET([('总',add(G('完美'),G('良好'),G('漏击')))],[setg('准确率',choose(cmp('GT',L('总'),0),div(add(mul(100,G('完美')),mul(65,G('良好'))),L('总')),100))]),
         put('信息','Text',join('准确率 ',decimal(G('准确率'),2),'%\n连击 ',G('连击'),'   最高 ',G('最大连击')))]),
     proc('完成游玩',[IF(eq(G('状态'),1),[call('停止游玩'),call('统计'),put('轨道区','Visible',False),put('信息','Height',-1092),
-        put('信息','Text',join(item(G('当前谱'),1),'\n游玩完成\n\n准确率 ',decimal(G('准确率'),2),'%\n\nPerfect ',G('完美'),'   Good ',G('良好'),'\nMiss ',G('漏击'),'\n最高连击 ',G('最大连击')))])]),
+        put('信息','Text',join(item(G('当前谱'),1),choose(G('自动'),'\nAutoPlay 完成','\n游玩完成'),'\n\n准确率 ',decimal(G('准确率'),2),'%\n\nPerfect ',G('完美'),'   Good ',G('良好'),'\nMiss ',G('漏击'),'\n最高连击 ',G('最大连击')))])]),
     proc('返回首页',[call('停止游玩'),el('controls_closeScreenWithValue',values=[('SCREEN','')])]),
     on('返回','Click',[call('返回首页')]),on('Play','BackPressed',[call('返回首页')]),
     on('Play','ErrorOccurred',[IF(eq(L('组件'),comp('打击音')),[setg('打击音开启',False)],else_=[call('停止游玩'),alert(join('播放或运行失败：',L('消息')))])],['组件','函数','编号','消息'])]

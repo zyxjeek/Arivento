@@ -46,7 +46,9 @@ class Runtime:
             if t=='Canvas':c.update(Width=90,Height=430,PaintColor=0,LineWidth=1)
             if t=='ListPicker':c.update(Elements=[],SelectionIndex=0)
             if t=='Player':c.setdefault('Source','');c['IsPlaying']=False
+            if t=='VideoPlayer':c.update(Source='',Playing=False,Position=0)
             if t=='TextBox':c.setdefault('Text','')
+            if t=='CheckBox':c.setdefault('Checked',False)
             if t=='Clock':c.setdefault('TimerEnabled',True)
             c.setdefault('Visible',True);c.setdefault('Enabled',True)
         self.globals={};self.procs={};self.events={}
@@ -208,6 +210,10 @@ class Runtime:
                 elif c['Source'] in self.missing:self.error(n,'Start','missing')
                 else:c['IsPlaying']=True
             else:c['IsPlaying']=False
+            return
+        if t=='VideoPlayer':
+            if name=='SeekTo':c['Position']=a[0]
+            else:c['Playing']=name=='Start'
             return
         if t=='Canvas':
             if name=='Clear':self.draws[n]=[];self.texts[n]=[]

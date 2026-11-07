@@ -49,10 +49,19 @@ class Home(unittest.TestCase):
     def test_start_passes_chart_delay_approach_and_hit_switch(self):
         s={};r=self.ready(s);r.components['延迟输入']['Text']='-120';r.components['游玩过屏输入']['Text']='700';r.components['打击音设置']['Checked']=False
         r.click('开始');name,value=r.opened
-        self.assertEqual(name,'Play');self.assertEqual(value[:8],r.globals['当前谱']);self.assertEqual(value[8:],['-120','700',False]);self.assertEqual(s['谱面延迟'],'-120')
+        self.assertEqual(name,'Play');self.assertEqual(value[:8],r.globals['当前谱']);self.assertEqual(value[8:],['-120','700',False,0,4000,False]);self.assertEqual(s['谱面延迟'],'-120')
         for delay,approach in [('401','500'),('abc','500'),('0','0'),('0','x')]:
             r=self.ready();r.components['延迟输入']['Text']=delay;r.components['游玩过屏输入']['Text']=approach;r.click('开始')
             self.assertIsNone(r.opened);self.assertEqual(len(r.alerts),1)
+    def test_practice_range_and_autoplay(self):
+        r=self.ready();r.components['练习设置']['Checked']=True;r.event('练习设置','Changed');self.assertTrue(r.components['练习区']['Visible'])
+        r.components['练习开始']['Text']='1.5';r.components['自动播放']['Checked']=True;r.click('开始');self.assertEqual(r.opened[1][11:],[1500,4000,True])
+        r=self.ready();r.components['练习设置']['Checked']=True;r.components['练习开始']['Text']='';r.components['练习结束']['Text']='2';r.click('开始')
+        self.assertEqual(r.opened[1][11:],[0,2000,False])
+        for start,end in [('3','2'),('-1',''),('x',''),('1','1')]:
+            r=self.ready();r.components['练习设置']['Checked']=True;r.components['练习开始']['Text']=start;r.components['练习结束']['Text']=end;r.click('开始')
+            self.assertIsNone(r.opened);self.assertIn('练习',r.alerts[-1])
+        r=self.ready();r.components['练习开始']['Text']='x';r.click('开始');self.assertEqual(r.opened[1][11:],[0,4000,False])
     def test_settings_persist(self):
         s={'谱面延迟':900,'打击音效':False};r=self.home(s)
         self.assertEqual(r.components['延迟输入']['Text'],0);self.assertFalse(r.components['打击音设置']['Checked'])
@@ -85,8 +94,8 @@ class Calibration(unittest.TestCase):
         start=r.globals['校准起点'];r.now-=5000;r.tick(10);self.assertNotEqual(r.globals['校准起点'],start);self.assertEqual(r.globals['校准节拍号'],0)
 
 class Play(unittest.TestCase):
-    def play(self,notes,delay=0,approach=500,hit=True,end=4000):
-        r=Runtime('Play',chart(notes,end)+[delay,approach,hit]).initialize();r.advance(3000);self.assertTrue(r.globals['已播放']);return r
+    def play(self,notes,delay=0,approach=500,hit=True,end=4000,start=0,stop=None,auto=False):
+        r=Runtime('Play',chart(notes,end)+[delay,approach,hit,start,end if stop is None else stop,auto]).initialize();r.advance(3000);self.assertTrue(r.globals['已播放']);return r
     def at(self,r,t):r.now=r.globals['起点']+t
     def down(self,r,lane,t=None):
         if t is not None:self.at(r,t)
@@ -134,9 +143,30 @@ class Play(unittest.TestCase):
         r.click('重开');self.assertEqual(r.globals['状态'],1);self.assertEqual(self.states(r),[0]);self.assertEqual(r.globals['完美'],0);self.assertTrue(r.components['轨道区']['Visible'])
         r.click('返回');self.assertTrue(r.closed);self.assertFalse(r.components['时钟']['TimerEnabled'])
     def test_music_that_never_plays_fails_cleanly(self):
-        r=Runtime('Play',chart([[1,1000]])+[0,500,True]).initialize();r.music_fail=True;r.advance(3000);r.advance(1600)
+        r=Runtime('Play',chart([[1,1000]])+[0,500,True,0,4000,False]).initialize();r.music_fail=True;r.advance(3000);r.advance(1600)
         self.assertEqual(r.globals['状态'],3);self.assertIn('无法播放',r.alerts[-1]);self.assertFalse(r.components['时钟']['TimerEnabled'])
     def test_countdown_text_and_judgement_text(self):
-        r=Runtime('Play',chart([[1,1000]])+[0,500,True]).initialize();r.tick(0)
+        r=Runtime('Play',chart([[1,1000]])+[0,500,True,0,4000,False]).initialize();r.tick(0)
         self.assertEqual(r.texts['轨道一'][0][0],'准备 3');self.assertEqual(r.texts['轨道一'][0][1],180)
         r.advance(3000);self.down(r,1,1000);self.at(r,1100);r.tick(0);self.assertEqual(r.texts['轨道二'][0][0],'PERFECT')
+    def test_practice_segment_seeks_music_and_keeps_only_its_notes(self):
+        notes=[[1,1000],[2,3000],[3,5000,6000],[4,8000]]
+        r=self.play(notes,end=9000,start=3000,stop=6000);v=r.components['练习音乐']
+        self.assertEqual((v['Source'],v['Position'],v['Playing']),('song.mp3',3000,True));self.assertEqual(r.globals['用时'],3000);self.assertIsNone(r.music_started)
+        self.assertEqual(r.globals['物量'],2);self.assertEqual([n[1] for g in r.globals['游玩分段'] for n in g],[3000,5000]);self.assertEqual(r.globals['结束时间'],6500)
+        self.down(r,2,3000);self.assertEqual(r.globals['完美'],1);self.at(r,6500);r.tick(0)
+        self.assertEqual(r.globals['状态'],3);self.assertEqual(r.globals['漏击'],1);self.assertFalse(v['Playing'])
+        r.click('重开');self.assertEqual((v['Position'],v['Playing']),(3000,False));self.assertEqual(r.globals['用时'],0)
+        r.tick(0);self.assertEqual(r.texts['轨道一'][0][0],'准备 3')
+    def test_practice_start_with_negative_delay_and_plain_start(self):
+        r=self.play([[1,2000],[2,3000]],delay=-200,start=3000);self.assertEqual(r.components['练习音乐']['Position'],2800);self.assertEqual(r.globals['用时'],2800)
+        self.assertEqual([n[1] for g in r.globals['游玩分段'] for n in g],[2800])
+        r=self.play([[1,1000],[2,3000]],stop=2000);self.assertFalse(r.components['练习音乐']['Playing']);self.assertIsNotNone(r.music_started)
+        self.assertEqual(r.globals['物量'],1);self.assertEqual(r.globals['结束时间'],2000)
+    def test_autoplay_hits_every_note_perfect_with_sound(self):
+        r=self.play([[1,1000],[2,1000,2000],[3,1500],[4,2500,3000]],hit=False,auto=True)
+        self.down(r,1,900);self.at(r,1010);r.tick(0);self.assertEqual(self.states(r)[:2],[3,5]);self.assertEqual(r.globals['连击'],1)
+        self.up(r,2,1200);r.event('轨道二','Dragged',45,100,45,100,0,0,False);self.assertEqual(self.states(r)[1],5)
+        r.advance(3000)
+        self.assertEqual((r.globals['完美'],r.globals['良好'],r.globals['漏击']),(4,0,0));self.assertEqual(len(r.plays),4)
+        self.assertIn('AutoPlay 完成',r.components['信息']['Text'])
