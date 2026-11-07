@@ -152,16 +152,17 @@ class Play(unittest.TestCase):
     def test_practice_segment_seeks_music_and_keeps_only_its_notes(self):
         notes=[[1,1000],[2,3000],[3,5000,6000],[4,8000]]
         r=self.play(notes,end=9000,start=3000,stop=6000);v=r.components['练习音乐']
-        self.assertEqual((v['Source'],v['Position'],v['Playing']),('song.mp3',3000,True));self.assertEqual(r.globals['用时'],3000);self.assertIsNone(r.music_started)
+        self.assertEqual(r.copies,[['Shared','song.mp3','Private','practice_music']])
+        self.assertEqual((v['Source'],v['Position'],v['Playing']),('file:///data/user/0/app/files/practice_music',3000,True));self.assertEqual(r.globals['用时'],3000);self.assertIsNone(r.music_started)
         self.assertEqual(r.globals['物量'],2);self.assertEqual([n[1] for g in r.globals['游玩分段'] for n in g],[3000,5000]);self.assertEqual(r.globals['结束时间'],6500)
         self.down(r,2,3000);self.assertEqual(r.globals['完美'],1);self.at(r,6500);r.tick(0)
         self.assertEqual(r.globals['状态'],3);self.assertEqual(r.globals['漏击'],1);self.assertFalse(v['Playing'])
-        r.click('重开');self.assertEqual((v['Position'],v['Playing']),(3000,False));self.assertEqual(r.globals['用时'],0)
+        r.click('重开');self.assertEqual((v['Position'],v['Playing']),(3000,False));self.assertEqual(len(r.copies),1);self.assertEqual(r.globals['用时'],0)
         r.tick(0);self.assertEqual(r.texts['轨道一'][0][0],'准备 3')
     def test_practice_start_with_negative_delay_and_plain_start(self):
         r=self.play([[1,2000],[2,3000]],delay=-200,start=3000);self.assertEqual(r.components['练习音乐']['Position'],2800);self.assertEqual(r.globals['用时'],2800)
         self.assertEqual([n[1] for g in r.globals['游玩分段'] for n in g],[2800])
-        r=self.play([[1,1000],[2,3000]],stop=2000);self.assertFalse(r.components['练习音乐']['Playing']);self.assertIsNotNone(r.music_started)
+        r=self.play([[1,1000],[2,3000]],stop=2000);self.assertFalse(r.components['练习音乐']['Playing']);self.assertEqual(r.copies,[]);self.assertIsNotNone(r.music_started)
         self.assertEqual(r.globals['物量'],1);self.assertEqual(r.globals['结束时间'],2000)
     def test_autoplay_hits_every_note_perfect_and_follows_hit_switch(self):
         r=self.play([[1,1000],[2,1000,2000],[3,1500],[4,2500,3000]],auto=True)

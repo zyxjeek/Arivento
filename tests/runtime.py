@@ -33,7 +33,7 @@ class Runtime:
         self.screen=screen;self.start=start;self.storage={} if storage is None else storage
         self.now=1_000_000;self.alerts=[];self.reads=[];self.opened=None;self.closed=False
         self.plays=[];self.draws={};self.texts={};self.needs_permission=False;self.pending=None
-        self.missing=set();self.music_delay=0;self.music_fail=False;self.music_started=None
+        self.missing=set();self.music_delay=0;self.music_fail=False;self.music_started=None;self.copies=[]
         self.components={};self.types={}
         def visit(c):
             self.components[c['$Name']]=dict(c);self.types[c['$Name']]=c['$Type']
@@ -169,6 +169,7 @@ class Runtime:
             return self.value(b,'RETURN',scope)
         if t=='controls_do_then_return':self.run(self.slot(b,'statement','STM'),env);return v('VALUE')
         if t=='procedures_callreturn':return self.call(self.f(b,'PROCNAME'),self.args(b,env))
+        if t=='helpers_dropdown':return self.f(b,'OPTION')
         if t=='component_component_block':return Comp(self.f(b,'COMPONENT_SELECTOR'))
         if t=='component_set_get':return self.get(self.target(b,env),self.f(b,'PROP'))
         if t=='component_method':return self.method(self.target(b,env),m.get('method_name'),self.args(b,env))
@@ -201,7 +202,10 @@ class Runtime:
         if t=='Web':
             try:return json.JSONDecoder().raw_decode(a[0])[0]
             except ValueError:self.error(n,'JsonTextDecode','JSON 格式错误');return ''
-        if t=='File':self.reads.append(a[0]);return
+        if t=='File':
+            if name=='CopyFile':self.copies.append(a);return True
+            if name=='MakeFullPath':return 'file:///data/user/0/app/files/'+a[1]
+            self.reads.append(a[0]);return
         if t=='Clock':return self.now
         if t=='Sound':self.plays.append((n,self.now));return
         if t=='Player':

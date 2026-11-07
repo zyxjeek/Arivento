@@ -19,7 +19,7 @@
 !/native/
 /native/*
 # current-native-start
-!/native/Arivento_1107_2/
+!/native/Arivento_1107_3/
 # current-native-end
 **/__pycache__/
 **/node_modules/

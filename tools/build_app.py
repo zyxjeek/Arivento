@@ -78,6 +78,7 @@ def LET(pairs,body):
 def LETX(pairs,ret):
     return el('local_declaration_expression',[('VAR'+str(i),n) for i,(n,_) in enumerate(pairs)],[('DECL'+str(i),v) for i,(_,v) in enumerate(pairs)]+[('RETURN',ret)],mutation=mut(*[('localname',{'name':n}) for n,_ in pairs]))
 def DO(body,value):return el('controls_do_then_return',values=[('VALUE',value)],statements=[('STM',body)])
+def scope(v):return el('helpers_dropdown',[('OPTION',v)],mutation=mut(key='FileScope'))
 def comp(n):return el('component_component_block',[('COMPONENT_SELECTOR',n)],mutation=mut(component_type=TYPES[n],instance_name=n))
 def get(n,p):return el('component_set_get',[('COMPONENT_SELECTOR',n),('PROP',p)],mutation=mut(component_type=TYPES[n],set_or_get='get',property_name=p,is_generic='false',instance_name=n))
 def put(n,p,v):return el('component_set_get',[('COMPONENT_SELECTOR',n),('PROP',p)],[('VALUE',v)],mutation=mut(component_type=TYPES[n],set_or_get='set',property_name=p,is_generic='false',instance_name=n))
@@ -252,6 +253,7 @@ def play():
     path,design=load('Play')
     remove(design,{'打击音二','打击音三','打击音四','本地设置'})
     insert(design,'返回',[ui('练习音乐','VideoPlayer',6,Width=1,Height=1,Volume=100)])
+    insert(design,'时钟',[ui('练习文件','File',4,DefaultScope='App')])
     c=components(design)
     hit=c.get('打击音一') or c['打击音'];hit['$Name']='打击音';hit['Source']='arivento_hit.wav'
     TYPES.clear();TYPES.update({k:v['$Type'] for k,v in components(design).items()})
@@ -272,7 +274,9 @@ def play():
         setg('起始',single('ROUND',mx(0,add(item(G('当前谱'),12),mn(0,G('谱面延迟')))))),setg('跳转',cmp('GT',G('起始'),0)),
         setg('结束时间',add(mn(item(G('当前谱'),7),item(G('当前谱'),13)),mx(0,G('谱面延迟')))),call('准备游玩键'),
         put('轨道区','Visible',True),put('信息','Height',-1012),setg('播放请求',False),meth('音乐','Stop'),meth('练习音乐','Pause'),
-        IF(G('跳转'),[put('练习音乐','Source',G('音乐名')),meth('练习音乐','SeekTo',G('起始'))],else_=[put('音乐','Source',G('音乐名'))]),
+        IF(G('跳转'),[IF(AND(eq(get('练习音乐','Source'),''),meth('练习文件','CopyFile',scope('Shared'),G('音乐名'),scope('Private'),'practice_music')),[
+            put('练习音乐','Source',meth('练习文件','MakeFullPath',scope('Private'),'practice_music'))]),meth('练习音乐','SeekTo',G('起始'))],
+            else_=[put('音乐','Source',G('音乐名'))]),
         *[setg(n,v) for n,v in [('用时',sub(G('起始'),3000)),('下一键',1),('完美',0),('良好',0),('漏击',0),('连击',0),('最大连击',0),('提示截止',sub(G('起始'),3000)),('已播放',False),('状态',1)]],
         setg('起点',add(meth('时钟','SystemTime'),sub(3000,G('起始')))),put('时钟','TimerEnabled',True),call('统计'),call('绘图')]),
     proc('清空按压',[setg('按住轨道',zeros()),setg('持续长条',zeros()),setg('显示长条',zeros())]),
