@@ -268,7 +268,7 @@ def play():
     on('Play','Initialize',[setg('轨道画布',mklist(*[comp(n) for n in lanes])),setg('当前谱',el('controls_getStartValue')),call('开局')]),
     on('重开','Click',[call('开局')]),
     proc('开局',[call('清空按压'),setg('音乐名',item(G('当前谱'),2)),setg('谱面延迟',item(G('当前谱'),9)),
-        setg('过屏时间',item(G('当前谱'),10)),setg('自动',item(G('当前谱'),14)),setg('打击音开启',OR(item(G('当前谱'),11),G('自动'))),
+        setg('过屏时间',item(G('当前谱'),10)),setg('自动',item(G('当前谱'),14)),setg('打击音开启',item(G('当前谱'),11)),
         setg('起始',single('ROUND',mx(0,add(item(G('当前谱'),12),mn(0,G('谱面延迟')))))),setg('跳转',cmp('GT',G('起始'),0)),
         setg('结束时间',add(mn(item(G('当前谱'),7),item(G('当前谱'),13)),mx(0,G('谱面延迟')))),call('准备游玩键'),
         put('轨道区','Visible',True),put('信息','Height',-1012),setg('播放请求',False),meth('音乐','Stop'),meth('练习音乐','Pause'),

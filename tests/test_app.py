@@ -163,10 +163,11 @@ class Play(unittest.TestCase):
         self.assertEqual([n[1] for g in r.globals['游玩分段'] for n in g],[2800])
         r=self.play([[1,1000],[2,3000]],stop=2000);self.assertFalse(r.components['练习音乐']['Playing']);self.assertIsNotNone(r.music_started)
         self.assertEqual(r.globals['物量'],1);self.assertEqual(r.globals['结束时间'],2000)
-    def test_autoplay_hits_every_note_perfect_with_sound(self):
-        r=self.play([[1,1000],[2,1000,2000],[3,1500],[4,2500,3000]],hit=False,auto=True)
+    def test_autoplay_hits_every_note_perfect_and_follows_hit_switch(self):
+        r=self.play([[1,1000],[2,1000,2000],[3,1500],[4,2500,3000]],auto=True)
         self.down(r,1,900);self.at(r,1010);r.tick(0);self.assertEqual(self.states(r)[:2],[3,5]);self.assertEqual(r.globals['连击'],1)
         self.up(r,2,1200);r.event('轨道二','Dragged',45,100,45,100,0,0,False);self.assertEqual(self.states(r)[1],5)
         r.advance(3000)
         self.assertEqual((r.globals['完美'],r.globals['良好'],r.globals['漏击']),(4,0,0));self.assertEqual(len(r.plays),4)
         self.assertIn('AutoPlay 完成',r.components['信息']['Text'])
+        r=self.play([[1,1000],[2,1500,2000]],hit=False,auto=True);r.advance(3000);self.assertEqual(r.globals['完美'],2);self.assertEqual(r.plays,[])
